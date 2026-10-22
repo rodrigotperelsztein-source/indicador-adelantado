@@ -136,7 +136,6 @@ def main() -> int:
         v, h = acumulado(centro)
         salida["acumulado"]["estimados"].append({"hasta": h, "valor": v, "inferior": acumulado(bajo)[0],
                                                  "superior": acumulado(alto)[0], "preliminar": mm["preliminar"]})
-    (DATA / "estimacion.json").write_text(json.dumps(salida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     errores.rename_axis("mes").round(4).to_csv(DATA / "evaluacion.csv")
 
     # Historial: solo se agrega una fila si la estimación de ese mes cambió.
@@ -162,6 +161,42 @@ def main() -> int:
         hist = pd.concat([hist, pd.DataFrame(nuevas)], ignore_index=True)
         hist.to_csv(p_hist, index=False)
 
+    # Variación trimestral desestacionalizada: oficial y con los meses estimados. La serie desestacionalizada
+    # de los meses estimados se aproxima con el factor estacional del mismo mes del año anterior
+    # (original / desestacionalizada de INDEC).
+    try:
+        loc = os.environ.get("INSUMOS_LOCAL")
+        contenido = (datos.Path(loc) / "emae.desest.csv").read_bytes() if loc else datos._get(datos.MONITOR.format("emae.desest"))
+        des = pd.read_csv(datos.io.BytesIO(contenido), parse_dates=["fecha"])
+        des = pd.Series(des["valor"].values, index=des["fecha"].dt.to_period("M"))
+        tipo = {m: "oficial" for m in des.index}
+        for mm in salida["meses"]:
+            m = pd.Period(mm["mes"], "M")
+            factor = niv[m - 12] / des[m - 12]
+            des[m] = niv[m - 12] * (1 + mm["estimacion"] / 100) / factor
+            tipo[m] = "preliminar" if mm["preliminar"] else "estimado"
+        des = des.sort_index()
+        q = pd.DataFrame({"v": des, "t": pd.Series(tipo)}).dropna(subset=["v"])
+        q["trim"] = [f"{m.year}-T{m.quarter}" for m in q.index]
+        trims = []
+        for k, g in q.groupby("trim", sort=True):
+            trims.append({"trimestre": k, "nivel": float(g["v"].mean()), "meses": len(g),
+                          "oficiales": int((g["t"] == "oficial").sum()), "estimados": int((g["t"] == "estimado").sum()),
+                          "preliminares": int((g["t"] == "preliminar").sum())})
+        for i in range(1, len(trims)):
+            trims[i]["variacion"] = round((trims[i]["nivel"] / trims[i - 1]["nivel"] - 1) * 100, 2)
+        trims = trims[-8:]
+        for t in trims:
+            t["nivel"] = round(t["nivel"], 2)
+        completos = [t for t in trims if t["meses"] == 3 and "variacion" in t]
+        salida["trimestres"] = trims
+        salida["recesion_tecnica"] = len(completos) >= 2 and completos[-1]["variacion"] < 0 and completos[-2]["variacion"] < 0
+        print("Trimestres (desest., var. %):", ", ".join(f"{t['trimestre']} {t.get('variacion', 0):+.2f}"
+                                                      + ("" if t['meses'] == 3 else f" ({t['meses']} meses)") for t in trims[-4:]))
+    except Exception as e:  # noqa: BLE001
+        salida["avisos"].append(f"trimestres: no se pudo calcular ({e})")
+
+    (DATA / "estimacion.json").write_text(json.dumps(salida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     a = salida["acumulado"]
     print(f"Acumulado {a['anio']} hasta {a['real']['hasta']}: {a['real']['valor']:+.2f}%; " +
           "; ".join(f"con {e['hasta']}: {e['valor']:+.2f}%" for e in a["estimados"]))
