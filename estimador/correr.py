@@ -196,7 +196,12 @@ def main() -> int:
     except Exception as e:  # noqa: BLE001
         salida["avisos"].append(f"trimestres: no se pudo calcular ({e})")
 
-    (DATA / "estimacion.json").write_text(json.dumps(salida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    # Solo se reescribe si cambió algo además de la hora de la corrida (así no hay un commit por corrida).
+    p_est = DATA / "estimacion.json"
+    sin_hora = lambda d: {k: v for k, v in d.items() if k not in ("corrida", "corrida_local")}  # noqa: E731
+    previa = json.loads(p_est.read_text(encoding="utf-8")) if p_est.exists() else {}
+    if sin_hora(previa) != json.loads(json.dumps(sin_hora(salida), ensure_ascii=False)):
+        p_est.write_text(json.dumps(salida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     a = salida["acumulado"]
     print(f"Acumulado {a['anio']} hasta {a['real']['hasta']}: {a['real']['valor']:+.2f}%; " +
           "; ".join(f"con {e['hasta']}: {e['valor']:+.2f}%" for e in a["estimados"]))
