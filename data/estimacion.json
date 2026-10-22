@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-22T15:05:46+00:00",
- "corrida_local": "22/10/2026 12:05",
+ "corrida": "2026-10-22T16:23:15+00:00",
+ "corrida_local": "22/10/2026 13:23",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -193,6 +193,57 @@
      "peso": 0.0,
      "indicador": -11.0,
      "error_tipico": 2.63
+    }
+   ],
+   "preliminar": false
+  },
+  {
+   "mes": "2026-10",
+   "preliminar": true,
+   "estimacion": -0.39,
+   "inferior": -6.22,
+   "superior": 5.79,
+   "error_tipico": 3.66,
+   "error_ingenuo": null,
+   "indicadores_disponibles": 2,
+   "indicadores_totales": 2,
+   "disponibles": [
+    "prestamos_diario",
+    "electricidad_industria_diaria"
+   ],
+   "modelos": [
+    {
+     "id": "prestamos_diario",
+     "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
+     "grupo": "Mes en curso",
+     "pronostico": -0.21,
+     "peso": 0.344,
+     "indicador": 1.6,
+     "hasta_dia": 16,
+     "ultimo_dato": "2026-10-16",
+     "error_tipico": 3.12
+    },
+    {
+     "id": "ingenuo",
+     "nombre": "Repetir la variación del mes anterior",
+     "grupo": "Mes en curso",
+     "pronostico": -0.71,
+     "peso": 0.3288,
+     "indicador": null,
+     "hasta_dia": null,
+     "ultimo_dato": null,
+     "error_tipico": 3.19
+    },
+    {
+     "id": "electricidad_industria_diaria",
+     "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
+     "grupo": "Mes en curso",
+     "pronostico": -0.27,
+     "peso": 0.3272,
+     "indicador": 0.26,
+     "hasta_dia": 14,
+     "ultimo_dato": "2026-10-14",
+     "error_tipico": 3.2
     }
    ]
   }
@@ -1185,5 +1236,28 @@
    "error_tipico": 2.63
   }
  ],
- "avisos": []
+ "avisos": [],
+ "acumulado": {
+  "anio": 2026,
+  "real": {
+   "hasta": "2026-08",
+   "valor": 1.24
+  },
+  "estimados": [
+   {
+    "hasta": "2026-09",
+    "valor": 1.02,
+    "inferior": 0.62,
+    "superior": 1.44,
+    "preliminar": false
+   },
+   {
+    "hasta": "2026-10",
+    "valor": 0.88,
+    "inferior": -0.06,
+    "superior": 1.88,
+    "preliminar": true
+   }
+  ]
+ }
 }
