@@ -79,6 +79,49 @@ def bajar(local: str | None = None) -> tuple[dict[str, pd.Series], list[str]]:
     return series, avisos
 
 
+MONITOR_DATA = "https://raw.githubusercontent.com/rodrigotperelsztein-source/monitor-series/main/data/{}.csv"
+DIARIAS = {  # id: (descripción, origen)
+    "prestamos_diario": "Préstamos comerciales en pesos, saldo diario (BCRA, vía Monitor Argy)",
+    "electricidad_industria_diaria": "Demanda eléctrica diaria de grandes usuarios industriales (CAMMESA, vía monitor-series)",
+}
+
+
+def bajar_diarias(local: str | None = None) -> tuple[dict[str, pd.Series], pd.Series | None, list[str]]:
+    """Series diarias para la estimación del mes en curso y el IPC (para deflactar los préstamos)."""
+    avisos, out, ipc = [], {}, None
+    pedidos = {
+        "prestamos_diario": (MA.format("prestamos_comerciales") + "?resolucion=1d", "prestamos_comerciales_diaria.json"),
+        "electricidad_industria_diaria": (MONITOR_DATA.format("cammesa_gu_actividad"), "cammesa_gu_actividad.csv"),
+        "ipc": (MA.format("ipc_nivel_general"), "ipc_nivel_general.json"),
+    }
+    for nombre, (url, archivo_local) in pedidos.items():
+        archivo = INSUMOS / f"{nombre}.csv"
+        try:
+            contenido = (Path(local) / archivo_local).read_bytes() if local else _get(url)
+            if url.startswith(MA[:30]):
+                pts = [p for p in json.loads(contenido)["puntos"] if p.get("valor") is not None]
+                s = pd.Series({pd.Timestamp(p["fecha"][:10]): float(p["valor"]) for p in pts}).sort_index()
+                if not local:
+                    time.sleep(0.5)
+            else:
+                d = pd.read_csv(io.BytesIO(contenido), parse_dates=["fecha"])
+                s = pd.Series(d["industrias"].values, index=d["fecha"]).sort_index()
+            s.rename("valor").rename_axis("fecha").to_frame().to_csv(archivo)
+        except Exception as e:  # noqa: BLE001
+            if not archivo.exists():
+                avisos.append(f"{nombre}: no se pudo bajar y no hay copia anterior ({e})")
+                continue
+            avisos.append(f"{nombre}: se usa la copia anterior ({e})")
+            d = pd.read_csv(archivo, parse_dates=["fecha"])
+            s = pd.Series(d["valor"].values, index=d["fecha"])
+        if nombre == "ipc":
+            s.index = s.index.to_period("M")
+            ipc = 100 * np.log(s / s.shift(12))
+        else:
+            out[nombre] = s
+    return out, ipc, avisos
+
+
 def interanual(s: pd.Series, transformacion: str) -> pd.Series:
     """Variación interanual comparable con la del EMAE (ver indicadores.py)."""
     s = s.copy()

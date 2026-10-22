@@ -19,7 +19,7 @@ from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
 
-from estimador import datos, modelo
+from estimador import datos, en_curso, modelo
 from estimador.indicadores import INDICADORES, OBJETIVO
 
 DATA = datos.RAIZ / "data"
@@ -84,6 +84,58 @@ def main() -> int:
         "indicadores": indicadores,
         "avisos": avisos,
     }
+    for mm in salida["meses"]:
+        mm["preliminar"] = False
+
+    # Mes en curso (o ya terminado sin indicadores mensuales): estimación con datos diarios.
+    diarias, ipc_ia, av2 = datos.bajar_diarias(os.environ.get("INSUMOS_LOCAL"))
+    salida["avisos"] += av2
+    hoy = ahora.astimezone(ZoneInfo("America/Argentina/Buenos_Aires"))
+    previo = r["meses"][-1] if r["meses"] else None
+    mes_ec = (pd.Period(previo["mes"], "M") if previo else ult) + 1
+    if mes_ec <= pd.Period(hoy.strftime("%Y-%m"), "M"):
+        lag = previo["estimacion"] if previo else y[ult]
+        lag_err = previo["error_tipico"] if previo else 0.0
+        insumos = {"prestamos_diario": (diarias["prestamos_diario"], ipc_ia)} if "prestamos_diario" in diarias and ipc_ia is not None else {}
+        if "electricidad_industria_diaria" in diarias:
+            insumos["electricidad_industria_diaria"] = (diarias["electricidad_industria_diaria"], None)
+        nom_d = {"prestamos_diario": "Préstamos comerciales reales (mes hasta la fecha)",
+                 "electricidad_industria_diaria": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
+                 "ingenuo": "Repetir la variación del mes anterior"}
+        ec = en_curso.estimar_mes(mes_ec, y, lag, lag_err, insumos, nom_d)
+        if ec:
+            salida["meses"].append({
+                "mes": ec["mes"], "preliminar": True, "estimacion": pct(ec["estimacion"]), "inferior": pct(ec["inferior"]),
+                "superior": pct(ec["superior"]), "error_tipico": round(ec["error_tipico"], 2), "error_ingenuo": None,
+                "indicadores_disponibles": len(ec["modelos"]) - 1, "indicadores_totales": len(insumos),
+                "disponibles": [m["modelo"] for m in ec["modelos"] if m["modelo"] != "ingenuo"],
+                "modelos": [{"id": m["modelo"], "nombre": m["nombre"], "grupo": "Mes en curso", "pronostico": pct(m["pronostico"]),
+                             "peso": round(m["peso"], 4), "indicador": pct(m["indicador"]), "hasta_dia": m["hasta_dia"],
+                             "ultimo_dato": m["ultimo_dato"], "error_tipico": round(m["error_tipico"], 2)} for m in ec["modelos"]],
+            })
+
+    # Acumulado del año: dato oficial y con los meses estimados.
+    niv = series[OBJETIVO.id].copy()
+    niv.index = pd.PeriodIndex(niv.index, freq="M")
+    anio = ult.year
+    def acumulado(niveles):
+        meses = [m for m in niveles if m.year == anio]
+        act = sum(niveles[m] for m in meses)
+        ant = sum(niv[m - 12] for m in meses)
+        return round(float((act / ant - 1) * 100), 2), str(max(meses))
+    base = {m: niv[m] for m in niv.index if m.year == anio and m <= ult}
+    real, hasta = acumulado(base)
+    salida["acumulado"] = {"anio": anio, "real": {"hasta": hasta, "valor": real}, "estimados": []}
+    centro, bajo, alto = dict(base), dict(base), dict(base)
+    for mm in salida["meses"]:
+        m = pd.Period(mm["mes"], "M")
+        if m.year != anio:
+            break
+        for d, k in ((centro, "estimacion"), (bajo, "inferior"), (alto, "superior")):
+            d[m] = niv[m - 12] * (1 + mm[k] / 100)
+        v, h = acumulado(centro)
+        salida["acumulado"]["estimados"].append({"hasta": h, "valor": v, "inferior": acumulado(bajo)[0],
+                                                 "superior": acumulado(alto)[0], "preliminar": mm["preliminar"]})
     (DATA / "estimacion.json").write_text(json.dumps(salida, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     errores.rename_axis("mes").round(4).to_csv(DATA / "evaluacion.csv")
 
@@ -110,8 +162,11 @@ def main() -> int:
         hist = pd.concat([hist, pd.DataFrame(nuevas)], ignore_index=True)
         hist.to_csv(p_hist, index=False)
 
+    a = salida["acumulado"]
+    print(f"Acumulado {a['anio']} hasta {a['real']['hasta']}: {a['real']['valor']:+.2f}%; " +
+          "; ".join(f"con {e['hasta']}: {e['valor']:+.2f}%" for e in a["estimados"]))
     for mm in salida["meses"]:
-        print(f"{mm['mes']}: {mm['estimacion']:+.1f}% i.a. (entre {mm['inferior']:+.1f}% y {mm['superior']:+.1f}%), "
+        print(f"{mm['mes']}{' (preliminar)' if mm['preliminar'] else ''}: {mm['estimacion']:+.1f}% i.a. (entre {mm['inferior']:+.1f}% y {mm['superior']:+.1f}%), "
               f"{mm['indicadores_disponibles']}/{mm['indicadores_totales']} indicadores, error típico {mm['error_tipico']} pp")
     print(f"Evaluación 36 meses: combinada {salida['error_tipico_combinada_36m']} pp, ingenuo {salida['error_tipico_ingenuo_36m']} pp")
     for a in avisos:

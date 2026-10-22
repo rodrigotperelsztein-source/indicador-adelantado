@@ -71,6 +71,19 @@ tr.grupo td { color: var(--acc); font-size: 11px; text-transform: uppercase; let
 .metodo ol { padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
 .aviso { padding: 10px 14px; border-radius: 10px; background: rgba(255,200,87,.08); border: 1px solid rgba(255,200,87,.3); color: #ffe2a3; font-size: 13px; }
 footer { color: var(--dim); font-size: 12px; text-align: center; }
+.acum { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.acum .kpi .v { font-size: 26px; }
+.acum .kpi.est { border-color: rgba(124,242,195,.35); }
+.acum .kpi.pre { border-style: dashed; }
+.acum .r { font: 12px var(--f-mono); color: var(--muted); margin-top: 2px; }
+.curso { display: flex; flex-direction: column; gap: 10px; }
+.curso .cabeza { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.curso .big { font: 800 40px/1 var(--f-mono); }
+.curso .fila { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 10px; align-items: center; font-size: 13px; padding: 6px 0; border-bottom: 1px solid rgba(140,190,240,.07); }
+.curso .fila small { display: block; color: var(--dim); font-size: 11.5px; }
+.tabs { display: flex; gap: 6px; margin-bottom: 8px; }
+.tabs button { font: inherit; font-size: 12px; font-weight: 600; color: var(--muted); background: rgba(0,0,0,.25); border: 1px solid var(--card-b); border-radius: 999px; padding: 4px 11px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { color: var(--bg); background: var(--acc); border-color: var(--acc); }
 </style>
 </head>
 <body>
@@ -113,6 +126,19 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
 
   <div class="aviso" id="avisos" hidden></div>
 
+  <div class="grid2">
+    <section class="card">
+      <h2>Acumulado del año</h2>
+      <p class="sub">Variación del EMAE de enero hasta cada mes contra el mismo período del año anterior: con el dato oficial y sumando los meses estimados.</p>
+      <div class="acum" id="acum"></div>
+    </section>
+    <section class="card" id="sec-curso" hidden>
+      <h2 id="curso-titulo">Mes en curso</h2>
+      <p class="sub" id="curso-sub"></p>
+      <div class="curso" id="curso"></div>
+    </section>
+  </div>
+
   <section class="card">
     <h2>EMAE: dato oficial y estimación</h2>
     <p class="sub">Variación % interanual de la serie original. Los puntos son lo que el modelo habría estimado cada mes con los datos
@@ -129,6 +155,7 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
     <section class="card">
       <h2>Cómo fue cambiando la estimación</h2>
       <p class="sub">Cada vez que entra un dato nuevo se vuelve a estimar. Se guarda cada versión para compararla con el EMAE cuando INDEC lo publique.</p>
+      <div class="tabs" id="tabs-hist" role="group" aria-label="Mes"></div>
       <div id="g-hist" class="chart bajo" role="img" aria-label="Evolución de la estimación"></div>
     </section>
   </div>
@@ -255,22 +282,47 @@ function parseCSV(t) {
   });
 
   // Evolución de la estimación
-  const nombreDe = Object.fromEntries(E.indicadores.map(i => [i.id, i.nombre]));
-  const hm = H.filter(r => r.mes === M.mes);
+  const nombreDe = Object.fromEntries([...E.indicadores.map(i => [i.id, i.nombre]), ...E.meses.flatMap(o => o.modelos.map(m => [m.id, m.nombre]))]);
   const g3 = echarts.init($("g-hist"));
+  function dibujarHist(mesSel) {
+  const hm = H.filter(r => r.mes === mesSel);
+  document.querySelectorAll("#tabs-hist button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === mesSel)));
   g3.setOption({
     grid: { left: 8, right: 16, top: 20, bottom: 30, containLabel: true }, tooltip: { trigger: "axis", ...TT,
       formatter: ps => { const r = hm[ps[0].dataIndex]; return `<b>${new Date(r.corrida).toLocaleString("es-AR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</b><br>Estimación: <b>${sg(+r.estimacion)}%</b><br>Banda: ${sg(+r.inferior)}% a ${sg(+r.superior)}%<br>Indicadores: ${r.indicadores_disponibles}` + (r.nuevos ? `<br>Entró: ${r.nuevos.split("|").map(i => esc(nombreDe[i] || i)).join(", ")}` : ""); } },
     xAxis: { type: "category", data: hm.map(r => new Date(r.corrida).toLocaleDateString("es-AR", { day: "numeric", month: "short" })), ...EJE, splitLine: { show: false } },
     yAxis: { type: "value", ...EJE, axisLabel: { color: "#93a8bd", formatter: v => v + "%" } },
+    graphic: hm.length < 2 ? [{ type: "text", left: "center", bottom: 40, style: { text: "Se completa a medida que entran datos nuevos", fill: "#93a8bd", font: "12px system-ui" } }] : [],
     series: [
-      { type: "line", data: hm.map(r => +r.superior), lineStyle: { opacity: 0 }, symbol: "none", stack: "b", areaStyle: { opacity: 0 } },
       { type: "line", data: hm.map(r => +r.estimacion), symbolSize: 8, lineStyle: { width: 2.5, color: "#7cf2c3" }, itemStyle: { color: "#7cf2c3" } },
       { type: "line", data: hm.map(r => +r.inferior), symbol: "none", lineStyle: { color: "rgba(124,242,195,.4)", type: "dashed" } },
       { type: "line", data: hm.map(r => +r.superior), symbol: "none", lineStyle: { color: "rgba(124,242,195,.4)", type: "dashed" } },
     ],
-  });
-  if (hm.length < 2) g3.setOption({ graphic: [{ type: "text", left: "center", bottom: 40, style: { text: "Se completa a medida que entran datos nuevos", fill: "#93a8bd", font: "12px system-ui" } }] });
+  }, true);
+  }
+  $("tabs-hist").innerHTML = E.meses.map(o => `<button data-m="${o.mes}">${mes(o.mes)}${o.preliminar ? " (preliminar)" : ""}</button>`).join("");
+  $("tabs-hist").addEventListener("click", e => { const b = e.target.closest("button"); if (b) dibujarHist(b.dataset.m); });
+  dibujarHist(M.mes);
+
+  // Acumulado del año
+  const A = E.acumulado;
+  if (A) {
+    const ini = `ene–${MC[+A.real.hasta.slice(5) - 1]}`;
+    $("acum").innerHTML = `<div class="kpi"><div class="t">Dato oficial, ${ini} ${A.anio}</div><div class="v ${cls(A.real.valor)}">${sg(A.real.valor, 2)}%</div></div>` +
+      A.estimados.map(e => `<div class="kpi est ${e.preliminar ? "pre" : ""}"><div class="t">Con ${e.preliminar ? "la estimación preliminar de" : "la estimación de"} ${mes(e.hasta)} (ene–${MC[+e.hasta.slice(5) - 1]})</div>
+        <div class="v ${cls(e.valor)}">${sg(e.valor, 2)}%</div><div class="r">entre ${sg(e.inferior, 2)}% y ${sg(e.superior, 2)}%</div></div>`).join("");
+  }
+
+  // Mes en curso (preliminar)
+  const C = E.meses.find(o => o.preliminar);
+  if (C) {
+    $("sec-curso").hidden = false;
+    $("curso-titulo").textContent = `${mes(C.mes)[0].toUpperCase() + mes(C.mes).slice(1)}, estimación preliminar`;
+    $("curso-sub").textContent = `Mientras el mes transcurre solo hay datos diarios: se compara lo que va del mes con los mismos días del año anterior y se parte de la estimación del mes previo. La banda es ancha a propósito; se afina cuando salen los indicadores mensuales (primeros días del mes siguiente).`;
+    $("curso").innerHTML = `<div class="cabeza"><span class="big ${cls(C.estimacion)}">${sg(C.estimacion)}%</span><span class="banda">entre <b>${sg(C.inferior)}%</b> y <b>${sg(C.superior)}%</b></span></div>` +
+      C.modelos.map(m => `<div class="fila"><span>${esc(m.nombre)}<small>${m.hasta_dia ? `días 1 a ${m.hasta_dia} · variación del indicador ${sg(m.indicador)}%` : "parte de la estimación del mes anterior"}</small></span>
+        <span class="n">${sg(m.pronostico)}%</span><span class="n" style="color:var(--muted)">peso ${nf(m.peso * 100, 0)}%</span></div>`).join("");
+  }
 
   // Tabla de indicadores
   const peso = Object.fromEntries(M.modelos.map(m => [m.id, m.peso]));

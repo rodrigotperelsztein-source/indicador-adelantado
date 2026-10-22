@@ -28,6 +28,15 @@ patentamientos, crédito y otros.
 Para sumar un indicador alcanza con agregarlo en `estimador/indicadores.py`: el modelo mide solo cuánto acierta y le
 da peso según eso. Las series nuevas conviene sumarlas primero a monitor-series.
 
+## Mes en curso y acumulado
+
+- **Mes en curso** (`estimador/en_curso.py`): mientras el mes transcurre solo hay datos diarios. Se usa la variación
+  interanual de lo que va del mes (contra los mismos días del año anterior) de los préstamos comerciales reales (BCRA,
+  vía Monitor Argy) y de la demanda eléctrica de grandes usuarios industriales (CAMMESA), más la estimación del mes
+  anterior. Es preliminar y su banda incluye el error de la estimación del mes previo.
+- **Acumulado del año**: variación de enero hasta el último mes con dato contra el mismo período del año anterior,
+  oficial y sumando cada mes estimado (con su banda).
+
 ## Cuándo corre
 
 GitHub Actions (`.github/workflows/estimar.yml`), todos los días a las 08:17 y 22:53 (hora de Buenos Aires), después
