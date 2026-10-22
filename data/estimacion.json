@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-22T14:41:38+00:00",
- "corrida_local": "22/10/2026 11:41",
+ "corrida": "2026-10-22T15:05:46+00:00",
+ "corrida_local": "22/10/2026 12:05",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -12,6 +12,25 @@
    "error_ingenuo": 2.98,
    "indicadores_disponibles": 17,
    "indicadores_totales": 25,
+   "disponibles": [
+    "acero",
+    "autos",
+    "came",
+    "cemento",
+    "construya",
+    "electricidad_industria",
+    "faena",
+    "impo_capital",
+    "impo_intermedios",
+    "importaciones",
+    "indice_lider",
+    "iva",
+    "leche",
+    "metalurgia",
+    "patentamientos",
+    "prestamos",
+    "seguridad_social"
+   ],
    "modelos": [
     {
      "id": "importaciones",
