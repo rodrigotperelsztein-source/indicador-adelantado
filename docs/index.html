@@ -255,11 +255,12 @@ function parseCSV(t) {
   });
 
   // Evolución de la estimación
+  const nombreDe = Object.fromEntries(E.indicadores.map(i => [i.id, i.nombre]));
   const hm = H.filter(r => r.mes === M.mes);
   const g3 = echarts.init($("g-hist"));
   g3.setOption({
     grid: { left: 8, right: 16, top: 20, bottom: 30, containLabel: true }, tooltip: { trigger: "axis", ...TT,
-      formatter: ps => { const r = hm[ps[0].dataIndex]; return `<b>${new Date(r.corrida).toLocaleString("es-AR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</b><br>Estimación: <b>${sg(+r.estimacion)}%</b><br>Banda: ${sg(+r.inferior)}% a ${sg(+r.superior)}%<br>Indicadores: ${r.indicadores_disponibles}`; } },
+      formatter: ps => { const r = hm[ps[0].dataIndex]; return `<b>${new Date(r.corrida).toLocaleString("es-AR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</b><br>Estimación: <b>${sg(+r.estimacion)}%</b><br>Banda: ${sg(+r.inferior)}% a ${sg(+r.superior)}%<br>Indicadores: ${r.indicadores_disponibles}` + (r.nuevos ? `<br>Entró: ${r.nuevos.split("|").map(i => esc(nombreDe[i] || i)).join(", ")}` : ""); } },
     xAxis: { type: "category", data: hm.map(r => new Date(r.corrida).toLocaleDateString("es-AR", { day: "numeric", month: "short" })), ...EJE, splitLine: { show: false } },
     yAxis: { type: "value", ...EJE, axisLabel: { color: "#93a8bd", formatter: v => v + "%" } },
     series: [

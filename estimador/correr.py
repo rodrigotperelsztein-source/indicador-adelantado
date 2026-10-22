@@ -70,6 +70,7 @@ def main() -> int:
             "mes": mm["mes"], "estimacion": pct(mm["estimacion"]), "inferior": pct(mm["inferior"]), "superior": pct(mm["superior"]),
             "error_tipico": round(mm["error_tipico"], 2), "error_ingenuo": round(mm["error_ingenuo"], 2),
             "indicadores_disponibles": len(mm["disponibles"]), "indicadores_totales": len(X.columns),
+            "disponibles": mm["disponibles"],
             "modelos": [{"id": mo["modelo"], "nombre": nombres.get(mo["modelo"], mo["modelo"]), "grupo": grupos.get(mo["modelo"], ""),
                          "pronostico": pct(mo["pronostico"]), "peso": round(mo["peso"], 4), "indicador": pct(mo["indicador"])
                          if mo["indicador"] is not None and mo["modelo"] != "capacidad" else mo["indicador"],
@@ -90,14 +91,21 @@ def main() -> int:
     p_hist = DATA / "historial.csv"
     hist = pd.read_csv(p_hist, dtype={"mes": str}) if p_hist.exists() else pd.DataFrame(
         columns=["corrida", "mes", "estimacion", "inferior", "superior", "indicadores_disponibles", "ultimo_emae"])
+    for c in ("indicadores", "nuevos"):
+        if c not in hist:
+            hist[c] = ""
+    hist[["indicadores", "nuevos"]] = hist[["indicadores", "nuevos"]].fillna("")
     nuevas = []
     for mm in salida["meses"]:
         prev = hist[hist["mes"] == mm["mes"]].tail(1)
+        antes = set(filter(None, str(prev["indicadores"].iloc[0]).split("|"))) if not prev.empty else set()
+        nuevos = [i for i in mm["disponibles"] if i not in antes] if antes else []
         if prev.empty or abs(float(prev["estimacion"].iloc[0]) - mm["estimacion"]) > 0.005 \
-                or int(prev["indicadores_disponibles"].iloc[0]) != mm["indicadores_disponibles"]:
+                or set(mm["disponibles"]) != antes:
             nuevas.append({"corrida": salida["corrida"], "mes": mm["mes"], "estimacion": mm["estimacion"],
                            "inferior": mm["inferior"], "superior": mm["superior"],
-                           "indicadores_disponibles": mm["indicadores_disponibles"], "ultimo_emae": salida["ultimo_emae"]})
+                           "indicadores_disponibles": mm["indicadores_disponibles"], "ultimo_emae": salida["ultimo_emae"],
+                           "indicadores": "|".join(mm["disponibles"]), "nuevos": "|".join(nuevos)})
     if nuevas:
         hist = pd.concat([hist, pd.DataFrame(nuevas)], ignore_index=True)
         hist.to_csv(p_hist, index=False)
