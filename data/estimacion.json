@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-22T16:23:15+00:00",
- "corrida_local": "22/10/2026 13:23",
+ "corrida": "2026-10-22T21:46:27+00:00",
+ "corrida_local": "22/10/2026 18:46",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -1259,5 +1259,80 @@
     "preliminar": true
    }
   ]
- }
+ },
+ "trimestres": [
+  {
+   "trimestre": "2025-T1",
+   "nivel": 151.47,
+   "meses": 3,
+   "oficiales": 3,
+   "estimados": 0,
+   "preliminares": 0,
+   "variacion": 0.66
+  },
+  {
+   "trimestre": "2025-T2",
+   "nivel": 151.98,
+   "meses": 3,
+   "oficiales": 3,
+   "estimados": 0,
+   "preliminares": 0,
+   "variacion": 0.33
+  },
+  {
+   "trimestre": "2025-T3",
+   "nivel": 152.42,
+   "meses": 3,
+   "oficiales": 3,
+   "estimados": 0,
+   "preliminares": 0,
+   "variacion": 0.29
+  },
+  {
+   "trimestre": "2025-T4",
+   "nivel": 154.07,
+   "meses": 3,
+   "oficiales": 3,
+   "estimados": 0,
+   "preliminares": 0,
+   "variacion": 1.08
+  },
+  {
+   "trimestre": "2026-T1",
+   "nivel": 155.1,
+   "meses": 3,
+   "oficiales": 3,
+   "estimados": 0,
+   "preliminares": 0,
+   "variacion": 0.67
+  },
+  {
+   "trimestre": "2026-T2",
+   "nivel": 154.14,
+   "meses": 3,
+   "oficiales": 3,
+   "estimados": 0,
+   "preliminares": 0,
+   "variacion": -0.62
+  },
+  {
+   "trimestre": "2026-T3",
+   "nivel": 150.59,
+   "meses": 3,
+   "oficiales": 2,
+   "estimados": 1,
+   "preliminares": 0,
+   "variacion": -2.3
+  },
+  {
+   "trimestre": "2026-T4",
+   "nivel": 152.64,
+   "meses": 1,
+   "oficiales": 0,
+   "estimados": 0,
+   "preliminares": 1,
+   "variacion": 1.36
+  }
+ ],
+ "recesion_tecnica": true
 }
