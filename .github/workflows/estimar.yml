@@ -1,0 +1,67 @@
+name: Estimar EMAE
+
+# Seguridad (igual que monitor-series):
+#   - Acciones de GitHub fijadas por su commit; dependencias de Python verificadas por huella.
+#   - El paso que baja y procesa datos de afuera corre SIN credenciales: el token de GitHub solo
+#     está en el último paso, que guarda data/ y nada más.
+
+on:
+  schedule:
+    # Todos los días (horas en UTC; Buenos Aires = UTC-3), después de las corridas del monitor:
+    # 08:17 y 22:53. Varios indicadores salen a cualquier hora del mes.
+    - cron: "17 11 * * *"
+    - cron: "53 1 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: estimar-emae
+  cancel-in-progress: false
+
+jobs:
+  estimar:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4.4.0
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5.6.0
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias (verificadas por huella)
+        run: "pip install --require-hashes --only-binary=:all: --no-cache-dir -r requirements.txt"
+
+      - name: Bajar insumos y estimar
+        id: proc
+        run: |
+          python -m estimador.correr 2>&1 | tee data/ultima_corrida.txt
+          exit "${PIPESTATUS[0]}"
+
+      - name: Guardar cambios en el repositorio (solo data/)
+        if: always()
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RESULTADO: ${{ steps.proc.outcome }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          # Si la corrida salió bien y solo cambió su registro, no se guarda nada.
+          if [ "$RESULTADO" = "success" ] && git diff --cached --quiet -- . ':(exclude)data/ultima_corrida.txt' ':(exclude)data/estimacion.json'; then
+            echo "Sin cambios para guardar."
+            exit 0
+          fi
+          if git diff --cached --name-only | grep -v '^data/'; then
+            echo "Hay cambios fuera de data/: no se guardan."; exit 1
+          fi
+          git commit -m "Estimación $(TZ=America/Argentina/Buenos_Aires date +%Y-%m-%d)"
+          REMOTO="https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git pull --rebase "$REMOTO" main
+          git push "$REMOTO" HEAD:main

@@ -1,0 +1,1170 @@
+{
+ "corrida": "2026-10-22T14:41:38+00:00",
+ "corrida_local": "22/10/2026 11:41",
+ "ultimo_emae": "2026-08",
+ "meses": [
+  {
+   "mes": "2026-09",
+   "estimacion": -0.71,
+   "inferior": -4.37,
+   "superior": 3.1,
+   "error_tipico": 2.29,
+   "error_ingenuo": 2.98,
+   "indicadores_disponibles": 17,
+   "indicadores_totales": 25,
+   "modelos": [
+    {
+     "id": "importaciones",
+     "nombre": "Importaciones (INDEC)",
+     "grupo": "Comercio exterior",
+     "pronostico": -0.48,
+     "peso": 0.154,
+     "indicador": -1.83,
+     "error_tipico": 2.14
+    },
+    {
+     "id": "factor",
+     "nombre": "Factor común (promedio de todos los indicadores)",
+     "grupo": "Todos",
+     "pronostico": -0.42,
+     "peso": 0.1521,
+     "indicador": null,
+     "error_tipico": 2.16
+    },
+    {
+     "id": "impo_capital",
+     "nombre": "Importaciones de bienes de capital",
+     "grupo": "Comercio exterior",
+     "pronostico": -1.19,
+     "peso": 0.1297,
+     "indicador": -10.39,
+     "error_tipico": 2.33
+    },
+    {
+     "id": "seguridad_social",
+     "nombre": "Recaudación de seguridad social real",
+     "grupo": "Empleo, crédito y expectativas",
+     "pronostico": -0.56,
+     "peso": 0.1185,
+     "indicador": 1.53,
+     "error_tipico": 2.44
+    },
+    {
+     "id": "cemento",
+     "nombre": "Despacho de cemento (AFCP)",
+     "grupo": "Construcción",
+     "pronostico": -0.1,
+     "peso": 0.1178,
+     "indicador": 4.62,
+     "error_tipico": 2.45
+    },
+    {
+     "id": "came",
+     "nombre": "Ventas minoristas pyme (CAME)",
+     "grupo": "Comercio y consumo",
+     "pronostico": -0.37,
+     "peso": 0.1178,
+     "indicador": 0.3,
+     "error_tipico": 2.45
+    },
+    {
+     "id": "patentamientos",
+     "nombre": "Patentamientos de autos",
+     "grupo": "Comercio y consumo",
+     "pronostico": -1.28,
+     "peso": 0.106,
+     "indicador": -10.53,
+     "error_tipico": 2.58
+    },
+    {
+     "id": "autos",
+     "nombre": "Producción automotriz (ADEFA)",
+     "grupo": "Industria",
+     "pronostico": -1.51,
+     "peso": 0.1042,
+     "indicador": -15.63,
+     "error_tipico": 2.6
+    },
+    {
+     "id": "metalurgia",
+     "nombre": "Producción metalúrgica (ADIMRA)",
+     "grupo": "Industria",
+     "pronostico": -0.89,
+     "peso": 0.0,
+     "indicador": -3.33,
+     "error_tipico": 2.7
+    },
+    {
+     "id": "acero",
+     "nombre": "Producción de acero crudo",
+     "grupo": "Industria",
+     "pronostico": -1.26,
+     "peso": 0.0,
+     "indicador": -2.02,
+     "error_tipico": 2.88
+    },
+    {
+     "id": "electricidad_industria",
+     "nombre": "Demanda eléctrica de grandes usuarios industriales (CAMMESA)",
+     "grupo": "Industria",
+     "pronostico": 0.01,
+     "peso": 0.0,
+     "indicador": 3.16,
+     "error_tipico": 2.84
+    },
+    {
+     "id": "construya",
+     "nombre": "Índice Construya",
+     "grupo": "Construcción",
+     "pronostico": -1.11,
+     "peso": 0.0,
+     "indicador": -2.93,
+     "error_tipico": 2.82
+    },
+    {
+     "id": "iva",
+     "nombre": "Recaudación de IVA DGI real",
+     "grupo": "Comercio y consumo",
+     "pronostico": -1.34,
+     "peso": 0.0,
+     "indicador": 1.62,
+     "error_tipico": 2.82
+    },
+    {
+     "id": "impo_intermedios",
+     "nombre": "Importaciones de bienes intermedios",
+     "grupo": "Comercio exterior",
+     "pronostico": -0.4,
+     "peso": 0.0,
+     "indicador": 11.88,
+     "error_tipico": 2.71
+    },
+    {
+     "id": "prestamos",
+     "nombre": "Préstamos comerciales reales",
+     "grupo": "Empleo, crédito y expectativas",
+     "pronostico": -0.89,
+     "peso": 0.0,
+     "indicador": 3.84,
+     "error_tipico": 2.73
+    },
+    {
+     "id": "indice_lider",
+     "nombre": "Índice Líder (UTDT)",
+     "grupo": "Empleo, crédito y expectativas",
+     "pronostico": -0.58,
+     "peso": 0.0,
+     "indicador": 1.09,
+     "error_tipico": 2.61
+    },
+    {
+     "id": "leche",
+     "nombre": "Producción de leche",
+     "grupo": "Agro",
+     "pronostico": -1.18,
+     "peso": 0.0,
+     "indicador": 1.5,
+     "error_tipico": 2.77
+    },
+    {
+     "id": "faena",
+     "nombre": "Faena vacuna",
+     "grupo": "Agro",
+     "pronostico": -2.53,
+     "peso": 0.0,
+     "indicador": -11.0,
+     "error_tipico": 2.63
+    }
+   ]
+  }
+ ],
+ "emae": [
+  {
+   "mes": "2017-01",
+   "variacion": 1.4
+  },
+  {
+   "mes": "2017-02",
+   "variacion": -1.54
+  },
+  {
+   "mes": "2017-03",
+   "variacion": 1.69
+  },
+  {
+   "mes": "2017-04",
+   "variacion": -0.85
+  },
+  {
+   "mes": "2017-05",
+   "variacion": 2.98
+  },
+  {
+   "mes": "2017-06",
+   "variacion": 4.8
+  },
+  {
+   "mes": "2017-07",
+   "variacion": 4.57
+  },
+  {
+   "mes": "2017-08",
+   "variacion": 3.88
+  },
+  {
+   "mes": "2017-09",
+   "variacion": 3.08
+  },
+  {
+   "mes": "2017-10",
+   "variacion": 5.84
+  },
+  {
+   "mes": "2017-11",
+   "variacion": 4.82
+  },
+  {
+   "mes": "2017-12",
+   "variacion": 2.94
+  },
+  {
+   "mes": "2018-01",
+   "variacion": 4.47
+  },
+  {
+   "mes": "2018-02",
+   "variacion": 5.04
+  },
+  {
+   "mes": "2018-03",
+   "variacion": 2.12
+  },
+  {
+   "mes": "2018-04",
+   "variacion": -0.28
+  },
+  {
+   "mes": "2018-05",
+   "variacion": -5.24
+  },
+  {
+   "mes": "2018-06",
+   "variacion": -6.15
+  },
+  {
+   "mes": "2018-07",
+   "variacion": -2.89
+  },
+  {
+   "mes": "2018-08",
+   "variacion": -1.67
+  },
+  {
+   "mes": "2018-09",
+   "variacion": -5.9
+  },
+  {
+   "mes": "2018-10",
+   "variacion": -4.38
+  },
+  {
+   "mes": "2018-11",
+   "variacion": -7.46
+  },
+  {
+   "mes": "2018-12",
+   "variacion": -7.18
+  },
+  {
+   "mes": "2019-01",
+   "variacion": -5.75
+  },
+  {
+   "mes": "2019-02",
+   "variacion": -4.72
+  },
+  {
+   "mes": "2019-03",
+   "variacion": -6.99
+  },
+  {
+   "mes": "2019-04",
+   "variacion": -1.06
+  },
+  {
+   "mes": "2019-05",
+   "variacion": 2.86
+  },
+  {
+   "mes": "2019-06",
+   "variacion": -0.18
+  },
+  {
+   "mes": "2019-07",
+   "variacion": 0.56
+  },
+  {
+   "mes": "2019-08",
+   "variacion": -3.74
+  },
+  {
+   "mes": "2019-09",
+   "variacion": -2.08
+  },
+  {
+   "mes": "2019-10",
+   "variacion": -0.84
+  },
+  {
+   "mes": "2019-11",
+   "variacion": -2.01
+  },
+  {
+   "mes": "2019-12",
+   "variacion": -0.36
+  },
+  {
+   "mes": "2020-01",
+   "variacion": -0.48
+  },
+  {
+   "mes": "2020-02",
+   "variacion": -2.49
+  },
+  {
+   "mes": "2020-03",
+   "variacion": -11.56
+  },
+  {
+   "mes": "2020-04",
+   "variacion": -24.43
+  },
+  {
+   "mes": "2020-05",
+   "variacion": -20.17
+  },
+  {
+   "mes": "2020-06",
+   "variacion": -12.16
+  },
+  {
+   "mes": "2020-07",
+   "variacion": -13.16
+  },
+  {
+   "mes": "2020-08",
+   "variacion": -11.39
+  },
+  {
+   "mes": "2020-09",
+   "variacion": -5.71
+  },
+  {
+   "mes": "2020-10",
+   "variacion": -7.27
+  },
+  {
+   "mes": "2020-11",
+   "variacion": -4.14
+  },
+  {
+   "mes": "2020-12",
+   "variacion": -1.41
+  },
+  {
+   "mes": "2021-01",
+   "variacion": -1.77
+  },
+  {
+   "mes": "2021-02",
+   "variacion": -2.12
+  },
+  {
+   "mes": "2021-03",
+   "variacion": 13.84
+  },
+  {
+   "mes": "2021-04",
+   "variacion": 30.0
+  },
+  {
+   "mes": "2021-05",
+   "variacion": 15.37
+  },
+  {
+   "mes": "2021-06",
+   "variacion": 12.42
+  },
+  {
+   "mes": "2021-07",
+   "variacion": 11.74
+  },
+  {
+   "mes": "2021-08",
+   "variacion": 12.61
+  },
+  {
+   "mes": "2021-09",
+   "variacion": 11.1
+  },
+  {
+   "mes": "2021-10",
+   "variacion": 6.22
+  },
+  {
+   "mes": "2021-11",
+   "variacion": 8.85
+  },
+  {
+   "mes": "2021-12",
+   "variacion": 9.99
+  },
+  {
+   "mes": "2022-01",
+   "variacion": 6.17
+  },
+  {
+   "mes": "2022-02",
+   "variacion": 9.2
+  },
+  {
+   "mes": "2022-03",
+   "variacion": 5.46
+  },
+  {
+   "mes": "2022-04",
+   "variacion": 7.05
+  },
+  {
+   "mes": "2022-05",
+   "variacion": 8.94
+  },
+  {
+   "mes": "2022-06",
+   "variacion": 8.37
+  },
+  {
+   "mes": "2022-07",
+   "variacion": 7.03
+  },
+  {
+   "mes": "2022-08",
+   "variacion": 7.44
+  },
+  {
+   "mes": "2022-09",
+   "variacion": 5.58
+  },
+  {
+   "mes": "2022-10",
+   "variacion": 5.05
+  },
+  {
+   "mes": "2022-11",
+   "variacion": 2.98
+  },
+  {
+   "mes": "2022-12",
+   "variacion": -0.71
+  },
+  {
+   "mes": "2023-01",
+   "variacion": 2.43
+  },
+  {
+   "mes": "2023-02",
+   "variacion": -0.42
+  },
+  {
+   "mes": "2023-03",
+   "variacion": 0.74
+  },
+  {
+   "mes": "2023-04",
+   "variacion": -4.82
+  },
+  {
+   "mes": "2023-05",
+   "variacion": -6.61
+  },
+  {
+   "mes": "2023-06",
+   "variacion": -5.49
+  },
+  {
+   "mes": "2023-07",
+   "variacion": -1.47
+  },
+  {
+   "mes": "2023-08",
+   "variacion": 0.3
+  },
+  {
+   "mes": "2023-09",
+   "variacion": -0.51
+  },
+  {
+   "mes": "2023-10",
+   "variacion": 0.65
+  },
+  {
+   "mes": "2023-11",
+   "variacion": -1.12
+  },
+  {
+   "mes": "2023-12",
+   "variacion": -4.68
+  },
+  {
+   "mes": "2024-01",
+   "variacion": -3.96
+  },
+  {
+   "mes": "2024-02",
+   "variacion": -2.77
+  },
+  {
+   "mes": "2024-03",
+   "variacion": -8.17
+  },
+  {
+   "mes": "2024-04",
+   "variacion": -1.87
+  },
+  {
+   "mes": "2024-05",
+   "variacion": 1.92
+  },
+  {
+   "mes": "2024-06",
+   "variacion": -3.43
+  },
+  {
+   "mes": "2024-07",
+   "variacion": -0.37
+  },
+  {
+   "mes": "2024-08",
+   "variacion": -3.05
+  },
+  {
+   "mes": "2024-09",
+   "variacion": -2.44
+  },
+  {
+   "mes": "2024-10",
+   "variacion": 0.4
+  },
+  {
+   "mes": "2024-11",
+   "variacion": 1.24
+  },
+  {
+   "mes": "2024-12",
+   "variacion": 6.7
+  },
+  {
+   "mes": "2025-01",
+   "variacion": 6.64
+  },
+  {
+   "mes": "2025-02",
+   "variacion": 5.95
+  },
+  {
+   "mes": "2025-03",
+   "variacion": 5.77
+  },
+  {
+   "mes": "2025-04",
+   "variacion": 7.93
+  },
+  {
+   "mes": "2025-05",
+   "variacion": 5.3
+  },
+  {
+   "mes": "2025-06",
+   "variacion": 6.4
+  },
+  {
+   "mes": "2025-07",
+   "variacion": 2.75
+  },
+  {
+   "mes": "2025-08",
+   "variacion": 2.1
+  },
+  {
+   "mes": "2025-09",
+   "variacion": 4.77
+  },
+  {
+   "mes": "2025-10",
+   "variacion": 3.19
+  },
+  {
+   "mes": "2025-11",
+   "variacion": -0.14
+  },
+  {
+   "mes": "2025-12",
+   "variacion": 3.48
+  },
+  {
+   "mes": "2026-01",
+   "variacion": 2.0
+  },
+  {
+   "mes": "2026-02",
+   "variacion": -1.48
+  },
+  {
+   "mes": "2026-03",
+   "variacion": 6.46
+  },
+  {
+   "mes": "2026-04",
+   "variacion": 2.16
+  },
+  {
+   "mes": "2026-05",
+   "variacion": 0.71
+  },
+  {
+   "mes": "2026-06",
+   "variacion": 3.11
+  },
+  {
+   "mes": "2026-07",
+   "variacion": -1.47
+  },
+  {
+   "mes": "2026-08",
+   "variacion": -1.74
+  }
+ ],
+ "evaluacion": [
+  {
+   "mes": "2023-09",
+   "real": -0.51,
+   "estimada": -0.47,
+   "ingenuo": 0.3
+  },
+  {
+   "mes": "2023-10",
+   "real": 0.65,
+   "estimada": -0.49,
+   "ingenuo": -0.51
+  },
+  {
+   "mes": "2023-11",
+   "real": -1.12,
+   "estimada": 0.3,
+   "ingenuo": 0.65
+  },
+  {
+   "mes": "2023-12",
+   "real": -4.68,
+   "estimada": -2.25,
+   "ingenuo": -1.12
+  },
+  {
+   "mes": "2024-01",
+   "real": -3.96,
+   "estimada": -4.88,
+   "ingenuo": -4.68
+  },
+  {
+   "mes": "2024-02",
+   "real": -2.77,
+   "estimada": -4.15,
+   "ingenuo": -3.96
+  },
+  {
+   "mes": "2024-03",
+   "real": -8.17,
+   "estimada": -5.19,
+   "ingenuo": -2.77
+  },
+  {
+   "mes": "2024-04",
+   "real": -1.87,
+   "estimada": -8.15,
+   "ingenuo": -8.17
+  },
+  {
+   "mes": "2024-05",
+   "real": 1.92,
+   "estimada": -2.98,
+   "ingenuo": -1.87
+  },
+  {
+   "mes": "2024-06",
+   "real": -3.43,
+   "estimada": -1.1,
+   "ingenuo": 1.92
+  },
+  {
+   "mes": "2024-07",
+   "real": -0.37,
+   "estimada": -2.98,
+   "ingenuo": -3.43
+  },
+  {
+   "mes": "2024-08",
+   "real": -3.05,
+   "estimada": -2.37,
+   "ingenuo": -0.37
+  },
+  {
+   "mes": "2024-09",
+   "real": -2.44,
+   "estimada": -3.13,
+   "ingenuo": -3.05
+  },
+  {
+   "mes": "2024-10",
+   "real": 0.4,
+   "estimada": -1.85,
+   "ingenuo": -2.44
+  },
+  {
+   "mes": "2024-11",
+   "real": 1.24,
+   "estimada": -0.63,
+   "ingenuo": 0.4
+  },
+  {
+   "mes": "2024-12",
+   "real": 6.7,
+   "estimada": 1.69,
+   "ingenuo": 1.24
+  },
+  {
+   "mes": "2025-01",
+   "real": 6.64,
+   "estimada": 6.02,
+   "ingenuo": 6.7
+  },
+  {
+   "mes": "2025-02",
+   "real": 5.95,
+   "estimada": 6.21,
+   "ingenuo": 6.64
+  },
+  {
+   "mes": "2025-03",
+   "real": 5.77,
+   "estimada": 5.68,
+   "ingenuo": 5.95
+  },
+  {
+   "mes": "2025-04",
+   "real": 7.93,
+   "estimada": 5.66,
+   "ingenuo": 5.77
+  },
+  {
+   "mes": "2025-05",
+   "real": 5.3,
+   "estimada": 6.53,
+   "ingenuo": 7.93
+  },
+  {
+   "mes": "2025-06",
+   "real": 6.4,
+   "estimada": 5.63,
+   "ingenuo": 5.3
+  },
+  {
+   "mes": "2025-07",
+   "real": 2.75,
+   "estimada": 4.9,
+   "ingenuo": 6.4
+  },
+  {
+   "mes": "2025-08",
+   "real": 2.1,
+   "estimada": 2.84,
+   "ingenuo": 2.75
+  },
+  {
+   "mes": "2025-09",
+   "real": 4.77,
+   "estimada": 2.47,
+   "ingenuo": 2.1
+  },
+  {
+   "mes": "2025-10",
+   "real": 3.19,
+   "estimada": 3.58,
+   "ingenuo": 4.77
+  },
+  {
+   "mes": "2025-11",
+   "real": -0.14,
+   "estimada": 1.8,
+   "ingenuo": 3.19
+  },
+  {
+   "mes": "2025-12",
+   "real": 3.48,
+   "estimada": 0.32,
+   "ingenuo": -0.14
+  },
+  {
+   "mes": "2026-01",
+   "real": 2.0,
+   "estimada": 2.08,
+   "ingenuo": 3.48
+  },
+  {
+   "mes": "2026-02",
+   "real": -1.48,
+   "estimada": 0.73,
+   "ingenuo": 2.0
+  },
+  {
+   "mes": "2026-03",
+   "real": 6.46,
+   "estimada": 0.2,
+   "ingenuo": -1.48
+  },
+  {
+   "mes": "2026-04",
+   "real": 2.16,
+   "estimada": 3.65,
+   "ingenuo": 6.46
+  },
+  {
+   "mes": "2026-05",
+   "real": 0.71,
+   "estimada": 1.24,
+   "ingenuo": 2.16
+  },
+  {
+   "mes": "2026-06",
+   "real": 3.11,
+   "estimada": 1.08,
+   "ingenuo": 0.71
+  },
+  {
+   "mes": "2026-07",
+   "real": -1.47,
+   "estimada": 1.73,
+   "ingenuo": 3.11
+  },
+  {
+   "mes": "2026-08",
+   "real": -1.74,
+   "estimada": -0.49,
+   "ingenuo": -1.47
+  }
+ ],
+ "error_tipico_combinada_36m": 2.51,
+ "error_tipico_ingenuo_36m": 3.21,
+ "indicadores": [
+  {
+   "id": "ipi",
+   "nombre": "IPI manufacturero (INDEC)",
+   "grupo": "Industria",
+   "fuente": "monitor-series",
+   "serie": "ipi.original",
+   "ultimo_mes": "2026-08",
+   "variacion_ultimo": -3.24,
+   "unidad_variacion": "%",
+   "correlacion": 0.69,
+   "error_tipico": 1.78
+  },
+  {
+   "id": "metalurgia",
+   "nombre": "Producción metalúrgica (ADIMRA)",
+   "grupo": "Industria",
+   "fuente": "Monitor Argy",
+   "serie": "metalurgia_adimra",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -3.33,
+   "unidad_variacion": "%",
+   "correlacion": 0.47,
+   "error_tipico": 2.7
+  },
+  {
+   "id": "autos",
+   "nombre": "Producción automotriz (ADEFA)",
+   "grupo": "Industria",
+   "fuente": "Monitor Argy",
+   "serie": "produccion_automotriz",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -15.63,
+   "unidad_variacion": "%",
+   "correlacion": 0.26,
+   "error_tipico": 2.6
+  },
+  {
+   "id": "acero",
+   "nombre": "Producción de acero crudo",
+   "grupo": "Industria",
+   "fuente": "Monitor Argy",
+   "serie": "acero_crudo",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -2.02,
+   "unidad_variacion": "%",
+   "correlacion": 0.39,
+   "error_tipico": 2.88
+  },
+  {
+   "id": "capacidad",
+   "nombre": "Uso de la capacidad instalada (INDEC)",
+   "grupo": "Industria",
+   "fuente": "Monitor Argy",
+   "serie": "capacidad_instalada",
+   "ultimo_mes": "2026-08",
+   "variacion_ultimo": -1.1,
+   "unidad_variacion": "puntos",
+   "correlacion": 0.6,
+   "error_tipico": 2.29
+  },
+  {
+   "id": "ipip",
+   "nombre": "Producción industrial pyme (CAME)",
+   "grupo": "Industria",
+   "fuente": "monitor-series",
+   "serie": "came.ipip_var_ia",
+   "ultimo_mes": "2026-08",
+   "variacion_ultimo": -6.1,
+   "unidad_variacion": "%",
+   "correlacion": 0.68,
+   "error_tipico": null
+  },
+  {
+   "id": "electricidad_industria",
+   "nombre": "Demanda eléctrica de grandes usuarios industriales (CAMMESA)",
+   "grupo": "Industria",
+   "fuente": "monitor-series",
+   "serie": "cammesa_gu_actividad_mensual.industrias",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 3.16,
+   "unidad_variacion": "%",
+   "correlacion": 0.47,
+   "error_tipico": 2.84
+  },
+  {
+   "id": "isac",
+   "nombre": "ISAC (INDEC)",
+   "grupo": "Construcción",
+   "fuente": "monitor-series",
+   "serie": "isac.original",
+   "ultimo_mes": "2026-08",
+   "variacion_ultimo": -4.36,
+   "unidad_variacion": "%",
+   "correlacion": 0.6,
+   "error_tipico": 2.68
+  },
+  {
+   "id": "cemento",
+   "nombre": "Despacho de cemento (AFCP)",
+   "grupo": "Construcción",
+   "fuente": "Monitor Argy",
+   "serie": "despacho_cemento",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 4.62,
+   "unidad_variacion": "%",
+   "correlacion": 0.65,
+   "error_tipico": 2.45
+  },
+  {
+   "id": "construya",
+   "nombre": "Índice Construya",
+   "grupo": "Construcción",
+   "fuente": "Monitor Argy",
+   "serie": "construya_desest",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -2.93,
+   "unidad_variacion": "%",
+   "correlacion": 0.56,
+   "error_tipico": 2.82
+  },
+  {
+   "id": "came",
+   "nombre": "Ventas minoristas pyme (CAME)",
+   "grupo": "Comercio y consumo",
+   "fuente": "monitor-series",
+   "serie": "came.minoristas_var_ia",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 0.3,
+   "unidad_variacion": "%",
+   "correlacion": 0.61,
+   "error_tipico": 2.45
+  },
+  {
+   "id": "patentamientos",
+   "nombre": "Patentamientos de autos",
+   "grupo": "Comercio y consumo",
+   "fuente": "Monitor Argy",
+   "serie": "patentamientos_autos",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -10.53,
+   "unidad_variacion": "%",
+   "correlacion": 0.64,
+   "error_tipico": 2.58
+  },
+  {
+   "id": "iva",
+   "nombre": "Recaudación de IVA DGI real",
+   "grupo": "Comercio y consumo",
+   "fuente": "Monitor Argy",
+   "serie": "recaudacion_iva_dgi_real",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 1.62,
+   "unidad_variacion": "%",
+   "correlacion": 0.22,
+   "error_tipico": 2.82
+  },
+  {
+   "id": "naftas",
+   "nombre": "Ventas de naftas (Secretaría de Energía)",
+   "grupo": "Comercio y consumo",
+   "fuente": "monitor-series",
+   "serie": "ventas_combustibles.naftas_total",
+   "ultimo_mes": "2026-08",
+   "variacion_ultimo": -3.36,
+   "unidad_variacion": "%",
+   "correlacion": 0.4,
+   "error_tipico": 2.88
+  },
+  {
+   "id": "gasoil",
+   "nombre": "Ventas de gasoil sin usinas ni bunker (Secretaría de Energía)",
+   "grupo": "Transporte y combustibles",
+   "fuente": "monitor-series",
+   "serie": "ventas_combustibles.gasoil_total_sin_usinas_bunker",
+   "ultimo_mes": "2026-08",
+   "variacion_ultimo": -0.9,
+   "unidad_variacion": "%",
+   "correlacion": 0.69,
+   "error_tipico": 2.64
+  },
+  {
+   "id": "gasoil_g3",
+   "nombre": "Ventas de gasoil grado 3",
+   "grupo": "Transporte y combustibles",
+   "fuente": "monitor-series",
+   "serie": "ventas_combustibles.gasoil_g3_total",
+   "ultimo_mes": "2026-08",
+   "variacion_ultimo": -2.44,
+   "unidad_variacion": "%",
+   "correlacion": 0.83,
+   "error_tipico": 2.67
+  },
+  {
+   "id": "gasoil_carga",
+   "nombre": "Gasoil para transporte de carga",
+   "grupo": "Transporte y combustibles",
+   "fuente": "monitor-series",
+   "serie": "ventas_combustibles.gasoil_canal_carga",
+   "ultimo_mes": "2026-08",
+   "variacion_ultimo": -2.67,
+   "unidad_variacion": "%",
+   "correlacion": 0.69,
+   "error_tipico": 2.77
+  },
+  {
+   "id": "importaciones",
+   "nombre": "Importaciones (INDEC)",
+   "grupo": "Comercio exterior",
+   "fuente": "Monitor Argy",
+   "serie": "importaciones",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -1.83,
+   "unidad_variacion": "%",
+   "correlacion": 0.78,
+   "error_tipico": 2.14
+  },
+  {
+   "id": "impo_capital",
+   "nombre": "Importaciones de bienes de capital",
+   "grupo": "Comercio exterior",
+   "fuente": "Monitor Argy",
+   "serie": "impo_capital",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -10.39,
+   "unidad_variacion": "%",
+   "correlacion": 0.74,
+   "error_tipico": 2.33
+  },
+  {
+   "id": "impo_intermedios",
+   "nombre": "Importaciones de bienes intermedios",
+   "grupo": "Comercio exterior",
+   "fuente": "Monitor Argy",
+   "serie": "impo_intermedios",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 11.88,
+   "unidad_variacion": "%",
+   "correlacion": 0.5,
+   "error_tipico": 2.71
+  },
+  {
+   "id": "seguridad_social",
+   "nombre": "Recaudación de seguridad social real",
+   "grupo": "Empleo, crédito y expectativas",
+   "fuente": "Monitor Argy",
+   "serie": "recaudacion_ss_real",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 1.53,
+   "unidad_variacion": "%",
+   "correlacion": 0.7,
+   "error_tipico": 2.44
+  },
+  {
+   "id": "prestamos",
+   "nombre": "Préstamos comerciales reales",
+   "grupo": "Empleo, crédito y expectativas",
+   "fuente": "Monitor Argy",
+   "serie": "prestamos_comerciales_real",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 3.84,
+   "unidad_variacion": "%",
+   "correlacion": 0.74,
+   "error_tipico": 2.73
+  },
+  {
+   "id": "indice_lider",
+   "nombre": "Índice Líder (UTDT)",
+   "grupo": "Empleo, crédito y expectativas",
+   "fuente": "Monitor Argy",
+   "serie": "indice_lider",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 1.09,
+   "unidad_variacion": "%",
+   "correlacion": 0.57,
+   "error_tipico": 2.61
+  },
+  {
+   "id": "leche",
+   "nombre": "Producción de leche",
+   "grupo": "Agro",
+   "fuente": "Monitor Argy",
+   "serie": "produccion_leche",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 1.5,
+   "unidad_variacion": "%",
+   "correlacion": 0.7,
+   "error_tipico": 2.77
+  },
+  {
+   "id": "faena",
+   "nombre": "Faena vacuna",
+   "grupo": "Agro",
+   "fuente": "Monitor Argy",
+   "serie": "faena_vacuna",
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -11.0,
+   "unidad_variacion": "%",
+   "correlacion": 0.14,
+   "error_tipico": 2.63
+  }
+ ],
+ "avisos": []
+}

@@ -1,0 +1,12 @@
+# Avisos y actualizaciones de seguridad de las dependencias (acciones de GitHub y Python).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 5
