@@ -19,7 +19,7 @@ from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
 
-from estimador import calendario, datos, en_curso, modelo
+from estimador import calendario, cosecha, datos, en_curso, modelo
 from estimador.indicadores import INDICADORES, OBJETIVO
 
 DATA = datos.RAIZ / "data"
@@ -34,9 +34,19 @@ def main() -> int:
     fin = max(X.index.max(), y.index.max() + 1)
     idx = pd.period_range("2005-01", fin, freq="M")
     X, y = X.reindex(idx), y.reindex(idx)
-    h = calendario.diferencia_interanual(pd.period_range("2005-01", fin + 3, freq="M"))
+    rango = pd.period_range("2005-01", fin + 3, freq="M")
+    h = calendario.diferencia_interanual(rango)
+    prod, av_cosecha = cosecha.bajar(os.environ.get("INSUMOS_LOCAL"))
+    k, av_k = cosecha.aporte(rango, prod)
+    avisos += av_cosecha + av_k
+    # Regresores comunes a todos los modelos: días hábiles (del mes y del previo) y aporte de la cosecha.
+    comunes = pd.DataFrame({"h": h, "h_lag": h.shift(1)})
+    if k.notna().sum() >= 60:
+        comunes["cosecha"] = k
+    else:
+        avisos.append("cosecha: sin datos suficientes, el modelo corre sin ese regresor")
 
-    r = modelo.estimar(X, y, h)
+    r = modelo.estimar(X, y, comunes)
     errores = r.pop("errores")
     nombres = {i.id: i.nombre for i in INDICADORES} | {"factor": "Factor común (promedio de todos los indicadores)"}
     grupos = {i.id: i.grupo for i in INDICADORES} | {"factor": "Todos"}
@@ -86,6 +96,9 @@ def main() -> int:
         "error_tipico_combinada_36m": round(float(np.sqrt(((bt["combinada"] - bt["real"]) ** 2).mean())), 2),
         "error_tipico_ingenuo_36m": round(float(np.sqrt(((bt["ingenuo"] - bt["real"]) ** 2).mean())), 2),
         "cobertura_bandas_36m": cobertura,
+        "cosecha": {"campanias": {str(c): {k_: (None if pd.isna(v) else round(float(v) / 1e6, 2)) for k_, v in fila.items()}
+                                  for c, fila in prod.tail(4).iterrows()},
+                    "unidad": "millones de toneladas", "en_modelo": "cosecha" in comunes},
         "indicadores": indicadores,
         "avisos": avisos,
     }
@@ -107,8 +120,8 @@ def main() -> int:
         nom_d = {"prestamos_diario": "Préstamos comerciales reales (mes hasta la fecha)",
                  "electricidad_industria_diaria": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
                  "ingenuo": "Repetir la variación del mes anterior"}
-        nom_d["ingenuo"] = "Variación del mes anterior, corregida por días hábiles"
-        ec = en_curso.estimar_mes(mes_ec, y, lag, lag_err, insumos, nom_d, h)
+        nom_d["ingenuo"] = "Variación del mes anterior, corregida por días hábiles y cosecha"
+        ec = en_curso.estimar_mes(mes_ec, y, lag, lag_err, insumos, nom_d, comunes)
         if ec:
             salida["meses"].append({
                 "mes": ec["mes"], "preliminar": True, "estimacion": pct(ec["estimacion"]), "inferior": pct(ec["inferior"]),

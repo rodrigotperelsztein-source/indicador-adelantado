@@ -1,0 +1,4 @@
+# Estimaciones de producción cargadas a mano (toneladas). Tienen prioridad sobre las de la API de datos.gob.ar.
+# campania = año en que empieza la campaña (2026 = 2026/27); cultivo: soja, maiz, trigo o girasol.
+# Ejemplo:  2026,trigo,22000000,Bolsa de Cereales PAS 2026-10-22
+campania,cultivo,toneladas,fuente

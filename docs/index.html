@@ -125,7 +125,7 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
         combinan dando más peso a los que mejor acertaron en los últimos dos años.</p>
       <div class="kpis">
         <div class="kpi"><div class="v" id="k-err">—</div><div class="t">error típico de la estimación (últimos 36 meses, puntos)</div></div>
-        <div class="kpi"><div class="v" id="k-ing">—</div><div class="t">error de repetir la variación del mes anterior</div></div>
+        <div class="kpi"><div class="v" id="k-ing">—</div><div class="t">error sin indicadores: el mes anterior corregido por días hábiles y cosecha</div></div>
         <div class="kpi"><div class="v" id="k-cob68">—</div><div class="t">veces que el dato cayó en la banda de 68%</div></div>
         <div class="kpi"><div class="v" id="k-cob90">—</div><div class="t">veces que cayó en la banda de 90%</div></div>
         <div class="kpi"><div class="v" id="k-ult">—</div><div class="t">último EMAE publicado</div></div>
@@ -170,7 +170,7 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
     <section class="card">
       <h2>Cómo fue cambiando la estimación</h2>
       <p class="sub">Cada vez que entra un dato nuevo se vuelve a estimar. Se guarda cada versión para compararla con el EMAE cuando INDEC lo publique.
-        Arranca el 23/10/2026, cuando se incorporaron los días hábiles y las dos bandas.</p>
+        Arranca el 23/10/2026, cuando se incorporaron los días hábiles, la cosecha y las dos bandas.</p>
       <div class="tabs" id="tabs-hist" role="group" aria-label="Mes"></div>
       <div id="g-hist" class="chart bajo" role="img" aria-label="Evolución de la estimación"></div>
     </section>
@@ -199,6 +199,9 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
       <li>Para cada indicador, una regresión: la variación del EMAE del mes contra la del indicador en el mismo mes, la del EMAE del mes anterior y
         la diferencia de días hábiles contra el mismo mes del año anterior (un día hábil más suma alrededor de un punto). Se estima con datos desde 2017,
         sin marzo de 2020 a junio de 2021.</li>
+      <li>Todos los modelos incluyen además el aporte estimado de la cosecha: la producción de soja, maíz, trigo y girasol de cada campaña repartida en
+        los meses en que se cosecha, como hace INDEC. Es lo que explica los saltos del EMAE en abril-junio, que ningún otro indicador anticipa.
+        <span id="cosecha-nota"></span></li>
       <li>Un modelo más, el factor común: el promedio de todos los indicadores disponibles, estandarizados.</li>
       <li>Cada mes de los últimos años se estimó como si fuera en ese momento, solo con datos anteriores, y se midió el error de cada modelo.</li>
       <li>La estimación combina los ocho modelos con menor error de los últimos 24 meses entre los que ya tienen dato del mes, con pesos inversos a su error.</li>
@@ -260,6 +263,10 @@ function parseCSV(t) {
     prox ? `<span class="chip">INDEC publica el siguiente: <b>${prox[1].split("-").reverse().join("/")}</b></span>` : "",
     ...E.meses.slice(1).map(o => `<span class="chip">${mes(o.mes)}: <b>${sg(o.estimacion)}%</b> (preliminar)</span>`),
   ].join("");
+  if (E.cosecha && E.cosecha.campanias) {
+    const cs = Object.entries(E.cosecha.campanias), [c, v] = cs[cs.length - 1];
+    $("cosecha-nota").textContent = `Última campaña usada, ${c}/${String(+c + 1).slice(2)} (millones de toneladas): soja ${nf(v.soja)}, maíz ${nf(v.maiz)}, trigo ${nf(v.trigo)}, girasol ${nf(v.girasol)}. Fuente: Secretaría de Agricultura vía datos.gob.ar.`;
+  }
   $("k-err").textContent = nf(E.error_tipico_combinada_36m, 2);
   $("k-ing").textContent = nf(E.error_tipico_ingenuo_36m, 2);
   const cob = E.cobertura_bandas_36m;

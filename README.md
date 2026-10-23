@@ -14,7 +14,10 @@ patentamientos, crédito y otros.
 2. `estimador/modelo.py` estima, para cada indicador, una regresión de la variación interanual del EMAE contra la del
    indicador, la del EMAE del mes anterior y la diferencia de días hábiles contra el mismo mes del año anterior
    (`estimador/calendario.py`, con los feriados de la librería `holidays` más los traslados que le faltan), desde 2017 y
-   sin la pandemia, más un "factor común" con el promedio de todos.
+   sin la pandemia, más un "factor común" con el promedio de todos. Todos los modelos incluyen además el aporte estimado
+   de la cosecha (`estimador/cosecha.py`): la producción de soja, maíz, trigo y girasol por campaña (Secretaría de
+   Agricultura, vía la API de series de datos.gob.ar) repartida en los meses de cosecha. Una estimación más nueva de la
+   campaña en curso se puede cargar a mano en `data/cosecha_manual.csv`.
    Cada modelo se evalúa en tiempo pseudo-real (cada mes estimado solo con datos anteriores) y la estimación final
    combina los 8 mejores de los que ya tienen dato del mes, con pesos inversos a su error de los últimos 24 meses.
    Hay dos bandas: ±1 error típico de esa combinación (68%) y ±1,645 (90%); `cobertura_bandas_36m` informa cuántas

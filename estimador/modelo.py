@@ -3,8 +3,9 @@
 Método ("bridge equations" con combinación de pronósticos):
   1. Para cada indicador i, una regresión de la variación interanual del EMAE en el mes t contra
      la del indicador en el mismo mes, la del EMAE del mes anterior y la diferencia de días hábiles
-     contra el mismo mes del año anterior (h), del mes y del mes previo (ver calendario.py):
-         y_t = a + b · x_it + c · y_(t-1) + d · h_t + e · h_(t-1)
+     contra el mismo mes del año anterior (h), del mes y del mes previo (ver calendario.py), y el aporte
+     estimado de la cosecha (k, ver cosecha.py):
+         y_t = a + b · x_it + c · y_(t-1) + d · h_t + e · h_(t-1) + f · k_t
      Se estima con datos desde 2017, sin marzo de 2020 a junio de 2021 (pandemia).
   2. Un modelo más, el "factor": el promedio de todos los indicadores disponibles, estandarizados.
   3. Evaluación en tiempo pseudo-real: para cada mes de los últimos años, cada modelo se estima
@@ -35,16 +36,26 @@ def _muestra(idx: pd.PeriodIndex, hasta: pd.Period) -> np.ndarray:
     return (idx >= DESDE) & (idx < hasta) & ~((idx >= COVID[0]) & (idx <= COVID[1]))
 
 
-def _regresores(x: pd.Series | None, y: pd.Series, h: pd.Series | None) -> pd.DataFrame:
+def _comunes(h: pd.Series | pd.DataFrame | None) -> pd.DataFrame | None:
+    """Regresores que entran en todos los modelos. Una serie se toma como la diferencia de días hábiles (entra la
+    del mes y la del mes previo); un DataFrame se usa tal cual (días hábiles, aporte de la cosecha, etc.)."""
+    if h is None or isinstance(h, pd.DataFrame):
+        return h
+    return pd.DataFrame({"h": h, "h_lag": h.shift(1)})
+
+
+def _regresores(x: pd.Series | None, y: pd.Series, h) -> pd.DataFrame:
     d = {"y": y, "lag": y.shift(1)}
     if x is not None:
         d["x"] = x
-    if h is not None:
-        d["h"], d["h_lag"] = h, h.shift(1)
+    c = _comunes(h)
+    if c is not None:
+        for col in c.columns:
+            d[col] = c[col]
     return pd.DataFrame(d)
 
 
-def _ajustar(x: pd.Series | None, y: pd.Series, hasta: pd.Period, h: pd.Series | None = None, min_obs: int = MIN_OBS):
+def _ajustar(x: pd.Series | None, y: pd.Series, hasta: pd.Period, h=None, min_obs: int = MIN_OBS):
     """Coeficientes [a, (b), c, (d, e)] en el orden de _regresores sin la columna y."""
     d = _regresores(x, y, h)
     d = d[_muestra(d.index, hasta)].dropna()
@@ -63,13 +74,14 @@ def _factor(X: pd.DataFrame, hasta: pd.Period) -> pd.Series:
     return ((X[ok] - mu[ok]) / sd[ok]).mean(axis=1, skipna=True).where(X[ok].notna().sum(axis=1) >= 3)
 
 
-def _predecir(b, x_t, lag, h: pd.Series | None, t: pd.Period) -> float:
-    v = [1.0, lag] + ([x_t] if x_t is not None else []) + ([h.get(t), h.get(t - 1)] if h is not None else [])
+def _predecir(b, x_t, lag, h, t: pd.Period) -> float:
+    c = _comunes(h)
+    v = [1.0, lag] + ([x_t] if x_t is not None else []) + ([c.at[t, col] for col in c.columns] if c is not None else [])
     return float(np.dot(b, v))
 
 
 def pronosticos(X: pd.DataFrame, y: pd.Series, t: pd.Period, hasta: pd.Period, lag: float,
-                h: pd.Series | None = None) -> dict[str, float]:
+                h=None) -> dict[str, float]:
     """Pronóstico de cada modelo para el mes t, estimando con datos anteriores a `hasta`."""
     out = {}
     cols = {c: X[c] for c in X.columns}
@@ -83,7 +95,17 @@ def pronosticos(X: pd.DataFrame, y: pd.Series, t: pd.Period, hasta: pd.Period, l
     return out
 
 
-def evaluar(X: pd.DataFrame, y: pd.Series, desde: str = "2021-07", h: pd.Series | None = None) -> pd.DataFrame:
+def ingenuo(y: pd.Series, t: pd.Period, h=None) -> float:
+    """Referencia sin indicadores: la variación del mes anterior, corregida por días hábiles si hay calendario
+    (regresión y_t = a + c · y_(t-1) + d · h_t + e · h_(t-1) con datos anteriores a t)."""
+    if h is not None:
+        b = _ajustar(None, y, t, h)
+        if b is not None:
+            return _predecir(b, None, y[t - 1], h, t)
+    return float(y[t - 1])
+
+
+def evaluar(X: pd.DataFrame, y: pd.Series, desde: str = "2021-07", h=None) -> pd.DataFrame:
     """Errores de cada modelo mes a mes (pronóstico − dato), estimando solo con el pasado."""
     ultimo = y.last_valid_index()
     filas = {}
@@ -92,7 +114,7 @@ def evaluar(X: pd.DataFrame, y: pd.Series, desde: str = "2021-07", h: pd.Series 
             continue
         p = pronosticos(X, y, t, t, y[t - 1], h)
         filas[t] = {m: v - y[t] for m, v in p.items()}
-        filas[t]["ingenuo"] = y[t - 1] - y[t]
+        filas[t]["ingenuo"] = ingenuo(y, t, h) - y[t]
     return pd.DataFrame(filas).T.sort_index()
 
 
@@ -123,7 +145,8 @@ def evaluar_combinacion(errores: pd.DataFrame, X: pd.DataFrame, y: pd.Series, mo
         p = {m: errores.loc[t, m] + y[t] for m in errores.columns
              if m != "ingenuo" and pd.notna(errores.loc[t, m]) and (modelos is None or m in modelos)}
         est, _ = combinar(p, errores, t)
-        filas[t] = {"real": y[t], "combinada": est, "ingenuo": y[t - 1]}
+        ing = errores.loc[t, "ingenuo"] + y[t] if "ingenuo" in errores else y[t - 1]
+        filas[t] = {"real": y[t], "combinada": est, "ingenuo": ing}
     return pd.DataFrame(filas).T
 
 
@@ -145,7 +168,7 @@ def cobertura(errores: pd.DataFrame, X: pd.DataFrame, y: pd.Series, meses: int =
             "banda90": round(100 * float(np.mean(dentro90)), 1) if n else None}
 
 
-def estimar(X: pd.DataFrame, y: pd.Series, h: pd.Series | None = None) -> dict:
+def estimar(X: pd.DataFrame, y: pd.Series, h=None) -> dict:
     """Estimación de los meses posteriores al último EMAE publicado."""
     errores = evaluar(X, y, h=h)
     ult = y.last_valid_index()
