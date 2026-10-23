@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-23T20:27:18+00:00",
- "corrida_local": "23/10/2026 17:27",
+ "corrida": "2026-10-23T20:33:58+00:00",
+ "corrida_local": "23/10/2026 17:33",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -947,12 +947,6 @@
  },
  "cosecha": {
   "campanias": {
-   "2022": {
-    "soja": 25.05,
-    "maiz": 41.41,
-    "trigo": 12.56,
-    "girasol": 5.02
-   },
    "2023": {
     "soja": 48.21,
     "maiz": 57.49,
@@ -970,6 +964,12 @@
     "maiz": 72.5,
     "trigo": 27.9,
     "girasol": 7.5
+   },
+   "2026": {
+    "soja": null,
+    "maiz": null,
+    "trigo": 23.8,
+    "girasol": null
    }
   },
   "unidad": "millones de toneladas",
@@ -1277,9 +1277,7 @@
    "error_tipico": 1.82
   }
  ],
- "avisos": [
-  "cosecha: sin estimación de trigo 2026/27; se repite la campaña anterior"
- ],
+ "avisos": [],
  "acumulado": {
   "anio": 2026,
   "real": {

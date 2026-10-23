@@ -1,8 +1,5 @@
-/home/runner/work/indicador-adelantado/indicador-adelantado/estimador/correr.py:183: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
-  hist = pd.concat([hist, pd.DataFrame(nuevas)], ignore_index=True)
 Trimestres (desest., var. %): 2026-T1 +0.67, 2026-T2 -0.62, 2026-T3 -2.20, 2026-T4 +0.43 (1 meses)
 Acumulado 2026 hasta 2026-08: +1.24%; con 2026-09: +1.06%; con 2026-10: +0.83%
 2026-09: -0.4% i.a. (entre -3.1% y +2.4%), 17/25 indicadores, error típico 1.69 pp
 2026-10 (preliminar): -1.2% i.a. (entre -5.3% y +3.0%), 2/2 indicadores, error típico 2.55 pp
 Evaluación 36 meses: combinada 1.54 pp, ingenuo 1.92 pp; el dato cayó dentro de la banda de 68% el 66.7% de las veces y de la de 90% el 91.7% (36 meses)
-AVISO: cosecha: sin estimación de trigo 2026/27; se repite la campaña anterior
