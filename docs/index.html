@@ -317,7 +317,7 @@ function parseCSV(t) {
   dibujarHist(M.mes);
 
   // Trimestres
-  const T = (E.trimestres || []).filter(t => t.variacion != null);
+  const T = (E.trimestres || []).filter(t => t.variacion != null && t.meses === 3);  // solo trimestres completos
   if (T.length) {
     const tn = t => { const [y, q] = t.trimestre.split("-T"); return `${q}T ${y.slice(2)}`; };
     const etiqueta = t => t.meses < 3 ? `${t.meses} de 3 meses, preliminar` : t.estimados || t.preliminares ? `${t.oficiales} oficiales + ${t.estimados + t.preliminares} estimado` : "oficial";
@@ -338,7 +338,7 @@ function parseCSV(t) {
           borderRadius: t.variacion < 0 ? [0, 0, 6, 6] : [6, 6, 0, 0] } })),
         label: { show: true, position: "top", color: "#cfdceb", formatter: p => sg(p.value, 1) + "%" + (T[p.dataIndex].meses < 3 ? "*" : T[p.dataIndex].estimados ? "e" : "") },
         markLine: { silent: true, symbol: "none", label: { show: false }, lineStyle: { color: "rgba(255,255,255,.3)" }, data: [{ yAxis: 0 }] } }],
-      graphic: [{ type: "text", right: 10, bottom: 0, style: { text: "e: incluye meses estimados · *: trimestre incompleto", fill: "#5e7388", font: "11px system-ui" } }],
+      graphic: [{ type: "text", right: 10, bottom: 0, style: { text: "e: incluye meses estimados · el trimestre en curso aparece cuando tiene sus tres meses", fill: "#5e7388", font: "11px system-ui" } }],
     });
     addEventListener("resize", () => g4.resize());
   }
