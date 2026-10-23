@@ -2,3 +2,4 @@
 # campania = año en que empieza la campaña (2026 = 2026/27); cultivo: soja, maiz, trigo o girasol.
 # Ejemplo:  2026,trigo,22000000,Bolsa de Cereales PAS 2026-10-22
 campania,cultivo,toneladas,fuente
+2026,trigo,23800000,Bolsa de Comercio de Rosario 2026-10-22 (23.8 Mt; 28.5 Mt la campaña anterior según BCR)
