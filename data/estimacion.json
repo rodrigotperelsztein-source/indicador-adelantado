@@ -1,18 +1,18 @@
 {
- "corrida": "2026-10-23T19:10:48+00:00",
- "corrida_local": "23/10/2026 16:10",
+ "corrida": "2026-10-23T20:27:18+00:00",
+ "corrida_local": "23/10/2026 17:27",
  "ultimo_emae": "2026-08",
  "meses": [
   {
    "mes": "2026-09",
-   "estimacion": -1.18,
-   "inferior": -4.09,
-   "superior": 1.81,
-   "inferior68": -2.96,
-   "superior68": 0.63,
+   "estimacion": -0.4,
+   "inferior": -3.14,
+   "superior": 2.42,
+   "inferior68": -2.07,
+   "superior68": 1.3,
    "dias_habiles_vs_anio_anterior": 0,
-   "error_tipico": 1.81,
-   "error_ingenuo": 2.98,
+   "error_tipico": 1.69,
+   "error_ingenuo": 1.9,
    "indicadores_disponibles": 17,
    "indicadores_totales": 25,
    "disponibles": [
@@ -36,166 +36,166 @@
    ],
    "modelos": [
     {
-     "id": "impo_capital",
-     "nombre": "Importaciones de bienes de capital",
-     "grupo": "Comercio exterior",
-     "pronostico": -1.45,
-     "peso": 0.1361,
-     "indicador": -10.39,
-     "error_tipico": 1.73
-    },
-    {
-     "id": "seguridad_social",
-     "nombre": "Recaudación de seguridad social real",
-     "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -1.08,
-     "peso": 0.1356,
-     "indicador": 1.53,
-     "error_tipico": 1.73
+     "id": "factor",
+     "nombre": "Factor común (promedio de todos los indicadores)",
+     "grupo": "Todos",
+     "pronostico": 0.25,
+     "peso": 0.1706,
+     "indicador": null,
+     "error_tipico": 1.46
     },
     {
      "id": "importaciones",
      "nombre": "Importaciones (INDEC)",
      "grupo": "Comercio exterior",
-     "pronostico": -1.11,
-     "peso": 0.1326,
+     "pronostico": -0.37,
+     "peso": 0.1344,
      "indicador": -1.83,
-     "error_tipico": 1.75
-    },
-    {
-     "id": "factor",
-     "nombre": "Factor común (promedio de todos los indicadores)",
-     "grupo": "Todos",
-     "pronostico": -1.13,
-     "peso": 0.1276,
-     "indicador": null,
-     "error_tipico": 1.78
+     "error_tipico": 1.64
     },
     {
      "id": "cemento",
      "nombre": "Despacho de cemento (AFCP)",
      "grupo": "Construcción",
-     "pronostico": -1.01,
-     "peso": 0.1215,
+     "pronostico": -0.12,
+     "peso": 0.1248,
      "indicador": 4.62,
-     "error_tipico": 1.83
-    },
-    {
-     "id": "came",
-     "nombre": "Ventas minoristas pyme (CAME)",
-     "grupo": "Comercio y consumo",
-     "pronostico": -1.06,
-     "peso": 0.1207,
-     "indicador": 0.3,
-     "error_tipico": 1.83
+     "error_tipico": 1.7
     },
     {
      "id": "indice_lider",
      "nombre": "Índice Líder (UTDT)",
      "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -1.19,
-     "peso": 0.1152,
+     "pronostico": -0.08,
+     "peso": 0.1164,
      "indicador": 1.09,
-     "error_tipico": 1.88
+     "error_tipico": 1.76
     },
     {
-     "id": "leche",
-     "nombre": "Producción de leche",
-     "grupo": "Agro",
-     "pronostico": -1.45,
-     "peso": 0.1106,
-     "indicador": 1.5,
-     "error_tipico": 1.92
+     "id": "came",
+     "nombre": "Ventas minoristas pyme (CAME)",
+     "grupo": "Comercio y consumo",
+     "pronostico": -0.63,
+     "peso": 0.1161,
+     "indicador": 0.3,
+     "error_tipico": 1.77
     },
     {
-     "id": "metalurgia",
-     "nombre": "Producción metalúrgica (ADIMRA)",
-     "grupo": "Industria",
-     "pronostico": -1.39,
-     "peso": 0.0,
-     "indicador": -3.33,
-     "error_tipico": 1.95
-    },
-    {
-     "id": "autos",
-     "nombre": "Producción automotriz (ADEFA)",
-     "grupo": "Industria",
-     "pronostico": -1.59,
-     "peso": 0.0,
-     "indicador": -15.63,
-     "error_tipico": 1.93
-    },
-    {
-     "id": "acero",
-     "nombre": "Producción de acero crudo",
-     "grupo": "Industria",
-     "pronostico": -1.57,
-     "peso": 0.0,
-     "indicador": -2.02,
-     "error_tipico": 1.95
-    },
-    {
-     "id": "electricidad_industria",
-     "nombre": "Demanda eléctrica de grandes usuarios industriales (CAMMESA)",
-     "grupo": "Industria",
-     "pronostico": -1.69,
-     "peso": 0.0,
-     "indicador": 3.16,
-     "error_tipico": 2.35
-    },
-    {
-     "id": "construya",
-     "nombre": "Índice Construya",
-     "grupo": "Construcción",
-     "pronostico": -1.58,
-     "peso": 0.0,
-     "indicador": -2.93,
-     "error_tipico": 2.0
+     "id": "impo_capital",
+     "nombre": "Importaciones de bienes de capital",
+     "grupo": "Comercio exterior",
+     "pronostico": -1.04,
+     "peso": 0.1155,
+     "indicador": -10.39,
+     "error_tipico": 1.77
     },
     {
      "id": "patentamientos",
      "nombre": "Patentamientos de autos",
      "grupo": "Comercio y consumo",
-     "pronostico": -1.53,
-     "peso": 0.0,
+     "pronostico": -1.16,
+     "peso": 0.1111,
      "indicador": -10.53,
-     "error_tipico": 1.93
+     "error_tipico": 1.8
+    },
+    {
+     "id": "seguridad_social",
+     "nombre": "Recaudación de seguridad social real",
+     "grupo": "Empleo, crédito y expectativas",
+     "pronostico": -0.4,
+     "peso": 0.111,
+     "indicador": 1.53,
+     "error_tipico": 1.81
+    },
+    {
+     "id": "metalurgia",
+     "nombre": "Producción metalúrgica (ADIMRA)",
+     "grupo": "Industria",
+     "pronostico": -0.31,
+     "peso": 0.0,
+     "indicador": -3.33,
+     "error_tipico": 1.94
+    },
+    {
+     "id": "autos",
+     "nombre": "Producción automotriz (ADEFA)",
+     "grupo": "Industria",
+     "pronostico": -1.21,
+     "peso": 0.0,
+     "indicador": -15.63,
+     "error_tipico": 1.81
+    },
+    {
+     "id": "acero",
+     "nombre": "Producción de acero crudo",
+     "grupo": "Industria",
+     "pronostico": -1.18,
+     "peso": 0.0,
+     "indicador": -2.02,
+     "error_tipico": 2.0
+    },
+    {
+     "id": "electricidad_industria",
+     "nombre": "Demanda eléctrica de grandes usuarios industriales (CAMMESA)",
+     "grupo": "Industria",
+     "pronostico": -1.14,
+     "peso": 0.0,
+     "indicador": 3.16,
+     "error_tipico": 2.24
+    },
+    {
+     "id": "construya",
+     "nombre": "Índice Construya",
+     "grupo": "Construcción",
+     "pronostico": -0.95,
+     "peso": 0.0,
+     "indicador": -2.93,
+     "error_tipico": 1.94
     },
     {
      "id": "iva",
      "nombre": "Recaudación de IVA DGI real",
      "grupo": "Comercio y consumo",
-     "pronostico": -1.57,
+     "pronostico": -0.9,
      "peso": 0.0,
      "indicador": 1.62,
-     "error_tipico": 1.99
+     "error_tipico": 1.9
     },
     {
      "id": "impo_intermedios",
      "nombre": "Importaciones de bienes intermedios",
      "grupo": "Comercio exterior",
-     "pronostico": -1.3,
+     "pronostico": -0.68,
      "peso": 0.0,
      "indicador": 11.88,
-     "error_tipico": 1.96
+     "error_tipico": 1.94
     },
     {
      "id": "prestamos",
      "nombre": "Préstamos comerciales reales",
      "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -1.28,
+     "pronostico": -1.04,
      "peso": 0.0,
      "indicador": 3.84,
-     "error_tipico": 1.94
+     "error_tipico": 1.9
+    },
+    {
+     "id": "leche",
+     "nombre": "Producción de leche",
+     "grupo": "Agro",
+     "pronostico": -1.02,
+     "peso": 0.0,
+     "indicador": 1.5,
+     "error_tipico": 1.87
     },
     {
      "id": "faena",
      "nombre": "Faena vacuna",
      "grupo": "Agro",
-     "pronostico": -1.65,
+     "pronostico": -2.05,
      "peso": 0.0,
      "indicador": -11.0,
-     "error_tipico": 1.95
+     "error_tipico": 1.82
     }
    ],
    "preliminar": false
@@ -203,13 +203,13 @@
   {
    "mes": "2026-10",
    "preliminar": true,
-   "estimacion": -2.24,
-   "inferior": -6.39,
-   "superior": 2.1,
-   "inferior68": -4.78,
-   "superior68": 0.38,
+   "estimacion": -1.2,
+   "inferior": -5.26,
+   "superior": 3.04,
+   "inferior68": -3.69,
+   "superior68": 1.35,
    "dias_habiles_vs_anio_anterior": -1,
-   "error_tipico": 2.64,
+   "error_tipico": 2.55,
    "error_ingenuo": null,
    "indicadores_disponibles": 2,
    "indicadores_totales": 2,
@@ -220,36 +220,36 @@
    "modelos": [
     {
      "id": "ingenuo",
-     "nombre": "Variación del mes anterior, corregida por días hábiles",
+     "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
-     "pronostico": -2.14,
-     "peso": 0.373,
+     "pronostico": -1.05,
+     "peso": 0.3617,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
-     "error_tipico": 1.97
+     "error_tipico": 1.99
     },
     {
      "id": "prestamos_diario",
      "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": -2.11,
-     "peso": 0.3412,
+     "pronostico": -1.12,
+     "peso": 0.3462,
      "indicador": 1.68,
      "hasta_dia": 19,
      "ultimo_dato": "2026-10-19",
-     "error_tipico": 2.06
+     "error_tipico": 2.03
     },
     {
      "id": "electricidad_industria_diaria",
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": -2.51,
-     "peso": 0.2858,
+     "pronostico": -1.48,
+     "peso": 0.2921,
      "indicador": 0.26,
      "hasta_dia": 14,
      "ultimo_dato": "2026-10-14",
-     "error_tipico": 2.25
+     "error_tipico": 2.21
     }
    ]
   }
@@ -724,226 +724,256 @@
   {
    "mes": "2023-09",
    "real": -0.51,
-   "estimada": -0.98,
-   "ingenuo": 0.3
+   "estimada": -1.16,
+   "ingenuo": -1.11
   },
   {
    "mes": "2023-10",
    "real": 0.65,
-   "estimada": 1.12,
-   "ingenuo": -0.51
+   "estimada": 0.1,
+   "ingenuo": 0.78
   },
   {
    "mes": "2023-11",
    "real": -1.12,
-   "estimada": -0.18,
-   "ingenuo": 0.65
+   "estimada": 0.31,
+   "ingenuo": 0.28
   },
   {
    "mes": "2023-12",
    "real": -4.68,
-   "estimada": -1.66,
-   "ingenuo": -1.12
+   "estimada": -1.75,
+   "ingenuo": -0.36
   },
   {
    "mes": "2024-01",
    "real": -3.96,
-   "estimada": -4.66,
-   "ingenuo": -4.68
+   "estimada": -5.46,
+   "ingenuo": -3.97
   },
   {
    "mes": "2024-02",
    "real": -2.77,
-   "estimada": -2.99,
-   "ingenuo": -3.96
+   "estimada": -4.55,
+   "ingenuo": -3.13
   },
   {
    "mes": "2024-03",
    "real": -8.17,
-   "estimada": -6.84,
-   "ingenuo": -2.77
+   "estimada": -6.99,
+   "ingenuo": -5.28
   },
   {
    "mes": "2024-04",
    "real": -1.87,
-   "estimada": -4.37,
-   "ingenuo": -8.17
+   "estimada": -1.96,
+   "ingenuo": -0.89
   },
   {
    "mes": "2024-05",
    "real": 1.92,
-   "estimada": -1.75,
-   "ingenuo": -1.87
+   "estimada": 1.15,
+   "ingenuo": 1.33
   },
   {
    "mes": "2024-06",
    "real": -3.43,
-   "estimada": -3.85,
-   "ingenuo": 1.92
+   "estimada": -2.57,
+   "ingenuo": -1.29
   },
   {
    "mes": "2024-07",
    "real": -0.37,
-   "estimada": -0.26,
-   "ingenuo": -3.43
+   "estimada": 0.38,
+   "ingenuo": 1.16
   },
   {
    "mes": "2024-08",
    "real": -3.05,
-   "estimada": -1.48,
-   "ingenuo": -0.37
+   "estimada": -1.66,
+   "ingenuo": -0.84
   },
   {
    "mes": "2024-09",
    "real": -2.44,
-   "estimada": -2.96,
-   "ingenuo": -3.05
+   "estimada": -2.66,
+   "ingenuo": -2.52
   },
   {
    "mes": "2024-10",
    "real": 0.4,
-   "estimada": 0.1,
-   "ingenuo": -2.44
+   "estimada": 0.04,
+   "ingenuo": 0.1
   },
   {
    "mes": "2024-11",
    "real": 1.24,
-   "estimada": -2.27,
-   "ingenuo": 0.4
+   "estimada": -1.98,
+   "ingenuo": -2.26
   },
   {
    "mes": "2024-12",
    "real": 6.7,
-   "estimada": 4.45,
-   "ingenuo": 1.24
+   "estimada": 4.7,
+   "ingenuo": 4.22
   },
   {
    "mes": "2025-01",
    "real": 6.64,
-   "estimada": 5.12,
-   "ingenuo": 6.7
+   "estimada": 5.47,
+   "ingenuo": 4.55
   },
   {
    "mes": "2025-02",
    "real": 5.95,
-   "estimada": 7.82,
-   "ingenuo": 6.64
+   "estimada": 8.22,
+   "ingenuo": 7.63
   },
   {
    "mes": "2025-03",
    "real": 5.77,
-   "estimada": 3.91,
-   "ingenuo": 5.95
+   "estimada": 4.87,
+   "ingenuo": 3.59
   },
   {
    "mes": "2025-04",
    "real": 7.93,
-   "estimada": 4.92,
-   "ingenuo": 5.77
+   "estimada": 6.0,
+   "ingenuo": 4.99
   },
   {
    "mes": "2025-05",
    "real": 5.3,
-   "estimada": 5.7,
-   "ingenuo": 7.93
+   "estimada": 6.25,
+   "ingenuo": 6.05
   },
   {
    "mes": "2025-06",
    "real": 6.4,
-   "estimada": 8.98,
-   "ingenuo": 5.3
+   "estimada": 8.25,
+   "ingenuo": 8.55
   },
   {
    "mes": "2025-07",
    "real": 2.75,
-   "estimada": 4.55,
-   "ingenuo": 6.4
+   "estimada": 3.51,
+   "ingenuo": 3.96
   },
   {
    "mes": "2025-08",
    "real": 2.1,
-   "estimada": 0.66,
-   "ingenuo": 2.75
+   "estimada": 0.46,
+   "ingenuo": 0.26
   },
   {
    "mes": "2025-09",
    "real": 4.77,
-   "estimada": 4.39,
-   "ingenuo": 2.1
+   "estimada": 3.49,
+   "ingenuo": 4.35
   },
   {
    "mes": "2025-10",
    "real": 3.19,
-   "estimada": 3.64,
-   "ingenuo": 4.77
+   "estimada": 2.72,
+   "ingenuo": 3.3
   },
   {
    "mes": "2025-11",
    "real": -0.14,
-   "estimada": 0.65,
-   "ingenuo": 3.19
+   "estimada": 1.37,
+   "ingenuo": 1.54
   },
   {
    "mes": "2025-12",
    "real": 3.48,
-   "estimada": 1.26,
-   "ingenuo": -0.14
+   "estimada": 2.19,
+   "ingenuo": 2.16
   },
   {
    "mes": "2026-01",
    "real": 2.0,
-   "estimada": 1.75,
-   "ingenuo": 3.48
+   "estimada": 2.21,
+   "ingenuo": 2.66
   },
   {
    "mes": "2026-02",
    "real": -1.48,
-   "estimada": 0.07,
-   "ingenuo": 2.0
+   "estimada": 0.45,
+   "ingenuo": 0.99
   },
   {
    "mes": "2026-03",
    "real": 6.46,
-   "estimada": 2.38,
-   "ingenuo": -1.48
+   "estimada": 3.81,
+   "ingenuo": 2.82
   },
   {
    "mes": "2026-04",
    "real": 2.16,
-   "estimada": 5.12,
-   "ingenuo": 6.46
+   "estimada": 4.04,
+   "ingenuo": 5.41
   },
   {
    "mes": "2026-05",
    "real": 0.71,
-   "estimada": -0.02,
-   "ingenuo": 2.16
+   "estimada": 0.17,
+   "ingenuo": 0.14
   },
   {
    "mes": "2026-06",
    "real": 3.11,
-   "estimada": 3.58,
-   "ingenuo": 0.71
+   "estimada": 4.11,
+   "ingenuo": 4.19
   },
   {
    "mes": "2026-07",
    "real": -1.47,
-   "estimada": 0.03,
-   "ingenuo": 3.11
+   "estimada": 0.83,
+   "ingenuo": 0.54
   },
   {
    "mes": "2026-08",
    "real": -1.74,
-   "estimada": -0.31,
-   "ingenuo": -1.47
+   "estimada": 0.5,
+   "ingenuo": -0.08
   }
  ],
- "error_tipico_combinada_36m": 1.81,
- "error_tipico_ingenuo_36m": 3.21,
+ "error_tipico_combinada_36m": 1.54,
+ "error_tipico_ingenuo_36m": 1.92,
  "cobertura_bandas_36m": {
   "meses": 36,
-  "banda68": 72.2,
-  "banda90": 88.9
+  "banda68": 66.7,
+  "banda90": 91.7
+ },
+ "cosecha": {
+  "campanias": {
+   "2022": {
+    "soja": 25.05,
+    "maiz": 41.41,
+    "trigo": 12.56,
+    "girasol": 5.02
+   },
+   "2023": {
+    "soja": 48.21,
+    "maiz": 57.49,
+    "trigo": 15.85,
+    "girasol": 3.9
+   },
+   "2024": {
+    "soja": 51.11,
+    "maiz": 51.69,
+    "trigo": 18.51,
+    "girasol": 5.59
+   },
+   "2025": {
+    "soja": 49.3,
+    "maiz": 72.5,
+    "trigo": 27.9,
+    "girasol": 7.5
+   }
+  },
+  "unidad": "millones de toneladas",
+  "en_modelo": true
  },
  "indicadores": [
   {
@@ -956,7 +986,7 @@
    "variacion_ultimo": -3.24,
    "unidad_variacion": "%",
    "correlacion": 0.69,
-   "error_tipico": 1.71
+   "error_tipico": 1.38
   },
   {
    "id": "metalurgia",
@@ -968,7 +998,7 @@
    "variacion_ultimo": -3.33,
    "unidad_variacion": "%",
    "correlacion": 0.47,
-   "error_tipico": 1.95
+   "error_tipico": 1.94
   },
   {
    "id": "autos",
@@ -980,7 +1010,7 @@
    "variacion_ultimo": -15.63,
    "unidad_variacion": "%",
    "correlacion": 0.26,
-   "error_tipico": 1.93
+   "error_tipico": 1.81
   },
   {
    "id": "acero",
@@ -992,7 +1022,7 @@
    "variacion_ultimo": -2.02,
    "unidad_variacion": "%",
    "correlacion": 0.39,
-   "error_tipico": 1.95
+   "error_tipico": 2.0
   },
   {
    "id": "capacidad",
@@ -1004,7 +1034,7 @@
    "variacion_ultimo": -1.1,
    "unidad_variacion": "puntos",
    "correlacion": 0.6,
-   "error_tipico": 1.9
+   "error_tipico": 1.82
   },
   {
    "id": "ipip",
@@ -1028,7 +1058,7 @@
    "variacion_ultimo": 3.16,
    "unidad_variacion": "%",
    "correlacion": 0.47,
-   "error_tipico": 2.35
+   "error_tipico": 2.24
   },
   {
    "id": "isac",
@@ -1040,7 +1070,7 @@
    "variacion_ultimo": -4.36,
    "unidad_variacion": "%",
    "correlacion": 0.6,
-   "error_tipico": 1.94
+   "error_tipico": 1.93
   },
   {
    "id": "cemento",
@@ -1052,7 +1082,7 @@
    "variacion_ultimo": 4.62,
    "unidad_variacion": "%",
    "correlacion": 0.65,
-   "error_tipico": 1.83
+   "error_tipico": 1.7
   },
   {
    "id": "construya",
@@ -1064,7 +1094,7 @@
    "variacion_ultimo": -2.93,
    "unidad_variacion": "%",
    "correlacion": 0.56,
-   "error_tipico": 2.0
+   "error_tipico": 1.94
   },
   {
    "id": "came",
@@ -1076,7 +1106,7 @@
    "variacion_ultimo": 0.3,
    "unidad_variacion": "%",
    "correlacion": 0.61,
-   "error_tipico": 1.83
+   "error_tipico": 1.77
   },
   {
    "id": "patentamientos",
@@ -1088,7 +1118,7 @@
    "variacion_ultimo": -10.53,
    "unidad_variacion": "%",
    "correlacion": 0.64,
-   "error_tipico": 1.93
+   "error_tipico": 1.8
   },
   {
    "id": "iva",
@@ -1100,7 +1130,7 @@
    "variacion_ultimo": 1.62,
    "unidad_variacion": "%",
    "correlacion": 0.22,
-   "error_tipico": 1.99
+   "error_tipico": 1.9
   },
   {
    "id": "naftas",
@@ -1112,7 +1142,7 @@
    "variacion_ultimo": -3.36,
    "unidad_variacion": "%",
    "correlacion": 0.4,
-   "error_tipico": 2.02
+   "error_tipico": 2.0
   },
   {
    "id": "gasoil",
@@ -1124,7 +1154,7 @@
    "variacion_ultimo": -0.9,
    "unidad_variacion": "%",
    "correlacion": 0.69,
-   "error_tipico": 1.93
+   "error_tipico": 1.87
   },
   {
    "id": "gasoil_g3",
@@ -1136,7 +1166,7 @@
    "variacion_ultimo": -2.44,
    "unidad_variacion": "%",
    "correlacion": 0.83,
-   "error_tipico": 1.95
+   "error_tipico": 1.88
   },
   {
    "id": "gasoil_carga",
@@ -1148,7 +1178,7 @@
    "variacion_ultimo": -2.67,
    "unidad_variacion": "%",
    "correlacion": 0.69,
-   "error_tipico": 1.98
+   "error_tipico": 1.92
   },
   {
    "id": "importaciones",
@@ -1160,7 +1190,7 @@
    "variacion_ultimo": -1.83,
    "unidad_variacion": "%",
    "correlacion": 0.78,
-   "error_tipico": 1.75
+   "error_tipico": 1.64
   },
   {
    "id": "impo_capital",
@@ -1172,7 +1202,7 @@
    "variacion_ultimo": -10.39,
    "unidad_variacion": "%",
    "correlacion": 0.74,
-   "error_tipico": 1.73
+   "error_tipico": 1.77
   },
   {
    "id": "impo_intermedios",
@@ -1184,7 +1214,7 @@
    "variacion_ultimo": 11.88,
    "unidad_variacion": "%",
    "correlacion": 0.5,
-   "error_tipico": 1.96
+   "error_tipico": 1.94
   },
   {
    "id": "seguridad_social",
@@ -1196,7 +1226,7 @@
    "variacion_ultimo": 1.53,
    "unidad_variacion": "%",
    "correlacion": 0.7,
-   "error_tipico": 1.73
+   "error_tipico": 1.81
   },
   {
    "id": "prestamos",
@@ -1208,7 +1238,7 @@
    "variacion_ultimo": 3.84,
    "unidad_variacion": "%",
    "correlacion": 0.74,
-   "error_tipico": 1.94
+   "error_tipico": 1.9
   },
   {
    "id": "indice_lider",
@@ -1220,7 +1250,7 @@
    "variacion_ultimo": 1.09,
    "unidad_variacion": "%",
    "correlacion": 0.57,
-   "error_tipico": 1.88
+   "error_tipico": 1.76
   },
   {
    "id": "leche",
@@ -1232,7 +1262,7 @@
    "variacion_ultimo": 1.5,
    "unidad_variacion": "%",
    "correlacion": 0.7,
-   "error_tipico": 1.92
+   "error_tipico": 1.87
   },
   {
    "id": "faena",
@@ -1244,10 +1274,12 @@
    "variacion_ultimo": -11.0,
    "unidad_variacion": "%",
    "correlacion": 0.14,
-   "error_tipico": 1.95
+   "error_tipico": 1.82
   }
  ],
- "avisos": [],
+ "avisos": [
+  "cosecha: sin estimación de trigo 2026/27; se repite la campaña anterior"
+ ],
  "acumulado": {
   "anio": 2026,
   "real": {
@@ -1257,16 +1289,16 @@
   "estimados": [
    {
     "hasta": "2026-09",
-    "valor": 0.97,
-    "inferior": 0.65,
-    "superior": 1.3,
+    "valor": 1.06,
+    "inferior": 0.75,
+    "superior": 1.37,
     "preliminar": false
    },
    {
     "hasta": "2026-10",
-    "valor": 0.65,
-    "inferior": -0.05,
-    "superior": 1.38,
+    "valor": 0.83,
+    "inferior": 0.15,
+    "superior": 1.54,
     "preliminar": true
    }
   ]
@@ -1328,27 +1360,27 @@
   },
   {
    "trimestre": "2026-T3",
-   "nivel": 150.35,
+   "nivel": 150.75,
    "meses": 3,
    "oficiales": 2,
    "estimados": 1,
    "preliminares": 0,
-   "variacion": -2.46,
-   "error_tipico": 0.6,
-   "inferior": -3.45,
-   "superior": -1.47
+   "variacion": -2.2,
+   "error_tipico": 0.56,
+   "inferior": -3.13,
+   "superior": -1.27
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 149.81,
+   "nivel": 151.4,
    "meses": 1,
    "oficiales": 0,
    "estimados": 0,
    "preliminares": 1,
-   "variacion": -0.36,
-   "error_tipico": 0.88,
-   "inferior": -1.81,
-   "superior": 1.09
+   "variacion": 0.43,
+   "error_tipico": 0.85,
+   "inferior": -0.97,
+   "superior": 1.83
   }
  ],
  "recesion_tecnica": true,
