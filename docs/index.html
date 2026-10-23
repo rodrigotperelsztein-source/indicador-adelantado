@@ -126,8 +126,8 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
       <div class="kpis">
         <div class="kpi"><div class="v" id="k-err">—</div><div class="t">error típico de la estimación (últimos 36 meses, puntos)</div></div>
         <div class="kpi"><div class="v" id="k-ing">—</div><div class="t">error de repetir la variación del mes anterior</div></div>
-        <div class="kpi"><div class="v" id="k-cob68">—</div><div class="t">veces que el dato cayó en la banda probable (68%)</div></div>
-        <div class="kpi"><div class="v" id="k-cob90">—</div><div class="t">veces que cayó en la banda amplia (90%)</div></div>
+        <div class="kpi"><div class="v" id="k-cob68">—</div><div class="t">veces que el dato cayó en la banda de 68%</div></div>
+        <div class="kpi"><div class="v" id="k-cob90">—</div><div class="t">veces que cayó en la banda de 90%</div></div>
         <div class="kpi"><div class="v" id="k-ult">—</div><div class="t">último EMAE publicado</div></div>
         <div class="kpi"><div class="v" id="k-corr">—</div><div class="t">última actualización</div></div>
       </div>
@@ -202,7 +202,7 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
       <li>Un modelo más, el factor común: el promedio de todos los indicadores disponibles, estandarizados.</li>
       <li>Cada mes de los últimos años se estimó como si fuera en ese momento, solo con datos anteriores, y se midió el error de cada modelo.</li>
       <li>La estimación combina los ocho modelos con menor error de los últimos 24 meses entre los que ya tienen dato del mes, con pesos inversos a su error.</li>
-      <li>Dos bandas: ±1 error típico de esa misma combinación en los últimos 24 meses (la probable, 68%) y ±1,645 (90%). Se controla cuántas veces el
+      <li>Dos bandas: ±1 error típico de esa misma combinación en los últimos 24 meses (68% de confianza) y ±1,645 (90%). Se controla cuántas veces el
         dato cayó efectivamente adentro, calculando cada banda como se habría calculado en su momento.</li>
       <li>Trimestre y acumulado: cada mes estimado pesa un tercio del trimestre (o una fracción del año), por eso su banda es mucho más angosta.</li>
     </ol>
@@ -245,7 +245,7 @@ function parseCSV(t) {
   $("titulo").textContent = `La actividad de ${mes(M.mes)}, antes del dato oficial`;
   $("cifra").innerHTML = `${sg(M.estimacion)}<small>%</small>`;
   $("cifra").className = "cifra " + cls(M.estimacion);
-  $("banda").innerHTML = `<span class="b68">Lo más probable (2 de cada 3 veces): entre <b>${sg(M.inferior68)}%</b> y <b>${sg(M.superior68)}%</b>.</span>` +
+  $("banda").innerHTML = `<span class="b68">Con 68% de confianza: entre <b>${sg(M.inferior68)}%</b> y <b>${sg(M.superior68)}%</b>.</span>` +
     `<span class="b90">Con 90% de confianza: entre <b>${sg(M.inferior)}%</b> y <b>${sg(M.superior)}%</b>.</span>`;
   const lo = Math.min(-8, Math.floor(M.inferior) - 1), hi = Math.max(8, Math.ceil(M.superior) + 1), pos = v => ((v - lo) / (hi - lo) * 100) + "%";
   $("rango").style.left = pos(M.inferior); $("rango").style.width = `calc(${pos(M.superior)} - ${pos(M.inferior)})`;
@@ -408,7 +408,7 @@ function parseCSV(t) {
     $("sec-curso").hidden = false;
     $("curso-titulo").textContent = `${mes(C.mes)[0].toUpperCase() + mes(C.mes).slice(1)}, estimación preliminar`;
     $("curso-sub").textContent = `Mientras el mes transcurre solo hay datos diarios: se compara lo que va del mes con los mismos días del año anterior y se parte de la estimación del mes previo. La banda es ancha a propósito; se afina cuando salen los indicadores mensuales (primeros días del mes siguiente).`;
-    $("curso").innerHTML = `<div class="cabeza"><span class="big ${cls(C.estimacion)}">${sg(C.estimacion)}%</span><span class="banda">probable entre <b>${sg(C.inferior68)}%</b> y <b>${sg(C.superior68)}%</b>; con 90%, entre ${sg(C.inferior)}% y ${sg(C.superior)}%</span></div>` +
+    $("curso").innerHTML = `<div class="cabeza"><span class="big ${cls(C.estimacion)}">${sg(C.estimacion)}%</span><span class="banda">con 68% de confianza, entre <b>${sg(C.inferior68)}%</b> y <b>${sg(C.superior68)}%</b>; con 90%, entre ${sg(C.inferior)}% y ${sg(C.superior)}%</span></div>` +
       C.modelos.map(m => `<div class="fila"><span>${esc(m.nombre)}<small>${m.hasta_dia ? `días 1 a ${m.hasta_dia} · variación del indicador ${sg(m.indicador)}%` : "parte de la estimación del mes anterior"}</small></span>
         <span class="n">${sg(m.pronostico)}%</span><span class="n" style="color:var(--muted)">peso ${nf(m.peso * 100, 0)}%</span></div>`).join("");
   }
