@@ -2,7 +2,7 @@
 #   uv pip compile requirements.in --generate-hashes --python-version 3.12 \
 #     --python-platform x86_64-manylinux_2_28 --exclude-newer <fecha> -o requirements.txt
 # y el workflow instala con --require-hashes (cada paquete se verifica contra su huella).
-pandas==2.2.3
+pandas==2.3.3
 numpy>=2.0,<2.3
 requests>=2.33.0
 certifi>=2026.10.19
