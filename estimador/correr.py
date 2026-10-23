@@ -180,7 +180,7 @@ def main() -> int:
                            "indicadores_disponibles": mm["indicadores_disponibles"], "ultimo_emae": salida["ultimo_emae"],
                            "indicadores": "|".join(mm["disponibles"]), "nuevos": "|".join(nuevos)})
     if nuevas:
-        hist = pd.concat([hist, pd.DataFrame(nuevas)], ignore_index=True)
+        hist = pd.DataFrame(nuevas, columns=hist.columns) if hist.empty else pd.concat([hist, pd.DataFrame(nuevas)], ignore_index=True)
         hist.to_csv(p_hist, index=False)
 
     # Variación trimestral desestacionalizada: oficial y con los meses estimados. La serie desestacionalizada
