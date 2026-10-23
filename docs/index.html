@@ -169,7 +169,8 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
     </section>
     <section class="card">
       <h2>Cómo fue cambiando la estimación</h2>
-      <p class="sub">Cada vez que entra un dato nuevo se vuelve a estimar. Se guarda cada versión para compararla con el EMAE cuando INDEC lo publique.</p>
+      <p class="sub">Cada vez que entra un dato nuevo se vuelve a estimar. Se guarda cada versión para compararla con el EMAE cuando INDEC lo publique.
+        Arranca el 23/10/2026, cuando se incorporaron los días hábiles y las dos bandas.</p>
       <div class="tabs" id="tabs-hist" role="group" aria-label="Mes"></div>
       <div id="g-hist" class="chart bajo" role="img" aria-label="Evolución de la estimación"></div>
     </section>
@@ -315,19 +316,40 @@ function parseCSV(t) {
   // Evolución de la estimación
   const nombreDe = Object.fromEntries([...E.indicadores.map(i => [i.id, i.nombre]), ...E.meses.flatMap(o => o.modelos.map(m => [m.id, m.nombre]))]);
   const g3 = echarts.init($("g-hist"));
+  const fc = c => { const d = new Date(c); return `${d.getDate()}/${d.getMonth() + 1} ${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`; };
+  const fh = c => new Date(c).toLocaleString("es-AR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
   function dibujarHist(mesSel) {
   const hm = H.filter(r => r.mes === mesSel);
   document.querySelectorAll("#tabs-hist button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === mesSel)));
+  const n = v => v === "" || v == null ? null : +v;
+  const tiene68 = hm.some(r => n(r.inferior68) != null);
+  // Banda como área apilada: base invisible en el extremo inferior y relleno hasta el superior.
+  const area = (lo, hi, op, nombre) => [
+    { name: nombre + "_base", type: "line", stack: nombre, stackStrategy: "all", data: hm.map(r => n(r[lo])), symbol: "none", lineStyle: { opacity: 0 }, silent: true },
+    { name: nombre, type: "line", stack: nombre, stackStrategy: "all", data: hm.map(r => n(r[hi]) == null || n(r[lo]) == null ? null : n(r[hi]) - n(r[lo])),
+      symbol: "none", lineStyle: { opacity: 0 }, areaStyle: { color: `rgba(124,242,195,${op})` }, silent: true }];
   g3.setOption({
-    grid: { left: 8, right: 16, top: 20, bottom: 30, containLabel: true }, tooltip: { trigger: "axis", ...TT,
-      formatter: ps => { const r = hm[ps[0].dataIndex]; return `<b>${new Date(r.corrida).toLocaleString("es-AR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</b><br>Estimación: <b>${sg(+r.estimacion)}%</b><br>Banda: ${sg(+r.inferior)}% a ${sg(+r.superior)}%<br>Indicadores: ${r.indicadores_disponibles}` + (r.nuevos ? `<br>Entró: ${r.nuevos.split("|").map(i => esc(nombreDe[i] || i)).join(", ")}` : ""); } },
-    xAxis: { type: "category", data: hm.map(r => new Date(r.corrida).toLocaleDateString("es-AR", { day: "numeric", month: "short" })), ...EJE, splitLine: { show: false } },
+    grid: { left: 8, right: 24, top: 20, bottom: 30, containLabel: true }, tooltip: { trigger: "axis", ...TT,
+      formatter: ps => { const r = hm[ps[0].dataIndex]; return `<b>${fh(r.corrida)}</b><br>Estimación: <b>${sg(+r.estimacion)}%</b>` +
+        (n(r.inferior68) != null ? `<br>Probable (68%): ${sg(+r.inferior68)}% a ${sg(+r.superior68)}%` : "") +
+        `<br>Banda de 90%: ${sg(+r.inferior)}% a ${sg(+r.superior)}%<br>Indicadores: ${r.indicadores_disponibles}` +
+        (r.nuevos ? `<br>Entró: ${r.nuevos.split("|").map(i => esc(nombreDe[i] || i)).join(", ")}` : ""); } },
+    xAxis: { type: "category", data: hm.map(r => fc(r.corrida)), ...EJE, splitLine: { show: false },
+      axisLabel: { color: "#93a8bd", hideOverlap: true } },
     yAxis: { type: "value", ...EJE, axisLabel: { color: "#93a8bd", formatter: v => v + "%" } },
-    graphic: hm.length < 2 ? [{ type: "text", left: "center", bottom: 40, style: { text: "Se completa a medida que entran datos nuevos", fill: "#93a8bd", font: "12px system-ui" } }] : [],
+    graphic: hm.length < 2 ? [{ type: "text", left: "center", top: 8, style: { text: "Primera estimación con el método actual: la línea se arma a medida que entran datos", fill: "#93a8bd", font: "12px system-ui" } }] : [],
     series: [
-      { type: "line", data: hm.map(r => +r.estimacion), symbolSize: 8, lineStyle: { width: 2.5, color: "#7cf2c3" }, itemStyle: { color: "#7cf2c3" } },
-      { type: "line", data: hm.map(r => +r.inferior), symbol: "none", lineStyle: { color: "rgba(124,242,195,.4)", type: "dashed" } },
-      { type: "line", data: hm.map(r => +r.superior), symbol: "none", lineStyle: { color: "rgba(124,242,195,.4)", type: "dashed" } },
+      // Con un solo punto no hay área que dibujar: la banda va como barra vertical.
+      ...(hm.length > 1 ? [...area("inferior", "superior", .1, "b90"), ...(tiene68 ? area("inferior68", "superior68", .22, "b68") : [])] :
+        [{ type: "custom", silent: true, data: hm.map((r, i) => [i, n(r.inferior), n(r.superior), n(r.inferior68) ?? +r.estimacion, n(r.superior68) ?? +r.estimacion]),
+           encode: { x: 0, y: [1, 2, 3, 4] }, renderItem: (p, api) => {
+             const c = k => api.coord([api.value(0), api.value(k)]);
+             return { type: "group", children: [
+               { type: "rect", shape: { x: c(1)[0] - 12, y: c(2)[1], width: 24, height: c(1)[1] - c(2)[1], r: 6 }, style: { fill: "rgba(124,242,195,.1)", stroke: "rgba(124,242,195,.45)" } },
+               { type: "rect", shape: { x: c(1)[0] - 12, y: c(4)[1], width: 24, height: c(3)[1] - c(4)[1], r: 6 }, style: { fill: "rgba(124,242,195,.25)", stroke: "rgba(124,242,195,.8)" } }] }; } }]),
+      { name: "Estimación", type: "line", data: hm.map(r => +r.estimacion), symbolSize: 8, lineStyle: { width: 2.5, color: "#7cf2c3" }, itemStyle: { color: "#7cf2c3" }, z: 5,
+        label: { show: hm.length < 4, position: hm.length > 1 ? "top" : "right", distance: hm.length > 1 ? 8 : 16, color: "#cfdceb", formatter: p => sg(p.value) + "%" },
+        markLine: { silent: true, symbol: "none", label: { show: false }, lineStyle: { color: "rgba(255,255,255,.25)", type: "dashed" }, data: [{ yAxis: 0 }] } },
     ],
   }, true);
   }
@@ -403,6 +425,12 @@ function parseCSV(t) {
       <td style="color:var(--muted);font-size:12px">${esc(i.fuente)}</td></tr>`;
   }).join("")).join("");
   addEventListener("resize", () => [g1, g2, g3].forEach(g => g.resize()));
+  // Los gráficos se dibujan antes de que aparezcan algunas secciones (por ejemplo, el mes en curso), que cambian
+  // el ancho de su columna: se reajustan cada vez que cambia el tamaño de su contenedor.
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(es => es.forEach(e => echarts.getInstanceByDom(e.target)?.resize()));
+    document.querySelectorAll(".chart").forEach(el => ro.observe(el));
+  }
 })().catch(e => { $("banda").textContent = "No pude leer la estimación (" + e.message + "). Probá recargar."; });
 </script>
 </body>

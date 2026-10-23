@@ -149,8 +149,8 @@ def main() -> int:
     # Historial: solo se agrega una fila si la estimación de ese mes cambió.
     p_hist = DATA / "historial.csv"
     hist = pd.read_csv(p_hist, dtype={"mes": str}) if p_hist.exists() else pd.DataFrame(
-        columns=["corrida", "mes", "estimacion", "inferior", "superior", "indicadores_disponibles", "ultimo_emae"])
-    for c in ("indicadores", "nuevos"):
+        columns=["corrida", "mes", "estimacion", "inferior", "superior", "inferior68", "superior68", "indicadores_disponibles", "ultimo_emae"])
+    for c in ("indicadores", "nuevos", "inferior68", "superior68"):
         if c not in hist:
             hist[c] = ""
     hist[["indicadores", "nuevos"]] = hist[["indicadores", "nuevos"]].fillna("")
@@ -163,6 +163,7 @@ def main() -> int:
                 or set(mm["disponibles"]) != antes:
             nuevas.append({"corrida": salida["corrida"], "mes": mm["mes"], "estimacion": mm["estimacion"],
                            "inferior": mm["inferior"], "superior": mm["superior"],
+                           "inferior68": mm["inferior68"], "superior68": mm["superior68"],
                            "indicadores_disponibles": mm["indicadores_disponibles"], "ultimo_emae": salida["ultimo_emae"],
                            "indicadores": "|".join(mm["disponibles"]), "nuevos": "|".join(nuevos)})
     if nuevas:
