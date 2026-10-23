@@ -5,10 +5,11 @@ variación interanual del mes hasta la fecha: el promedio de los días 1 a d del
 los mismos días un año antes (364 días, para comparar los mismos días de la semana). La
 regresión de cada indicador se estima con ese mismo corte d en los meses pasados:
 
-    y_t = a + b · x_t(hasta el día d) + c · y_(t-1)
+    y_t = a + b · x_t(hasta el día d) + c · y_(t-1) + d · h_t + e · h_(t-1)
 
-donde y_(t-1) es la estimación del mes anterior si el EMAE todavía no salió. Se combina, por la
-inversa del error, con el modelo "ingenuo" (repetir la variación del mes anterior).
+donde y_(t-1) es la estimación del mes anterior si el EMAE todavía no salió y h la diferencia de
+días hábiles contra el mismo mes del año anterior (ver calendario.py). Se combina, por la inversa
+del error, con el modelo "ingenuo" (la variación del mes anterior corregida por días hábiles).
 
 Indicadores diarios:
   - préstamos comerciales en pesos (BCRA, vía Monitor Argy), deflactados restando la variación
@@ -19,7 +20,7 @@ Indicadores diarios:
 import numpy as np
 import pandas as pd
 
-from estimador.modelo import COVID, DESDE, MIN_OBS
+from estimador.modelo import MIN_OBS, _ajustar as _ajustar_modelo, _predecir
 
 BASE_EVAL = pd.Period("2023-01", "M")
 
@@ -47,18 +48,24 @@ def _serie_mtd(diaria, dia, ipc_ia, hasta):
     return pd.Series({m: mtd(diaria, m, dia, ipc_ia) for m in meses}, dtype=float)
 
 
-def _ajustar(x, y, hasta):
-    d = pd.DataFrame({"y": y, "x": x, "lag": y.shift(1)})
-    m = (d.index >= DESDE) & (d.index < hasta) & ~((d.index >= COVID[0]) & (d.index <= COVID[1]))
-    d = d[m].dropna()
-    if len(d) < min(MIN_OBS, 18):
-        return None
-    A = np.c_[np.ones(len(d)), d["x"], d["lag"]]
-    return np.linalg.lstsq(A, d["y"].values, rcond=None)[0]
+def _ajustar(x, y, hasta, h):
+    return _ajustar_modelo(x, y, hasta, h, min_obs=min(MIN_OBS, 18))
+
+
+def _evaluar(x, y, h, ult):
+    """Errores en tiempo pseudo-real (cada mes estimado solo con los anteriores)."""
+    err = []
+    for t in pd.period_range(BASE_EVAL, ult, freq="M"):
+        bt = _ajustar(x, y, t, h)
+        if bt is None or (x is not None and pd.isna(x.get(t))) or pd.isna(y.get(t - 1)) or pd.isna(y.get(t)):
+            continue
+        err.append(_predecir(bt, None if x is None else x[t], y[t - 1], h, t) - y[t])
+    return err
 
 
 def estimar_mes(mes: pd.Period, y: pd.Series, lag: float, lag_error: float,
-                diarias: dict[str, tuple[pd.Series, pd.Series | None]], nombres: dict[str, str]) -> dict | None:
+                diarias: dict[str, tuple[pd.Series, pd.Series | None]], nombres: dict[str, str],
+                h: pd.Series | None = None) -> dict | None:
     """Estimación del mes `mes` con los indicadores diarios. y: EMAE i.a. publicado; lag: y del mes anterior
     (dato o estimación); lag_error: error típico de esa estimación (0 si es dato)."""
     ult = y.last_valid_index()
@@ -71,25 +78,24 @@ def estimar_mes(mes: pd.Period, y: pd.Series, lag: float, lag_error: float,
         x = _serie_mtd(diaria, dia, ipc_ia, mes)
         if pd.isna(x.get(mes)):
             continue
-        b = _ajustar(x, y, ult + 1)
+        b = _ajustar(x, y, ult + 1, h)
         if b is None:
             continue
-        # Evaluación en tiempo pseudo-real con el mismo corte de días.
-        err = []
-        for t in pd.period_range(BASE_EVAL, ult, freq="M"):
-            bt = _ajustar(x, y, t)
-            if bt is None or pd.isna(x.get(t)) or pd.isna(y.get(t - 1)) or pd.isna(y.get(t)):
-                continue
-            err.append(bt[0] + bt[1] * x[t] + bt[2] * y[t - 1] - y[t])
+        err = _evaluar(x, y, h, ult)  # con el mismo corte de días
         if len(err) < 12:
             continue
-        modelos[nombre] = {"pronostico": float(b[0] + b[1] * x[mes] + b[2] * lag), "c": float(b[2]),
+        modelos[nombre] = {"pronostico": _predecir(b, x[mes], lag, h, mes), "c": float(b[1]),
                            "indicador": float(x[mes]), "hasta_dia": dia, "ultimo_dato": str(diaria.index.max().date())}
         errores[nombre] = float(np.mean(np.square(err)))
-    # Modelo ingenuo: repetir la variación del mes anterior.
-    ing = [y[t - 1] - y[t] for t in pd.period_range(BASE_EVAL, ult, freq="M") if pd.notna(y.get(t)) and pd.notna(y.get(t - 1))]
-    modelos["ingenuo"] = {"pronostico": float(lag), "c": 1.0, "indicador": None, "hasta_dia": None, "ultimo_dato": None}
-    errores["ingenuo"] = float(np.mean(np.square(ing)))
+    # Modelo ingenuo: la variación del mes anterior, corregida por días hábiles si hay calendario.
+    if h is not None and (b := _ajustar(None, y, ult + 1, h)) is not None:
+        modelos["ingenuo"] = {"pronostico": _predecir(b, None, lag, h, mes), "c": float(b[1]),
+                              "indicador": None, "hasta_dia": None, "ultimo_dato": None}
+        errores["ingenuo"] = float(np.mean(np.square(_evaluar(None, y, h, ult))))
+    else:
+        ing = [y[t - 1] - y[t] for t in pd.period_range(BASE_EVAL, ult, freq="M") if pd.notna(y.get(t)) and pd.notna(y.get(t - 1))]
+        modelos["ingenuo"] = {"pronostico": float(lag), "c": 1.0, "indicador": None, "hasta_dia": None, "ultimo_dato": None}
+        errores["ingenuo"] = float(np.mean(np.square(ing)))
     if len(modelos) < 2:
         return None
     inv = {m: 1 / errores[m] for m in modelos}
@@ -103,6 +109,7 @@ def estimar_mes(mes: pd.Period, y: pd.Series, lag: float, lag_error: float,
     total = float(np.sqrt(rmse ** 2 + (c * lag_error) ** 2))
     return {
         "mes": str(mes), "estimacion": est, "error_tipico": total, "inferior": est - 1.645 * total, "superior": est + 1.645 * total,
+        "inferior68": est - total, "superior68": est + total,
         "modelos": [{"modelo": m, "nombre": nombres.get(m, m), "pronostico": v["pronostico"], "peso": pesos[m],
                      "indicador": v["indicador"], "hasta_dia": v["hasta_dia"], "ultimo_dato": v["ultimo_dato"],
                      "error_tipico": float(np.sqrt(errores[m]))} for m, v in sorted(modelos.items(), key=lambda kv: -pesos[kv[0]])],

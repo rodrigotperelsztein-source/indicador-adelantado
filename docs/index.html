@@ -44,12 +44,16 @@ h1 { margin: 6px 0 0; font-size: clamp(24px, 3.2vw, 34px); line-height: 1.15; le
 .chip b { color: var(--ink); }
 .medidor { margin-top: 18px; }
 .barra { position: relative; height: 10px; border-radius: 999px; background: linear-gradient(90deg, rgba(255,138,122,.35), rgba(255,255,255,.08) 50%, rgba(124,242,195,.35)); }
-.barra .rango { position: absolute; top: -3px; height: 16px; border-radius: 999px; background: rgba(95,208,255,.25); border: 1px solid rgba(95,208,255,.6); }
+.barra .rango { position: absolute; top: -3px; height: 16px; border-radius: 999px; background: rgba(95,208,255,.14); border: 1px solid rgba(95,208,255,.4); }
+.barra .rango68 { position: absolute; top: -3px; height: 16px; border-radius: 999px; background: rgba(95,208,255,.4); border: 1px solid rgba(95,208,255,.8); }
+.banda .b68 { color: var(--ink); font-size: 16px; }
+.banda .b90 { display: block; font-size: 13.5px; margin-top: 2px; }
 .barra .punto { position: absolute; top: -5px; width: 4px; height: 20px; border-radius: 2px; background: #fff; box-shadow: 0 0 12px var(--acc); transform: translateX(-2px); }
 .barra .cero { position: absolute; top: -6px; width: 1px; height: 22px; background: rgba(255,255,255,.4); }
 .escala { display: flex; justify-content: space-between; font: 11px var(--f-mono); color: var(--dim); margin-top: 8px; }
 .lead { color: var(--muted); margin: 10px 0 0; }
 .kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.nota { color: var(--muted); font-size: 12.5px; margin: 10px 0 0; }
 .kpi { background: rgba(0,0,0,.2); border: 1px solid var(--card-b); border-radius: 12px; padding: 12px 14px; }
 .kpi .v { font: 700 22px var(--f-mono); }
 .kpi .t { font-size: 12px; color: var(--muted); }
@@ -65,6 +69,7 @@ tr.grupo td { color: var(--acc); font-size: 11px; text-transform: uppercase; let
 .up { color: var(--acc2); } .down { color: var(--bad); } .pend { color: var(--warn); }
 .peso { height: 6px; border-radius: 999px; background: linear-gradient(90deg, var(--acc), var(--acc2)); min-width: 2px; }
 .tablewrap { overflow-x: auto; }
+.grid2 > section[hidden] + section { grid-column: 1 / -1; }
 .grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
 @media (max-width: 900px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
 .metodo p, .metodo li { color: #cfdceb; }
@@ -107,7 +112,7 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
       <div class="cifra" id="cifra">…</div>
       <div class="banda" id="banda">Cargando…</div>
       <div class="medidor" aria-hidden="true">
-        <div class="barra" id="barra"><span class="cero" id="cero"></span><span class="rango" id="rango"></span><span class="punto" id="punto"></span></div>
+        <div class="barra" id="barra"><span class="cero" id="cero"></span><span class="rango" id="rango"></span><span class="rango68" id="rango68"></span><span class="punto" id="punto"></span></div>
         <div class="escala" id="escala"></div>
       </div>
       <div class="chips" id="chips"></div>
@@ -121,9 +126,12 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
       <div class="kpis">
         <div class="kpi"><div class="v" id="k-err">—</div><div class="t">error típico de la estimación (últimos 36 meses, puntos)</div></div>
         <div class="kpi"><div class="v" id="k-ing">—</div><div class="t">error de repetir la variación del mes anterior</div></div>
+        <div class="kpi"><div class="v" id="k-cob68">—</div><div class="t">veces que el dato cayó en la banda probable (68%)</div></div>
+        <div class="kpi"><div class="v" id="k-cob90">—</div><div class="t">veces que cayó en la banda amplia (90%)</div></div>
         <div class="kpi"><div class="v" id="k-ult">—</div><div class="t">último EMAE publicado</div></div>
         <div class="kpi"><div class="v" id="k-corr">—</div><div class="t">última actualización</div></div>
       </div>
+      <p class="nota">El dato de un mes suelto es ruidoso (INDEC además lo revisa). El trimestre y el acumulado del año, que promedian varios meses, se estiman con mucha más precisión.</p>
     </div>
   </section>
 
@@ -131,25 +139,20 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
 
   <div class="grid2">
     <section class="card">
+      <h2>Variación trimestral desestacionalizada</h2>
+      <p class="sub">Promedio de cada trimestre del EMAE desestacionalizado contra el trimestre anterior. Dos trimestres seguidos en baja es lo que suele
+        llamarse "recesión técnica" (la definición estricta usa el PIB trimestral, que INDEC publica después). Los meses estimados se pasan a
+        desestacionalizado con el factor estacional del mismo mes del año anterior.</p>
+      <div id="recesion"></div>
+      <div id="g-trim" class="chart bajo" role="img" aria-label="Variación trimestral desestacionalizada"></div>
+    </section>
+
+    <section class="card">
       <h2>Acumulado del año</h2>
       <p class="sub">Variación del EMAE de enero hasta cada mes contra el mismo período del año anterior: con el dato oficial y sumando los meses estimados.</p>
       <div class="acum" id="acum"></div>
     </section>
-    <section class="card" id="sec-curso" hidden>
-      <h2 id="curso-titulo">Mes en curso</h2>
-      <p class="sub" id="curso-sub"></p>
-      <div class="curso" id="curso"></div>
-    </section>
   </div>
-
-  <section class="card">
-    <h2>Variación trimestral desestacionalizada</h2>
-    <p class="sub">Promedio de cada trimestre del EMAE desestacionalizado contra el trimestre anterior. Dos trimestres seguidos en baja es lo que suele
-      llamarse "recesión técnica" (la definición estricta usa el PIB trimestral, que INDEC publica después). Los meses estimados se pasan a
-      desestacionalizado con el factor estacional del mismo mes del año anterior.</p>
-    <div id="recesion"></div>
-    <div id="g-trim" class="chart bajo" role="img" aria-label="Variación trimestral desestacionalizada"></div>
-  </section>
 
   <section class="card">
     <h2>EMAE: dato oficial y estimación</h2>
@@ -159,10 +162,10 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
   </section>
 
   <div class="grid2">
-    <section class="card">
-      <h2>Qué dice cada indicador</h2>
-      <p class="sub">Pronóstico de cada modelo para el mes estimado y su peso en la combinación (más peso = acertó más en los últimos 24 meses).</p>
-      <div id="g-aporte" class="chart" role="img" aria-label="Pronóstico de cada indicador"></div>
+    <section class="card" id="sec-curso" hidden>
+      <h2 id="curso-titulo">Mes en curso</h2>
+      <p class="sub" id="curso-sub"></p>
+      <div class="curso" id="curso"></div>
     </section>
     <section class="card">
       <h2>Cómo fue cambiando la estimación</h2>
@@ -171,6 +174,12 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
       <div id="g-hist" class="chart bajo" role="img" aria-label="Evolución de la estimación"></div>
     </section>
   </div>
+
+  <section class="card">
+    <h2>Qué dice cada indicador</h2>
+    <p class="sub">Pronóstico de cada modelo para el mes estimado y su peso en la combinación (más peso = acertó más en los últimos 24 meses).</p>
+    <div id="g-aporte" class="chart" role="img" aria-label="Pronóstico de cada indicador"></div>
+  </section>
 
   <section class="card">
     <h2>Indicadores</h2>
@@ -186,12 +195,15 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
     <h2>Método</h2>
     <ol>
       <li>Todo se trabaja en variación interanual, que no necesita desestacionalizar y es la cifra que más se mira del EMAE.</li>
-      <li>Para cada indicador, una regresión: la variación del EMAE del mes contra la del indicador en el mismo mes y la del EMAE del mes anterior.
-        Se estima con datos desde 2017, sin marzo de 2020 a junio de 2021.</li>
+      <li>Para cada indicador, una regresión: la variación del EMAE del mes contra la del indicador en el mismo mes, la del EMAE del mes anterior y
+        la diferencia de días hábiles contra el mismo mes del año anterior (un día hábil más suma alrededor de un punto). Se estima con datos desde 2017,
+        sin marzo de 2020 a junio de 2021.</li>
       <li>Un modelo más, el factor común: el promedio de todos los indicadores disponibles, estandarizados.</li>
       <li>Cada mes de los últimos años se estimó como si fuera en ese momento, solo con datos anteriores, y se midió el error de cada modelo.</li>
       <li>La estimación combina los ocho modelos con menor error de los últimos 24 meses entre los que ya tienen dato del mes, con pesos inversos a su error.</li>
-      <li>La banda abarca ±1,645 errores típicos de esa misma combinación (90% si los errores fueran normales).</li>
+      <li>Dos bandas: ±1 error típico de esa misma combinación en los últimos 24 meses (la probable, 68%) y ±1,645 (90%). Se controla cuántas veces el
+        dato cayó efectivamente adentro, calculando cada banda como se habría calculado en su momento.</li>
+      <li>Trimestre y acumulado: cada mes estimado pesa un tercio del trimestre (o una fracción del año), por eso su banda es mucho más angosta.</li>
     </ol>
     <p>Limitaciones: la evaluación usa los datos actuales, no los que había en cada momento (INDEC revisa el EMAE), y supone que todos los indicadores
       estaban disponibles; el error real puede ser algo mayor. Los indicadores salen de <a href="https://github.com/rodrigotperelsztein-source/monitor-series">monitor-series</a>
@@ -232,20 +244,25 @@ function parseCSV(t) {
   $("titulo").textContent = `La actividad de ${mes(M.mes)}, antes del dato oficial`;
   $("cifra").innerHTML = `${sg(M.estimacion)}<small>%</small>`;
   $("cifra").className = "cifra " + cls(M.estimacion);
-  $("banda").innerHTML = `Con 90% de confianza, entre <b>${sg(M.inferior)}%</b> y <b>${sg(M.superior)}%</b>.`;
+  $("banda").innerHTML = `<span class="b68">Lo más probable (2 de cada 3 veces): entre <b>${sg(M.inferior68)}%</b> y <b>${sg(M.superior68)}%</b>.</span>` +
+    `<span class="b90">Con 90% de confianza: entre <b>${sg(M.inferior)}%</b> y <b>${sg(M.superior)}%</b>.</span>`;
   const lo = Math.min(-8, Math.floor(M.inferior) - 1), hi = Math.max(8, Math.ceil(M.superior) + 1), pos = v => ((v - lo) / (hi - lo) * 100) + "%";
   $("rango").style.left = pos(M.inferior); $("rango").style.width = `calc(${pos(M.superior)} - ${pos(M.inferior)})`;
+  $("rango68").style.left = pos(M.inferior68); $("rango68").style.width = `calc(${pos(M.superior68)} - ${pos(M.inferior68)})`;
   $("punto").style.left = pos(M.estimacion); $("cero").style.left = pos(0);
   $("escala").innerHTML = `<span>${lo}%</span><span>0</span><span>+${hi}%</span>`;
   const ultimoEmae = E.emae[E.emae.length - 1];
   $("chips").innerHTML = [
     `<span class="chip">Indicadores con dato: <b>${M.indicadores_disponibles} de ${M.indicadores_totales}</b></span>`,
     `<span class="chip">EMAE de ${mes(ultimoEmae.mes)}: <b>${sg(ultimoEmae.variacion)}%</b></span>`,
+    M.dias_habiles_vs_anio_anterior != null ? `<span class="chip">Días hábiles vs. ${mes(M.mes).split(" ")[0]} ${+M.mes.slice(0, 4) - 1}: <b>${M.dias_habiles_vs_anio_anterior > 0 ? "+" : ""}${M.dias_habiles_vs_anio_anterior}</b></span>` : "",
     prox ? `<span class="chip">INDEC publica el siguiente: <b>${prox[1].split("-").reverse().join("/")}</b></span>` : "",
     ...E.meses.slice(1).map(o => `<span class="chip">${mes(o.mes)}: <b>${sg(o.estimacion)}%</b> (preliminar)</span>`),
   ].join("");
   $("k-err").textContent = nf(E.error_tipico_combinada_36m, 2);
   $("k-ing").textContent = nf(E.error_tipico_ingenuo_36m, 2);
+  const cob = E.cobertura_bandas_36m;
+  if (cob) { $("k-cob68").textContent = nf(cob.banda68, 0) + "%"; $("k-cob90").textContent = nf(cob.banda90, 0) + "%"; }
   $("k-ult").textContent = mes(E.ultimo_emae, true);
   $("k-corr").textContent = E.corrida_local;
   if (E.avisos && E.avisos.length) { $("avisos").hidden = false; $("avisos").innerHTML = "Avisos de la última corrida: " + E.avisos.map(esc).join(" · "); }
@@ -255,7 +272,7 @@ function parseCSV(t) {
   const emae = E.emae.slice(desde).map(p => [p.mes, p.variacion]);
   const ev = E.evaluacion.map(p => [p.mes, p.estimada]);
   const g1 = echarts.init($("g-emae"));
-  const ests = E.meses.map(o => [o.mes, o.estimacion, o.inferior, o.superior]);
+  const ests = E.meses.map(o => [o.mes, o.estimacion, o.inferior, o.superior, o.inferior68 ?? o.estimacion, o.superior68 ?? o.estimacion]);
   g1.setOption({
     grid: { left: 8, right: 16, top: 40, bottom: 30, containLabel: true }, tooltip: { trigger: "axis", ...TT,
       formatter: ps => `<b>${mes(ps[0].axisValue)}</b><br>` + ps.filter(p => p.value[1] != null).map(p => `${p.marker}${p.seriesName}: <b>${sg(p.value[1])}%</b>`).join("<br>") },
@@ -270,10 +287,12 @@ function parseCSV(t) {
       { name: "Estimación en su momento", type: "scatter", data: ev, symbolSize: 7, itemStyle: { color: "#b18cff", opacity: .85 } },
       { name: "Estimación actual", type: "custom", data: ests, renderItem: (p, api) => {
           const x = api.coord([api.value(0), api.value(1)]), a = api.coord([api.value(0), api.value(2)]), b = api.coord([api.value(0), api.value(3)]);
+          const a6 = api.coord([api.value(0), api.value(4)]), b6 = api.coord([api.value(0), api.value(5)]);
           return { type: "group", children: [
-            { type: "rect", shape: { x: x[0] - 9, y: b[1], width: 18, height: a[1] - b[1], r: 6 }, style: { fill: "rgba(124,242,195,.18)", stroke: "rgba(124,242,195,.6)" } },
+            { type: "rect", shape: { x: x[0] - 9, y: b[1], width: 18, height: a[1] - b[1], r: 6 }, style: { fill: "rgba(124,242,195,.1)", stroke: "rgba(124,242,195,.45)" } },
+            { type: "rect", shape: { x: x[0] - 9, y: b6[1], width: 18, height: a6[1] - b6[1], r: 6 }, style: { fill: "rgba(124,242,195,.3)", stroke: "rgba(124,242,195,.8)" } },
             { type: "circle", shape: { cx: x[0], cy: x[1], r: 7 }, style: { fill: "#7cf2c3", shadowBlur: 14, shadowColor: "#7cf2c3" } }] };
-        }, encode: { x: 0, y: [1, 2, 3] }, itemStyle: { color: "#7cf2c3" }, z: 10 },
+        }, encode: { x: 0, y: [1, 2, 3, 4, 5] }, itemStyle: { color: "#7cf2c3" }, z: 10 },
     ],
   });
 
@@ -323,13 +342,17 @@ function parseCSV(t) {
     const etiqueta = t => t.meses < 3 ? `${t.meses} de 3 meses, preliminar` : t.estimados || t.preliminares ? `${t.oficiales} oficiales + ${t.estimados + t.preliminares} estimado` : "oficial";
     const comp = T.filter(t => t.meses === 3);
     const ult2 = comp.slice(-2);
+    const conBanda = ult2.filter(t => t.superior != null);
     $("recesion").innerHTML = E.recesion_tecnica
-      ? `<span class="alerta mal">Recesión técnica: ${ult2.map(tn).join(" y ")} con caída trimestral (${ult2.map(t => sg(t.variacion) + "%").join(" y ")})</span>`
+      ? `<span class="alerta mal">Recesión técnica: ${ult2.map(tn).join(" y ")} con caída trimestral (${ult2.map(t => sg(t.variacion) + "%").join(" y ")})</span>` +
+        (conBanda.length ? `<p class="sub">${E.recesion_tecnica_robusta ? "Se sostiene aun en el extremo optimista de la banda de 90%" : "No es seguro: el extremo optimista de la banda de 90% da crecimiento"}: ` +
+          conBanda.map(t => `${tn(t)} entre ${sg(t.inferior)}% y ${sg(t.superior)}%`).join("; ") + `.</p>` : "")
       : `<span class="alerta bien">Sin dos trimestres seguidos en baja (último trimestre completo: ${sg(comp[comp.length - 1]?.variacion)}%)</span>`;
     const g4 = echarts.init($("g-trim"));
     g4.setOption({
       grid: { left: 8, right: 16, top: 24, bottom: 24, containLabel: true },
-      tooltip: { ...TT, formatter: p => { const t = T[p.dataIndex]; return `<b>${tn(t)}</b><br>Variación: <b>${sg(t.variacion, 2)}%</b><br>${etiqueta(t)}`; } },
+      tooltip: { ...TT, formatter: p => { const t = T[p.dataIndex]; return `<b>${tn(t)}</b><br>Variación: <b>${sg(t.variacion, 2)}%</b><br>${etiqueta(t)}` +
+        (t.superior != null ? `<br>Banda de 90%: ${sg(t.inferior)}% a ${sg(t.superior)}%` : ""); } },
       xAxis: { type: "category", data: T.map(tn), ...EJE, splitLine: { show: false } },
       yAxis: { type: "value", ...EJE, axisLabel: { color: "#93a8bd", formatter: v => v + "%" } },
       series: [{ type: "bar", barMaxWidth: 46, data: T.map(t => ({ value: t.variacion, itemStyle: {
@@ -337,8 +360,13 @@ function parseCSV(t) {
           borderColor: t.meses < 3 || t.estimados ? "#cfdceb" : "transparent", borderType: "dashed", borderWidth: t.meses < 3 || t.estimados ? 1 : 0,
           borderRadius: t.variacion < 0 ? [0, 0, 6, 6] : [6, 6, 0, 0] } })),
         label: { show: true, position: "top", color: "#cfdceb", formatter: p => sg(p.value, 1) + "%" + (T[p.dataIndex].meses < 3 ? "*" : T[p.dataIndex].estimados ? "e" : "") },
-        markLine: { silent: true, symbol: "none", label: { show: false }, lineStyle: { color: "rgba(255,255,255,.3)" }, data: [{ yAxis: 0 }] } }],
-      graphic: [{ type: "text", right: 10, bottom: 0, style: { text: "e: incluye meses estimados · el trimestre en curso aparece cuando tiene sus tres meses", fill: "#5e7388", font: "11px system-ui" } }],
+        markLine: { silent: true, symbol: "none", label: { show: false }, lineStyle: { color: "rgba(255,255,255,.3)" }, data: [{ yAxis: 0 }] } },
+        { type: "custom", silent: true, z: 5, data: T.map((t, i) => t.superior != null ? [i, t.inferior, t.superior] : null).filter(Boolean),
+          renderItem: (p, api) => { const a = api.coord([api.value(0), api.value(1)]), b = api.coord([api.value(0), api.value(2)]);
+            const st = { stroke: "#e8f1fa", lineWidth: 1.5 };
+            return { type: "group", children: [{ type: "line", shape: { x1: a[0], y1: a[1], x2: b[0], y2: b[1] }, style: st },
+              { type: "line", shape: { x1: a[0] - 6, y1: a[1], x2: a[0] + 6, y2: a[1] }, style: st }, { type: "line", shape: { x1: b[0] - 6, y1: b[1], x2: b[0] + 6, y2: b[1] }, style: st }] }; } }],
+      graphic: [{ type: "text", right: 10, bottom: 0, style: { text: "e: incluye meses estimados (con su banda de 90%) · el trimestre en curso aparece cuando tiene sus tres meses", fill: "#5e7388", font: "11px system-ui" } }],
     });
     addEventListener("resize", () => g4.resize());
   }
@@ -358,7 +386,7 @@ function parseCSV(t) {
     $("sec-curso").hidden = false;
     $("curso-titulo").textContent = `${mes(C.mes)[0].toUpperCase() + mes(C.mes).slice(1)}, estimación preliminar`;
     $("curso-sub").textContent = `Mientras el mes transcurre solo hay datos diarios: se compara lo que va del mes con los mismos días del año anterior y se parte de la estimación del mes previo. La banda es ancha a propósito; se afina cuando salen los indicadores mensuales (primeros días del mes siguiente).`;
-    $("curso").innerHTML = `<div class="cabeza"><span class="big ${cls(C.estimacion)}">${sg(C.estimacion)}%</span><span class="banda">entre <b>${sg(C.inferior)}%</b> y <b>${sg(C.superior)}%</b></span></div>` +
+    $("curso").innerHTML = `<div class="cabeza"><span class="big ${cls(C.estimacion)}">${sg(C.estimacion)}%</span><span class="banda">probable entre <b>${sg(C.inferior68)}%</b> y <b>${sg(C.superior68)}%</b>; con 90%, entre ${sg(C.inferior)}% y ${sg(C.superior)}%</span></div>` +
       C.modelos.map(m => `<div class="fila"><span>${esc(m.nombre)}<small>${m.hasta_dia ? `días 1 a ${m.hasta_dia} · variación del indicador ${sg(m.indicador)}%` : "parte de la estimación del mes anterior"}</small></span>
         <span class="n">${sg(m.pronostico)}%</span><span class="n" style="color:var(--muted)">peso ${nf(m.peso * 100, 0)}%</span></div>`).join("");
   }

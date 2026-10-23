@@ -12,10 +12,13 @@ patentamientos, crédito y otros.
 1. `estimador/datos.py` baja los indicadores de [monitor-series](https://github.com/rodrigotperelsztein-source/monitor-series)
    (`data/series/<id>.csv`) y de la API pública de [Monitor Argy](https://monitorargy.com), y guarda una copia en `data/insumos/`.
 2. `estimador/modelo.py` estima, para cada indicador, una regresión de la variación interanual del EMAE contra la del
-   indicador y la del EMAE del mes anterior (desde 2017, sin la pandemia), más un "factor común" con el promedio de todos.
+   indicador, la del EMAE del mes anterior y la diferencia de días hábiles contra el mismo mes del año anterior
+   (`estimador/calendario.py`, con los feriados de la librería `holidays` más los traslados que le faltan), desde 2017 y
+   sin la pandemia, más un "factor común" con el promedio de todos.
    Cada modelo se evalúa en tiempo pseudo-real (cada mes estimado solo con datos anteriores) y la estimación final
    combina los 8 mejores de los que ya tienen dato del mes, con pesos inversos a su error de los últimos 24 meses.
-   La banda es ±1,645 errores típicos de esa combinación (90%).
+   Hay dos bandas: ±1 error típico de esa combinación (68%) y ±1,645 (90%); `cobertura_bandas_36m` informa cuántas
+   veces el dato cayó efectivamente adentro.
 3. `estimador/correr.py` guarda los resultados:
 
 | Archivo | Contenido |

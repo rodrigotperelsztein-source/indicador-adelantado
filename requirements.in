@@ -7,3 +7,4 @@ numpy>=2.0,<2.3
 requests>=2.33.0
 certifi>=2026.10.19
 python-dateutil<3  # la versión probada con pandas 2.2
+holidays>=0.80,<1  # feriados nacionales, para contar días hábiles (estimador/calendario.py)

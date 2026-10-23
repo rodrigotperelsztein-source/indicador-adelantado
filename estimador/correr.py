@@ -19,7 +19,7 @@ from zoneinfo import ZoneInfo
 import numpy as np
 import pandas as pd
 
-from estimador import datos, en_curso, modelo
+from estimador import calendario, datos, en_curso, modelo
 from estimador.indicadores import INDICADORES, OBJETIVO
 
 DATA = datos.RAIZ / "data"
@@ -34,8 +34,9 @@ def main() -> int:
     fin = max(X.index.max(), y.index.max() + 1)
     idx = pd.period_range("2005-01", fin, freq="M")
     X, y = X.reindex(idx), y.reindex(idx)
+    h = calendario.diferencia_interanual(pd.period_range("2005-01", fin + 3, freq="M"))
 
-    r = modelo.estimar(X, y)
+    r = modelo.estimar(X, y, h)
     errores = r.pop("errores")
     nombres = {i.id: i.nombre for i in INDICADORES} | {"factor": "Factor común (promedio de todos los indicadores)"}
     grupos = {i.id: i.grupo for i in INDICADORES} | {"factor": "Todos"}
@@ -45,6 +46,7 @@ def main() -> int:
     rec = errores[errores.index > ult - 24]
     eval_modelos = {m: round(float(np.sqrt((rec[m] ** 2).mean())), 2) for m in rec.columns if rec[m].notna().sum() >= 12}
     bt = modelo.evaluar_combinacion(errores, X, y, None, meses=36)
+    cobertura = modelo.cobertura(errores, X, y)
 
     indicadores = []
     for i in INDICADORES:
@@ -68,6 +70,8 @@ def main() -> int:
         "ultimo_emae": r["ultimo_emae"],
         "meses": [{
             "mes": mm["mes"], "estimacion": pct(mm["estimacion"]), "inferior": pct(mm["inferior"]), "superior": pct(mm["superior"]),
+            "inferior68": pct(mm["inferior68"]), "superior68": pct(mm["superior68"]),
+            "dias_habiles_vs_anio_anterior": int(h[pd.Period(mm["mes"], "M")]),
             "error_tipico": round(mm["error_tipico"], 2), "error_ingenuo": round(mm["error_ingenuo"], 2),
             "indicadores_disponibles": len(mm["disponibles"]), "indicadores_totales": len(X.columns),
             "disponibles": mm["disponibles"],
@@ -81,6 +85,7 @@ def main() -> int:
                        for p, f in bt.iterrows()],
         "error_tipico_combinada_36m": round(float(np.sqrt(((bt["combinada"] - bt["real"]) ** 2).mean())), 2),
         "error_tipico_ingenuo_36m": round(float(np.sqrt(((bt["ingenuo"] - bt["real"]) ** 2).mean())), 2),
+        "cobertura_bandas_36m": cobertura,
         "indicadores": indicadores,
         "avisos": avisos,
     }
@@ -102,11 +107,14 @@ def main() -> int:
         nom_d = {"prestamos_diario": "Préstamos comerciales reales (mes hasta la fecha)",
                  "electricidad_industria_diaria": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
                  "ingenuo": "Repetir la variación del mes anterior"}
-        ec = en_curso.estimar_mes(mes_ec, y, lag, lag_err, insumos, nom_d)
+        nom_d["ingenuo"] = "Variación del mes anterior, corregida por días hábiles"
+        ec = en_curso.estimar_mes(mes_ec, y, lag, lag_err, insumos, nom_d, h)
         if ec:
             salida["meses"].append({
                 "mes": ec["mes"], "preliminar": True, "estimacion": pct(ec["estimacion"]), "inferior": pct(ec["inferior"]),
-                "superior": pct(ec["superior"]), "error_tipico": round(ec["error_tipico"], 2), "error_ingenuo": None,
+                "superior": pct(ec["superior"]), "inferior68": pct(ec["inferior68"]), "superior68": pct(ec["superior68"]),
+                "dias_habiles_vs_anio_anterior": int(h[mes_ec]),
+                "error_tipico": round(ec["error_tipico"], 2), "error_ingenuo": None,
                 "indicadores_disponibles": len(ec["modelos"]) - 1, "indicadores_totales": len(insumos),
                 "disponibles": [m["modelo"] for m in ec["modelos"] if m["modelo"] != "ingenuo"],
                 "modelos": [{"id": m["modelo"], "nombre": m["nombre"], "grupo": "Mes en curso", "pronostico": pct(m["pronostico"]),
@@ -170,7 +178,9 @@ def main() -> int:
         des = pd.read_csv(datos.io.BytesIO(contenido), parse_dates=["fecha"])
         des = pd.Series(des["valor"].values, index=des["fecha"].dt.to_period("M"))
         tipo = {m: "oficial" for m in des.index}
+        err_mes = {}
         for mm in salida["meses"]:
+            err_mes[pd.Period(mm["mes"], "M")] = mm["error_tipico"]
             m = pd.Period(mm["mes"], "M")
             factor = niv[m - 12] / des[m - 12]
             des[m] = niv[m - 12] * (1 + mm["estimacion"] / 100) / factor
@@ -185,12 +195,21 @@ def main() -> int:
                           "preliminares": int((g["t"] == "preliminar").sum())})
         for i in range(1, len(trims)):
             trims[i]["variacion"] = round((trims[i]["nivel"] / trims[i - 1]["nivel"] - 1) * 100, 2)
+            # Error de la variación trimestral: cada mes estimado pesa un tercio en el promedio del trimestre. Se suman
+            # los errores de los meses (como si estuvieran perfectamente correlacionados, que es lo más prudente).
+            y_, q_ = map(int, trims[i]["trimestre"].split("-T"))
+            e = sum(err_mes.get(pd.Period(f"{y_}-{3 * (q_ - 1) + k:02d}", "M"), 0.0) for k in (1, 2, 3)) / 3
+            if e > 0:
+                v = trims[i]["variacion"]
+                trims[i].update({"error_tipico": round(e, 2), "inferior": round(v - 1.645 * e, 2), "superior": round(v + 1.645 * e, 2)})
         trims = trims[-8:]
         for t in trims:
             t["nivel"] = round(t["nivel"], 2)
         completos = [t for t in trims if t["meses"] == 3 and "variacion" in t]
         salida["trimestres"] = trims
         salida["recesion_tecnica"] = len(completos) >= 2 and completos[-1]["variacion"] < 0 and completos[-2]["variacion"] < 0
+        # ¿Se sostiene aun en el extremo optimista de la banda de 90%?
+        salida["recesion_tecnica_robusta"] = salida["recesion_tecnica"] and all(t.get("superior", t["variacion"]) < 0 for t in completos[-2:])
         print("Trimestres (desest., var. %):", ", ".join(f"{t['trimestre']} {t.get('variacion', 0):+.2f}"
                                                       + ("" if t['meses'] == 3 else f" ({t['meses']} meses)") for t in trims[-4:]))
     except Exception as e:  # noqa: BLE001
@@ -208,7 +227,9 @@ def main() -> int:
     for mm in salida["meses"]:
         print(f"{mm['mes']}{' (preliminar)' if mm['preliminar'] else ''}: {mm['estimacion']:+.1f}% i.a. (entre {mm['inferior']:+.1f}% y {mm['superior']:+.1f}%), "
               f"{mm['indicadores_disponibles']}/{mm['indicadores_totales']} indicadores, error típico {mm['error_tipico']} pp")
-    print(f"Evaluación 36 meses: combinada {salida['error_tipico_combinada_36m']} pp, ingenuo {salida['error_tipico_ingenuo_36m']} pp")
+    print(f"Evaluación 36 meses: combinada {salida['error_tipico_combinada_36m']} pp, ingenuo {salida['error_tipico_ingenuo_36m']} pp; "
+          f"el dato cayó dentro de la banda de 68% el {cobertura['banda68']}% de las veces y de la de 90% el {cobertura['banda90']}% "
+          f"({cobertura['meses']} meses)")
     for a in avisos:
         print("AVISO:", a)
     return 0
