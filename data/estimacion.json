@@ -1,19 +1,19 @@
 {
- "corrida": "2026-10-23T20:33:58+00:00",
- "corrida_local": "23/10/2026 17:33",
+ "corrida": "2026-10-24T06:34:08+00:00",
+ "corrida_local": "24/10/2026 03:34",
  "ultimo_emae": "2026-08",
  "meses": [
   {
    "mes": "2026-09",
-   "estimacion": -0.4,
-   "inferior": -3.14,
-   "superior": 2.42,
-   "inferior68": -2.07,
-   "superior68": 1.3,
+   "estimacion": -0.43,
+   "inferior": -3.23,
+   "superior": 2.46,
+   "inferior68": -2.14,
+   "superior68": 1.32,
    "dias_habiles_vs_anio_anterior": 0,
-   "error_tipico": 1.69,
+   "error_tipico": 1.74,
    "error_ingenuo": 1.9,
-   "indicadores_disponibles": 17,
+   "indicadores_disponibles": 21,
    "indicadores_totales": 25,
    "disponibles": [
     "acero",
@@ -23,6 +23,9 @@
     "construya",
     "electricidad_industria",
     "faena",
+    "gasoil",
+    "gasoil_carga",
+    "gasoil_g3",
     "impo_capital",
     "impo_intermedios",
     "importaciones",
@@ -30,6 +33,7 @@
     "iva",
     "leche",
     "metalurgia",
+    "naftas",
     "patentamientos",
     "prestamos",
     "seguridad_social"
@@ -39,8 +43,8 @@
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": 0.25,
-     "peso": 0.1706,
+     "pronostico": 0.09,
+     "peso": 0.1705,
      "indicador": null,
      "error_tipico": 1.46
     },
@@ -67,7 +71,7 @@
      "nombre": "Índice Líder (UTDT)",
      "grupo": "Empleo, crédito y expectativas",
      "pronostico": -0.08,
-     "peso": 0.1164,
+     "peso": 0.1165,
      "indicador": 1.09,
      "error_tipico": 1.76
     },
@@ -162,6 +166,42 @@
      "error_tipico": 1.9
     },
     {
+     "id": "naftas",
+     "nombre": "Ventas de naftas (Secretaría de Energía)",
+     "grupo": "Comercio y consumo",
+     "pronostico": -1.18,
+     "peso": 0.0,
+     "indicador": -1.36,
+     "error_tipico": 2.0
+    },
+    {
+     "id": "gasoil",
+     "nombre": "Ventas de gasoil sin usinas ni bunker (Secretaría de Energía)",
+     "grupo": "Transporte y combustibles",
+     "pronostico": -0.39,
+     "peso": 0.0,
+     "indicador": 3.46,
+     "error_tipico": 1.87
+    },
+    {
+     "id": "gasoil_g3",
+     "nombre": "Ventas de gasoil grado 3",
+     "grupo": "Transporte y combustibles",
+     "pronostico": -1.26,
+     "peso": 0.0,
+     "indicador": 0.48,
+     "error_tipico": 1.88
+    },
+    {
+     "id": "gasoil_carga",
+     "nombre": "Gasoil para transporte de carga",
+     "grupo": "Transporte y combustibles",
+     "pronostico": -1.12,
+     "peso": 0.0,
+     "indicador": 6.2,
+     "error_tipico": 1.92
+    },
+    {
      "id": "impo_intermedios",
      "nombre": "Importaciones de bienes intermedios",
      "grupo": "Comercio exterior",
@@ -204,12 +244,12 @@
    "mes": "2026-10",
    "preliminar": true,
    "estimacion": -1.2,
-   "inferior": -5.26,
-   "superior": 3.04,
-   "inferior68": -3.69,
-   "superior68": 1.35,
+   "inferior": -5.31,
+   "superior": 3.09,
+   "inferior68": -3.72,
+   "superior68": 1.38,
    "dias_habiles_vs_anio_anterior": -1,
-   "error_tipico": 2.55,
+   "error_tipico": 2.58,
    "error_ingenuo": null,
    "indicadores_disponibles": 2,
    "indicadores_totales": 2,
@@ -222,8 +262,8 @@
      "id": "ingenuo",
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
-     "pronostico": -1.05,
-     "peso": 0.3617,
+     "pronostico": -1.07,
+     "peso": 0.3665,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
@@ -233,23 +273,23 @@
      "id": "prestamos_diario",
      "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": -1.12,
-     "peso": 0.3462,
-     "indicador": 1.68,
-     "hasta_dia": 19,
-     "ultimo_dato": "2026-10-19",
+     "pronostico": -1.14,
+     "peso": 0.351,
+     "indicador": 1.77,
+     "hasta_dia": 20,
+     "ultimo_dato": "2026-10-20",
      "error_tipico": 2.03
     },
     {
      "id": "electricidad_industria_diaria",
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": -1.48,
-     "peso": 0.2921,
-     "indicador": 0.26,
-     "hasta_dia": 14,
-     "ultimo_dato": "2026-10-14",
-     "error_tipico": 2.21
+     "pronostico": -1.46,
+     "peso": 0.2824,
+     "indicador": -1.55,
+     "hasta_dia": 21,
+     "ultimo_dato": "2026-10-21",
+     "error_tipico": 2.27
     }
    ]
   }
@@ -1138,8 +1178,8 @@
    "grupo": "Comercio y consumo",
    "fuente": "monitor-series",
    "serie": "ventas_combustibles.naftas_total",
-   "ultimo_mes": "2026-08",
-   "variacion_ultimo": -3.36,
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -1.36,
    "unidad_variacion": "%",
    "correlacion": 0.4,
    "error_tipico": 2.0
@@ -1150,8 +1190,8 @@
    "grupo": "Transporte y combustibles",
    "fuente": "monitor-series",
    "serie": "ventas_combustibles.gasoil_total_sin_usinas_bunker",
-   "ultimo_mes": "2026-08",
-   "variacion_ultimo": -0.9,
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 3.46,
    "unidad_variacion": "%",
    "correlacion": 0.69,
    "error_tipico": 1.87
@@ -1162,8 +1202,8 @@
    "grupo": "Transporte y combustibles",
    "fuente": "monitor-series",
    "serie": "ventas_combustibles.gasoil_g3_total",
-   "ultimo_mes": "2026-08",
-   "variacion_ultimo": -2.44,
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 0.48,
    "unidad_variacion": "%",
    "correlacion": 0.83,
    "error_tipico": 1.88
@@ -1174,8 +1214,8 @@
    "grupo": "Transporte y combustibles",
    "fuente": "monitor-series",
    "serie": "ventas_combustibles.gasoil_canal_carga",
-   "ultimo_mes": "2026-08",
-   "variacion_ultimo": -2.67,
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 6.2,
    "unidad_variacion": "%",
    "correlacion": 0.69,
    "error_tipico": 1.92
@@ -1287,7 +1327,7 @@
   "estimados": [
    {
     "hasta": "2026-09",
-    "valor": 1.06,
+    "valor": 1.05,
     "inferior": 0.75,
     "superior": 1.37,
     "preliminar": false
@@ -1295,7 +1335,7 @@
    {
     "hasta": "2026-10",
     "valor": 0.83,
-    "inferior": 0.15,
+    "inferior": 0.14,
     "superior": 1.54,
     "preliminar": true
    }
@@ -1358,15 +1398,15 @@
   },
   {
    "trimestre": "2026-T3",
-   "nivel": 150.75,
+   "nivel": 150.74,
    "meses": 3,
    "oficiales": 2,
    "estimados": 1,
    "preliminares": 0,
-   "variacion": -2.2,
-   "error_tipico": 0.56,
-   "inferior": -3.13,
-   "superior": -1.27
+   "variacion": -2.21,
+   "error_tipico": 0.58,
+   "inferior": -3.16,
+   "superior": -1.26
   },
   {
    "trimestre": "2026-T4",
@@ -1375,10 +1415,10 @@
    "oficiales": 0,
    "estimados": 0,
    "preliminares": 1,
-   "variacion": 0.43,
-   "error_tipico": 0.85,
+   "variacion": 0.44,
+   "error_tipico": 0.86,
    "inferior": -0.97,
-   "superior": 1.83
+   "superior": 1.85
   }
  ],
  "recesion_tecnica": true,
