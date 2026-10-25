@@ -2,4 +2,4 @@
 # Agricultura se usa la más reciente (por fecha).
 # campania = año en que empieza la campaña (2026 = 2026/27); cultivo: soja, maiz, trigo o girasol; fecha: AAAA-MM-DD.
 campania,cultivo,toneladas,fecha,fuente
-2026,trigo,23800000,2026-10-22,Bolsa de Comercio de Rosario (23.8 Mt; 28.5 Mt la campaña anterior según BCR)
+2026,trigo,23800000,2026-10-22,Bolsa de Comercio de Rosario

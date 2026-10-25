@@ -103,11 +103,11 @@ def bajar(local: str | None = None) -> tuple[pd.DataFrame, list[str]]:
                         (r["fecha"], float(r[f"{c}_produccion_t"]), f"Secretaría de Agricultura, informe mensual {mes}"))
                 if pd.notna(r.get(f"{c}_produccion_tendencial_t")):
                     tendencia[(c, k)] = (float(r[f"{c}_produccion_tendencial_t"]),
-                                         f"superficie implantada (Secretaría de Agricultura, {mes}) por rendimiento tendencial")
+                                         f"tendencia: superficie de la Secretaría de Agricultura ({mes}) por rendimiento medio")
     if MANUAL.exists():
         for r in pd.read_csv(MANUAL, comment="#", parse_dates=["fecha"]).to_dict("records"):
             candidatos.setdefault((str(r["cultivo"]), int(r["campania"])), []).append(
-                (r["fecha"], float(r["toneladas"]), f"{r['fuente']} (carga manual)"))
+                (r["fecha"], float(r["toneladas"]), f"{r['fuente']}, carga manual"))
 
     origen = {}
     for (c, k), lista in candidatos.items():
