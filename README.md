@@ -16,8 +16,11 @@ patentamientos, crédito y otros.
    (`estimador/calendario.py`, con los feriados de la librería `holidays` más los traslados que le faltan), desde 2017 y
    sin la pandemia, más un "factor común" con el promedio de todos. Todos los modelos incluyen además el aporte estimado
    de la cosecha (`estimador/cosecha.py`): la producción de soja, maíz, trigo y girasol por campaña (Secretaría de
-   Agricultura, vía la API de series de datos.gob.ar) repartida en los meses de cosecha. Una estimación más nueva de la
-   campaña en curso se puede cargar a mano en `data/cosecha_manual.csv`.
+   Agricultura, vía la API de series de datos.gob.ar) repartida en los meses de cosecha con un calendario típico. La
+   campaña en curso sale del informe mensual de la Secretaría (fuente `estimaciones_agricolas` de monitor-series) o de
+   una estimación cargada a mano en `data/cosecha_manual.csv`, la más reciente; mientras nadie la estimó, de la
+   superficie implantada por el rendimiento tendencial. Se probó repartir con el avance semanal real de la cosecha en
+   lugar del calendario típico y no mejoró la estimación (INDEC parece usar un calendario fijo).
    Cada modelo se evalúa en tiempo pseudo-real (cada mes estimado solo con datos anteriores) y la estimación final
    combina los 8 mejores de los que ya tienen dato del mes, con pesos inversos a su error de los últimos 24 meses.
    Hay dos bandas: ±1 error típico de esa combinación (68%) y ±1,645 (90%); `cobertura_bandas_36m` informa cuántas

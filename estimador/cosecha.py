@@ -11,10 +11,10 @@ indicadores no anticipan. Acá se reproduce esa lógica de forma simplificada:
   3. La variación interanual de ese valor cosechado en el mes se multiplica por el peso relativo del agro
      en el EMAE de ese mes (PESO_AGRO): es el regresor k_t que entra en todos los modelos.
 
-Si falta la producción de una campaña para un cultivo (p. ej. la que todavía no se estimó), se usa la de la
-campaña anterior: ese cultivo aporta cero variación y queda anotado como aviso. data/cosecha_manual.csv
-permite cargar a mano una estimación más nueva (de la Secretaría o de la Bolsa de Cereales), que tiene
-prioridad sobre la de la API.
+La campaña en curso sale del informe mensual de la Secretaría de Agricultura (fuente estimaciones_agricolas de
+monitor-series) o de una estimación cargada a mano en data/cosecha_manual.csv (p. ej. de la Bolsa de Cereales),
+la más reciente de las dos; mientras nadie la estimó, de la superficie implantada por el rendimiento tendencial
+(ver bajar). Si igual falta, se usa la campaña anterior: ese cultivo aporta cero variación y queda como aviso.
 """
 
 import io
@@ -44,8 +44,34 @@ PRECIO = {"soja": 350, "maiz": 180, "trigo": 220, "girasol": 380}  # US$/t de re
 PESO_AGRO = {1: .57, 2: .57, 3: .99, 4: 1.42, 5: 1.87, 6: 1.33, 7: .79, 8: .53, 9: .50, 10: .51, 11: .62, 12: .73}
 
 
+def _estimaciones_magyp(local: str | None, avisos: list[str]) -> pd.DataFrame | None:
+    """Informes mensuales de la Secretaría de Agricultura procesados por monitor-series (estimaciones_agricolas)."""
+    archivo = datos.INSUMOS / "estimaciones_agricolas.csv"
+    try:
+        contenido = (Path(local) / "estimaciones_agricolas.csv").read_bytes() if local else \
+            datos._get(datos.MONITOR_DATA.format("estimaciones_agricolas"))
+        d = pd.read_csv(io.BytesIO(contenido), parse_dates=["fecha"])
+        d.to_csv(archivo, index=False)
+        return d
+    except Exception as e:  # noqa: BLE001
+        if archivo.exists():
+            avisos.append(f"cosecha: estimaciones de la Secretaría, se usa la copia anterior ({e})")
+            return pd.read_csv(archivo, parse_dates=["fecha"])
+        avisos.append(f"cosecha: no se pudieron leer las estimaciones de la Secretaría ({e})")
+        return None
+
+
 def bajar(local: str | None = None) -> tuple[pd.DataFrame, list[str]]:
-    """Producción por campaña (índice: año de inicio de la campaña; 2025 = 2025/26) y avisos."""
+    """Producción por campaña (índice: año de inicio de la campaña; 2025 = 2025/26) y avisos.
+
+    Para cada cultivo y campaña se usa, de mayor a menor prioridad:
+      1. la estimación más reciente entre la del informe mensual de la Secretaría de Agricultura (vía
+         monitor-series) y las cargadas a mano en data/cosecha_manual.csv (por fecha);
+      2. la de la API de datos.gob.ar (campañas cerradas y la última estimada);
+      3. para una campaña que todavía nadie estimó: superficie implantada por rendimiento tendencial
+         (estimaciones_agricolas de monitor-series).
+    prod.attrs["origen"] dice de dónde salió cada campaña que no viene de la API.
+    """
     archivo, avisos = datos.INSUMOS / "cosecha.csv", []
     try:
         contenido = (Path(local) / "cosecha_api.csv").read_bytes() if local else datos._get(API)
@@ -57,14 +83,44 @@ def bajar(local: str | None = None) -> tuple[pd.DataFrame, list[str]]:
         prod.to_csv(archivo)
     except Exception as e:  # noqa: BLE001
         if not archivo.exists():
-            return pd.DataFrame(columns=list(COLUMNAS.values()), dtype=float), [f"cosecha: no se pudo bajar ({e})"]
+            prod = pd.DataFrame(columns=list(COLUMNAS.values()), dtype=float)
+            prod.attrs["origen"] = {}
+            return prod, [f"cosecha: no se pudo bajar ({e})"]
         avisos.append(f"cosecha: se usa la copia anterior ({e})")
         prod = pd.read_csv(archivo, index_col="campania").astype(float)
+
+    candidatos: dict[tuple[str, int], list[tuple[pd.Timestamp, float, str]]] = {}
+    tendencia: dict[tuple[str, int], tuple[float, str]] = {}
+    est = _estimaciones_magyp(local, avisos)
+    if est is not None and len(est):
+        for r in est.sort_values("fecha").to_dict("records"):
+            for c in COLUMNAS.values():
+                if pd.isna(r.get(f"{c}_campania")):
+                    continue
+                k, mes = int(r[f"{c}_campania"]), f"{r['fecha']:%m/%Y}"
+                if pd.notna(r.get(f"{c}_produccion_t")):
+                    candidatos.setdefault((c, k), []).append(
+                        (r["fecha"], float(r[f"{c}_produccion_t"]), f"Secretaría de Agricultura, informe mensual {mes}"))
+                if pd.notna(r.get(f"{c}_produccion_tendencial_t")):
+                    tendencia[(c, k)] = (float(r[f"{c}_produccion_tendencial_t"]),
+                                         f"superficie implantada (Secretaría de Agricultura, {mes}) por rendimiento tendencial")
     if MANUAL.exists():
-        m = pd.read_csv(MANUAL, comment="#")
-        for r in m.itertuples():
-            prod.loc[int(r.campania), str(r.cultivo)] = float(r.toneladas)
-    return prod.sort_index(), avisos
+        for r in pd.read_csv(MANUAL, comment="#", parse_dates=["fecha"]).to_dict("records"):
+            candidatos.setdefault((str(r["cultivo"]), int(r["campania"])), []).append(
+                (r["fecha"], float(r["toneladas"]), f"{r['fuente']} (carga manual)"))
+
+    origen = {}
+    for (c, k), lista in candidatos.items():
+        f, v, fuente = max(lista, key=lambda x: x[0])
+        prod.loc[k, c] = v
+        origen[f"{c} {k}/{str(k + 1)[2:]}"] = {"toneladas": v, "fuente": fuente, "fecha": f"{f:%Y-%m-%d}"}
+    for (c, k), (v, fuente) in tendencia.items():
+        if pd.isna(prod[c].get(k, np.nan)):
+            prod.loc[k, c] = v
+            origen[f"{c} {k}/{str(k + 1)[2:]}"] = {"toneladas": v, "fuente": fuente, "fecha": None}
+    prod = prod.sort_index()
+    prod.attrs["origen"] = origen
+    return prod, avisos
 
 
 def _campania(cultivo: str, t: pd.Period) -> int:

@@ -98,7 +98,8 @@ def main() -> int:
         "cobertura_bandas_36m": cobertura,
         "cosecha": {"campanias": {str(c): {k_: (None if pd.isna(v) else round(float(v) / 1e6, 2)) for k_, v in fila.items()}
                                   for c, fila in prod.tail(4).iterrows()},
-                    "unidad": "millones de toneladas", "en_modelo": "cosecha" in comunes},
+                    "unidad": "millones de toneladas", "en_modelo": "cosecha" in comunes,
+                    "origen": prod.attrs.get("origen", {})},
         "indicadores": indicadores,
         "avisos": avisos,
     }

@@ -265,8 +265,13 @@ function parseCSV(t) {
     ...E.meses.slice(1).map(o => `<span class="chip">${mes(o.mes)}: <b>${sg(o.estimacion)}%</b> (preliminar)</span>`),
   ].join("");
   if (E.cosecha && E.cosecha.campanias) {
-    const cs = Object.entries(E.cosecha.campanias), [c, v] = cs[cs.length - 1];
-    $("cosecha-nota").textContent = `Última campaña usada, ${c}/${String(+c + 1).slice(2)} (millones de toneladas): soja ${nf(v.soja)}, maíz ${nf(v.maiz)}, trigo ${nf(v.trigo)}, girasol ${nf(v.girasol)}. Fuente: Secretaría de Agricultura vía datos.gob.ar.`;
+    const cs = Object.entries(E.cosecha.campanias), [c, v] = cs[cs.length - 1], og = E.cosecha.origen || {};
+    const NC = { soja: "soja", maiz: "maíz", trigo: "trigo", girasol: "girasol" }, camp = `${c}/${String(+c + 1).slice(2)}`;
+    const det = Object.keys(NC).map(k => { const o = og[`${k} ${camp}`];
+      return `${NC[k]} ${nf(v[k])}` + (o ? ` (${o.fuente}${o.fecha ? ", " + o.fecha.split("-").reverse().join("/") : ""})` : ""); });
+    $("cosecha-nota").textContent = `Campaña ${camp}, la más reciente que usa el modelo (millones de toneladas): ${det.join("; ")}. ` +
+      `Las campañas anteriores, de la Secretaría de Agricultura vía datos.gob.ar. Mientras no hay estimación de producción se usa la superficie ` +
+      `implantada por el rendimiento tendencial (mediana de las últimas cinco campañas), una referencia neutra: un año bueno o malo se aparta de ella.`;
   }
   $("k-err").textContent = nf(E.error_tipico_combinada_36m, 2);
   $("k-ing").textContent = nf(E.error_tipico_ingenuo_36m, 2);
