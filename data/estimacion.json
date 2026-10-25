@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-25T02:59:29+00:00",
- "corrida_local": "24/10/2026 23:59",
+ "corrida": "2026-10-25T03:00:44+00:00",
+ "corrida_local": "25/10/2026 00:00",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -1017,22 +1017,22 @@
   "origen": {
    "trigo 2026/27": {
     "toneladas": 23800000.0,
-    "fuente": "Bolsa de Comercio de Rosario (23.8 Mt; 28.5 Mt la campaña anterior según BCR) (carga manual)",
+    "fuente": "Bolsa de Comercio de Rosario, carga manual",
     "fecha": "2026-10-22"
    },
    "soja 2026/27": {
     "toneladas": 46138138.0,
-    "fuente": "superficie implantada (Secretaría de Agricultura, 10/2026) por rendimiento tendencial",
+    "fuente": "tendencia: superficie de la Secretaría de Agricultura (10/2026) por rendimiento medio",
     "fecha": null
    },
    "maiz 2026/27": {
     "toneladas": 63629381.0,
-    "fuente": "superficie implantada (Secretaría de Agricultura, 10/2026) por rendimiento tendencial",
+    "fuente": "tendencia: superficie de la Secretaría de Agricultura (10/2026) por rendimiento medio",
     "fecha": null
    },
    "girasol 2026/27": {
     "toneladas": 6582509.0,
-    "fuente": "superficie implantada (Secretaría de Agricultura, 10/2026) por rendimiento tendencial",
+    "fuente": "tendencia: superficie de la Secretaría de Agricultura (10/2026) por rendimiento medio",
     "fecha": null
    }
   }
