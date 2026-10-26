@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-26T14:12:00+00:00",
- "corrida_local": "26/10/2026 11:12",
+ "corrida": "2026-10-26T20:33:31+00:00",
+ "corrida_local": "26/10/2026 17:33",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -1048,7 +1048,11 @@
    "variacion_ultimo": -3.24,
    "unidad_variacion": "%",
    "correlacion": 0.69,
-   "error_tipico": 1.38
+   "error_tipico": 1.38,
+   "proxima_publicacion": {
+    "fecha": "2026-11-06",
+    "metodo": "oficial"
+   }
   },
   {
    "id": "metalurgia",
@@ -1096,7 +1100,11 @@
    "variacion_ultimo": -1.1,
    "unidad_variacion": "puntos",
    "correlacion": 0.6,
-   "error_tipico": 1.82
+   "error_tipico": 1.82,
+   "proxima_publicacion": {
+    "fecha": "2026-11-13",
+    "metodo": "oficial"
+   }
   },
   {
    "id": "ipip",
@@ -1108,7 +1116,11 @@
    "variacion_ultimo": -6.1,
    "unidad_variacion": "%",
    "correlacion": 0.68,
-   "error_tipico": null
+   "error_tipico": null,
+   "proxima_publicacion": {
+    "texto": "≈ primera quincena de octubre",
+    "metodo": "estimada"
+   }
   },
   {
    "id": "electricidad_industria",
@@ -1132,7 +1144,11 @@
    "variacion_ultimo": -4.36,
    "unidad_variacion": "%",
    "correlacion": 0.6,
-   "error_tipico": 1.93
+   "error_tipico": 1.93,
+   "proxima_publicacion": {
+    "fecha": "2026-11-06",
+    "metodo": "oficial"
+   }
   },
   {
    "id": "cemento",
