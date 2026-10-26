@@ -447,7 +447,7 @@ function parseCSV(t) {
   }
 
   // Tabla de indicadores
-  const sale = p => !p ? "" : `<small class="sale">${p.fecha ? `sale el ${p.fecha.split("-").reverse().slice(0, 2).join("/")}` : esc(p.texto)}${p.fecha && p.metodo === "estimada" ? " (estimado)" : ""}</small>`;
+  const sale = p => !p ? "" : `<small class="sale">${p.fecha ? `sale el ${p.fecha.split("-").reverse().slice(0, 2).join("/")}` : esc(p.texto)}${p.fecha && p.metodo === "estimada" ? " (estimado)" : ""}${p.demorado || (p.fecha && p.fecha < new Date().toISOString().slice(0, 10)) ? " · demorado" : ""}</small>`;
   const peso = Object.fromEntries(M.modelos.map(m => [m.id, m.peso]));
   const grupos = [...new Set(E.indicadores.map(i => i.grupo))];
   $("tabla").innerHTML = grupos.map(g => `<tr class="grupo"><td colspan="7">${esc(g)}</td></tr>` + E.indicadores.filter(i => i.grupo === g).map(i => {

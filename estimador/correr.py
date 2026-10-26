@@ -99,6 +99,12 @@ def main() -> int:
             nombre_mes = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
                           "octubre", "noviembre", "diciembre"][sale.month - 1]
             prox = {"texto": ind.publica.format(mes=nombre_mes), "metodo": "estimada"}
+            # Último día en que se esperaba (según la regla): si ya pasó, el dato está demorado.
+            hasta = {"primera quincena": 15, "principios": 7, "primer fin de semana": 9}.get(
+                next((k for k in ("primera quincena", "principios", "primer fin de semana") if k in ind.publica), ""), 31)
+            limite = min(hasta, sale.days_in_month)
+            if hoy_s > f"{sale.year}-{sale.month:02d}-{limite:02d}":
+                prox["demorado"] = True
         d["proxima_publicacion"] = prox
 
     salida = {
