@@ -122,6 +122,18 @@ def bajar_diarias(local: str | None = None) -> tuple[dict[str, pd.Series], pd.Se
     return out, ipc, avisos
 
 
+def rem(local: str | None = None) -> pd.DataFrame | None:
+    """Encuestas del REM del BCRA, procesadas por monitor-series (fuente rem). None si no se pudo leer."""
+    archivo = INSUMOS / "rem.csv"
+    try:
+        contenido = (Path(local) / "rem.csv").read_bytes() if local else _get(MONITOR_DATA.format("rem"))
+        d = pd.read_csv(io.BytesIO(contenido), parse_dates=["fecha"])
+        d.to_csv(archivo, index=False)
+        return d
+    except Exception:  # noqa: BLE001
+        return pd.read_csv(archivo, parse_dates=["fecha"]) if archivo.exists() else None
+
+
 def interanual(s: pd.Series, transformacion: str) -> pd.Series:
     """Variación interanual comparable con la del EMAE (ver indicadores.py)."""
     s = s.copy()

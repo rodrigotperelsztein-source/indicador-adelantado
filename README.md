@@ -21,6 +21,8 @@ patentamientos, crédito y otros.
    una estimación cargada a mano en `data/cosecha_manual.csv`, la más reciente; mientras nadie la estimó, de la
    superficie implantada por el rendimiento tendencial. Se probó repartir con el avance semanal real de la cosecha en
    lugar del calendario típico y no mejoró la estimación (INDEC parece usar un calendario fijo).
+   La página compara los trimestres con la última expectativa del REM del BCRA (fuente `rem` de monitor-series). El REM
+   se probó también como indicador (variación trimestral esperada y crecimiento anual esperado) y no mejoró el error.
    Cada modelo se evalúa en tiempo pseudo-real (cada mes estimado solo con datos anteriores) y la estimación final
    combina los 8 mejores de los que ya tienen dato del mes, con pesos inversos a su error de los últimos 24 meses.
    Hay dos bandas: ±1 error típico de esa combinación (68%) y ±1,645 (90%); `cobertura_bandas_36m` informa cuántas

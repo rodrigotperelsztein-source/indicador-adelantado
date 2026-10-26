@@ -214,7 +214,7 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
       estimación de 7% el error típico pasa de 1,54 a entre 1,50 y 1,60 puntos). El error real puede ser algo mayor. Los indicadores salen de <a href="https://github.com/rodrigotperelsztein-source/monitor-series">monitor-series</a>
       y de <a href="https://monitorargy.com">Monitor Argy</a>. Código: <a href="https://github.com/rodrigotperelsztein-source/indicador-adelantado">indicador-adelantado</a>.</p>
   </section>
-  <footer>Estimación propia, no oficial. Datos de INDEC, Secretaría de Energía, Secretaría de Agricultura, CAMMESA, CAME, AFCP, ADEFA, ADIMRA, Grupo Construya, ARCA, BCRA y UTDT. Gráficos: Apache ECharts.</footer>
+  <footer>Estimación propia, no oficial. Datos de INDEC, Secretaría de Energía, Secretaría de Agricultura, CAMMESA, CAME, AFCP, ADEFA, ADIMRA, Grupo Construya, ARCA, BCRA (incluido el REM) y UTDT. Gráficos: Apache ECharts.</footer>
 </main>
 
 <script src="vendor/echarts-5.5.1.min.js"></script>
@@ -383,11 +383,19 @@ function parseCSV(t) {
         (conBanda.length ? `<p class="sub">${E.recesion_tecnica_robusta ? "Se sostiene aun en el extremo optimista de la banda de 90%" : "No es seguro: el extremo optimista de la banda de 90% da crecimiento"}: ` +
           conBanda.map(t => `${tn(t)} entre ${sg(t.inferior)}% y ${sg(t.superior)}%`).join("; ") + `.</p>` : "")
       : `<span class="alerta bien">Sin dos trimestres seguidos en baja (último trimestre completo: ${sg(comp[comp.length - 1]?.variacion)}%)</span>`;
+    if (E.rem) {
+      const R = E.rem, qs = Object.entries(R.trimestres).map(([k, v]) => `${tn({ trimestre: k })} ${sg(v, 2)}%`);
+      $("recesion").innerHTML += `<p class="sub">◆ REM del BCRA (encuesta de ${mes(R.encuesta)}, mediana del PIB): ${qs.join(", ")}` +
+        (R.pib_anio && R.pib_anio.valor != null ? `; año ${R.pib_anio.anio} ${sg(R.pib_anio.valor, 1)}%` : "") +
+        (R.pib_anio_siguiente != null ? `, ${R.pib_anio.anio + 1} ${sg(R.pib_anio_siguiente, 1)}%` : "") +
+        `. Los rombos muestran lo último que esperaba el REM para cada trimestre (PIB, no EMAE: se mueven juntos pero no son iguales).</p>`;
+    }
     const g4 = echarts.init($("g-trim"));
     g4.setOption({
       grid: { left: 8, right: 16, top: 24, bottom: 24, containLabel: true },
       tooltip: { ...TT, formatter: p => { const t = T[p.dataIndex]; return `<b>${tn(t)}</b><br>Variación: <b>${sg(t.variacion, 2)}%</b><br>${etiqueta(t)}` +
-        (t.superior != null ? `<br>Banda de 90%: ${sg(t.inferior)}% a ${sg(t.superior)}%` : ""); } },
+        (t.superior != null ? `<br>Banda de 90%: ${sg(t.inferior)}% a ${sg(t.superior)}%` : "") +
+        (t.rem != null ? `<br>REM (encuesta de ${mes(t.rem_encuesta)}): ${sg(t.rem, 2)}%` : ""); } },
       xAxis: { type: "category", data: T.map(tn), ...EJE, splitLine: { show: false } },
       yAxis: { type: "value", ...EJE, axisLabel: { color: "#93a8bd", formatter: v => v + "%" } },
       series: [{ type: "bar", barMaxWidth: 46, data: T.map(t => ({ value: t.variacion, itemStyle: {
@@ -400,8 +408,10 @@ function parseCSV(t) {
           renderItem: (p, api) => { const a = api.coord([api.value(0), api.value(1)]), b = api.coord([api.value(0), api.value(2)]);
             const st = { stroke: "#e8f1fa", lineWidth: 1.5 };
             return { type: "group", children: [{ type: "line", shape: { x1: a[0], y1: a[1], x2: b[0], y2: b[1] }, style: st },
-              { type: "line", shape: { x1: a[0] - 6, y1: a[1], x2: a[0] + 6, y2: a[1] }, style: st }, { type: "line", shape: { x1: b[0] - 6, y1: b[1], x2: b[0] + 6, y2: b[1] }, style: st }] }; } }],
-      graphic: [{ type: "text", right: 10, bottom: 0, style: { text: "e: incluye meses estimados (con su banda de 90%) · el trimestre en curso aparece cuando tiene sus tres meses", fill: "#5e7388", font: "11px system-ui" } }],
+              { type: "line", shape: { x1: a[0] - 6, y1: a[1], x2: a[0] + 6, y2: a[1] }, style: st }, { type: "line", shape: { x1: b[0] - 6, y1: b[1], x2: b[0] + 6, y2: b[1] }, style: st }] }; } },
+        { name: "REM", type: "scatter", z: 6, symbol: "diamond", symbolSize: 12, data: T.map(t => t.rem ?? null),
+          itemStyle: { color: "#ffc857", borderColor: "#060e18", borderWidth: 1 } }],
+      graphic: [{ type: "text", right: 10, bottom: 0, style: { text: "e: con meses estimados (banda de 90%) · ◆ REM · solo trimestres completos", fill: "#5e7388", font: "11px system-ui" } }],
     });
     addEventListener("resize", () => g4.resize());
   }

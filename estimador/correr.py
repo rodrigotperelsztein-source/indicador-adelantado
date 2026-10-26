@@ -220,6 +220,28 @@ def main() -> int:
         trims = trims[-8:]
         for t in trims:
             t["nivel"] = round(t["nivel"], 2)
+        # Comparación con el REM del BCRA: la última expectativa de la mediana para cada trimestre (PIB, var. trimestral
+        # desestacionalizada; el EMAE no es exactamente el PIB, pero se mueven juntos).
+        rem = datos.rem(os.environ.get("INSUMOS_LOCAL"))
+        if rem is not None:
+            ultima = {}
+            for r in rem.sort_values("fecha").to_dict("records"):
+                q = pd.Timestamp(r["fecha"]).to_period("Q")
+                for col, d in (("pib_trim_anterior", -1), ("pib_trim_actual", 0), ("pib_trim_siguiente", 1)):
+                    if pd.notna(r.get(col)):
+                        ultima[f"{(q + d).year}-T{(q + d).quarter}"] = (round(float(r[col]), 2), f"{r['fecha']:%Y-%m}")
+            for t in trims:
+                if t["trimestre"] in ultima:
+                    t["rem"], t["rem_encuesta"] = ultima[t["trimestre"]]
+            u = rem.sort_values("fecha").iloc[-1]
+            q = pd.Timestamp(u["fecha"]).to_period("Q")
+            salida["rem"] = {
+                "encuesta": f"{u['fecha']:%Y-%m}",
+                "trimestres": {f"{(q + d).year}-T{(q + d).quarter}": round(float(u[c]), 2)
+                               for c, d in (("pib_trim_anterior", -1), ("pib_trim_actual", 0), ("pib_trim_siguiente", 1)) if pd.notna(u[c])},
+                "pib_anio": {"anio": int(u["fecha"].year), "valor": None if pd.isna(u["pib_anio"]) else round(float(u["pib_anio"]), 2)},
+                "pib_anio_siguiente": None if pd.isna(u["pib_anio_siguiente"]) else round(float(u["pib_anio_siguiente"]), 2),
+            }
         completos = [t for t in trims if t["meses"] == 3 and "variacion" in t]
         salida["trimestres"] = trims
         salida["recesion_tecnica"] = len(completos) >= 2 and completos[-1]["variacion"] < 0 and completos[-2]["variacion"] < 0
