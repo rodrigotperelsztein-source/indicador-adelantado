@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-25T03:00:44+00:00",
- "corrida_local": "25/10/2026 00:00",
+ "corrida": "2026-10-26T14:12:00+00:00",
+ "corrida_local": "26/10/2026 11:12",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -1363,6 +1363,18 @@
    }
   ]
  },
+ "rem": {
+  "encuesta": "2026-09",
+  "trimestres": {
+   "2026-T3": -0.95,
+   "2026-T4": 1.8
+  },
+  "pib_anio": {
+   "anio": 2026,
+   "valor": 1.5
+  },
+  "pib_anio_siguiente": 2.47
+ },
  "trimestres": [
   {
    "trimestre": "2025-T1",
@@ -1371,7 +1383,9 @@
    "oficiales": 3,
    "estimados": 0,
    "preliminares": 0,
-   "variacion": 0.66
+   "variacion": 0.66,
+   "rem": 1.5,
+   "rem_encuesta": "2025-05"
   },
   {
    "trimestre": "2025-T2",
@@ -1380,7 +1394,9 @@
    "oficiales": 3,
    "estimados": 0,
    "preliminares": 0,
-   "variacion": 0.33
+   "variacion": 0.33,
+   "rem": 0.1,
+   "rem_encuesta": "2025-08"
   },
   {
    "trimestre": "2025-T3",
@@ -1389,7 +1405,9 @@
    "oficiales": 3,
    "estimados": 0,
    "preliminares": 0,
-   "variacion": 0.29
+   "variacion": 0.29,
+   "rem": 0.47,
+   "rem_encuesta": "2025-11"
   },
   {
    "trimestre": "2025-T4",
@@ -1398,7 +1416,9 @@
    "oficiales": 3,
    "estimados": 0,
    "preliminares": 0,
-   "variacion": 1.08
+   "variacion": 1.08,
+   "rem": 0.76,
+   "rem_encuesta": "2026-02"
   },
   {
    "trimestre": "2026-T1",
@@ -1407,7 +1427,9 @@
    "oficiales": 3,
    "estimados": 0,
    "preliminares": 0,
-   "variacion": 0.67
+   "variacion": 0.67,
+   "rem": 0.33,
+   "rem_encuesta": "2026-05"
   },
   {
    "trimestre": "2026-T2",
@@ -1416,7 +1438,9 @@
    "oficiales": 3,
    "estimados": 0,
    "preliminares": 0,
-   "variacion": -0.62
+   "variacion": -0.62,
+   "rem": -0.9,
+   "rem_encuesta": "2026-08"
   },
   {
    "trimestre": "2026-T3",
@@ -1428,7 +1452,9 @@
    "variacion": -2.21,
    "error_tipico": 0.58,
    "inferior": -3.16,
-   "superior": -1.26
+   "superior": -1.26,
+   "rem": -0.95,
+   "rem_encuesta": "2026-09"
   },
   {
    "trimestre": "2026-T4",
@@ -1440,7 +1466,9 @@
    "variacion": 0.44,
    "error_tipico": 0.86,
    "inferior": -0.97,
-   "superior": 1.85
+   "superior": 1.85,
+   "rem": 1.8,
+   "rem_encuesta": "2026-09"
   }
  ],
  "recesion_tecnica": true,
