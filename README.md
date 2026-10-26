@@ -7,6 +7,12 @@ patentamientos, crédito y otros.
 
 **Página:** https://rodrigotperelsztein-source.github.io/indicador-adelantado/
 
+**Origen de los datos.** Buena parte de los indicadores (y los préstamos diarios y el IPC con que se deflactan) se
+leen de la API pública de [Monitor Argy](https://monitorargy.com), un sitio que publica series oficiales argentinas
+con datos abiertos; el resto sale de [monitor-series](https://github.com/rodrigotperelsztein-source/monitor-series).
+`estimador/indicadores.py` dice de dónde sale cada uno (`fuente="ma"` es Monitor Argy). Gracias a Monitor Argy por
+abrir sus datos.
+
 ## Cómo funciona
 
 1. `estimador/datos.py` baja los indicadores de [monitor-series](https://github.com/rodrigotperelsztein-source/monitor-series)
