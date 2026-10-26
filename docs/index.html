@@ -238,9 +238,9 @@ function parseCSV(t) {
 
 (async () => {
   const [E, H, cat] = await Promise.all([
-    fetch(RAW + "estimacion.json").then(r => r.json()),
-    fetch(RAW + "historial.csv").then(r => r.ok ? r.text() : "").then(t => t ? parseCSV(t) : []).catch(() => []),
-    fetch(MON + "catalogo.csv").then(r => r.ok ? r.text() : "").catch(() => ""),
+    fetch(RAW + "estimacion.json", { cache: "no-cache" }).then(r => r.json()),
+    fetch(RAW + "historial.csv", { cache: "no-cache" }).then(r => r.ok ? r.text() : "").then(t => t ? parseCSV(t) : []).catch(() => []),
+    fetch(MON + "catalogo.csv", { cache: "no-cache" }).then(r => r.ok ? r.text() : "").catch(() => ""),
   ]);
   const M = E.meses[0];
   if (!M) { $("banda").textContent = "Todavía no hay indicadores suficientes para estimar el mes siguiente al último EMAE."; return; }
