@@ -74,6 +74,33 @@ def main() -> int:
             "error_tipico": eval_modelos.get(i.id),
         })
 
+    # Cuándo sale el dato pendiente de cada indicador (el del primer mes estimado o anteriores).
+    eventos, proximas = datos.calendario(os.environ.get("INSUMOS_LOCAL"))
+    hoy_s = ahora.astimezone(ZoneInfo("America/Argentina/Buenos_Aires")).strftime("%Y-%m-%d")
+    objetivo = r["meses"][0]["mes"] if r["meses"] else None
+    por_id = {i.id: i for i in INDICADORES}
+    for d in indicadores:
+        if objetivo is None or (d["ultimo_mes"] and d["ultimo_mes"] >= objetivo):
+            continue
+        ind = por_id[d["id"]]
+        prox = None
+        if ind.fuente == "ma":
+            futuros = sorted((e["fecha"], e.get("metodo", "")) for e in eventos if ind.serie in e.get("series", []) and e["fecha"] >= hoy_s)
+            if futuros:
+                prox = {"fecha": futuros[0][0], "metodo": "oficial" if futuros[0][1] == "oficial" else "estimada"}
+        else:
+            fid = ind.serie.split(".")[0]
+            f = proximas.get(fid, "")
+            if f[:10] >= hoy_s and f[:4].isdigit():
+                prox = {"fecha": f[:10], "metodo": "oficial"}
+        if prox is None and ind.publica:
+            pendiente = (pd.Period(d["ultimo_mes"], "M") + 1) if d["ultimo_mes"] else pd.Period(objetivo, "M")
+            sale = pendiente + 1
+            nombre_mes = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre",
+                          "octubre", "noviembre", "diciembre"][sale.month - 1]
+            prox = {"texto": ind.publica.format(mes=nombre_mes), "metodo": "estimada"}
+        d["proxima_publicacion"] = prox
+
     salida = {
         "corrida": ahora.isoformat(timespec="seconds"),
         "corrida_local": ahora.astimezone(ZoneInfo("America/Argentina/Buenos_Aires")).strftime("%d/%m/%Y %H:%M"),

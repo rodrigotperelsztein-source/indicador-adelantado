@@ -134,6 +134,24 @@ def rem(local: str | None = None) -> pd.DataFrame | None:
         return pd.read_csv(archivo, parse_dates=["fecha"]) if archivo.exists() else None
 
 
+def calendario(local: str | None = None) -> tuple[list[dict], dict[str, str]]:
+    """Próximas publicaciones: eventos del calendario de Monitor Argy (oficial de INDEC o estimado por la
+    regularidad de cada fuente) y la próxima publicación de cada fuente de monitor-series (de su catálogo)."""
+    eventos, proximas = [], {}
+    try:
+        contenido = (Path(local) / "calendario_ma.json").read_bytes() if local else _get(MA.format("").replace("series/", "calendario"))
+        eventos = json.loads(contenido).get("eventos", [])
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        contenido = (Path(local) / "catalogo.csv").read_bytes() if local else _get(MONITOR_DATA.format("catalogo"))
+        c = pd.read_csv(io.BytesIO(contenido), dtype=str)
+        proximas = {r["id"]: r["proxima_publicacion"] for _, r in c.iterrows() if isinstance(r.get("proxima_publicacion"), str)}
+    except Exception:  # noqa: BLE001
+        pass
+    return eventos, proximas
+
+
 def interanual(s: pd.Series, transformacion: str) -> pd.Series:
     """Variación interanual comparable con la del EMAE (ver indicadores.py)."""
     s = s.copy()

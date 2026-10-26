@@ -25,6 +25,8 @@ class Indicador:
     serie: str           # id en la fuente
     transformacion: str  # "nivel", "var_ia" o "dif12"
     grupo: str           # para mostrar
+    publica: str = ""    # cuándo sale, si no está en ningún calendario ({mes}: el mes siguiente al del dato pendiente);
+                         # las de INDEC y Monitor Argy se toman de sus calendarios
 
 
 OBJETIVO = Indicador("emae", "EMAE, serie original (INDEC)", "monitor", "emae.original", "nivel", "Objetivo")
@@ -36,26 +38,30 @@ INDICADORES = [
     Indicador("autos", "Producción automotriz (ADEFA)", "ma", "produccion_automotriz", "nivel", "Industria"),
     Indicador("acero", "Producción de acero crudo", "ma", "acero_crudo", "nivel", "Industria"),
     Indicador("capacidad", "Uso de la capacidad instalada (INDEC)", "ma", "capacidad_instalada", "dif12", "Industria"),
-    Indicador("ipip", "Producción industrial pyme (CAME)", "monitor", "came.ipip_var_ia", "var_ia", "Industria"),
+    Indicador("ipip", "Producción industrial pyme (CAME)", "monitor", "came.ipip_var_ia", "var_ia", "Industria",
+              "≈ primera quincena de {mes}"),
     Indicador("electricidad_industria", "Demanda eléctrica de grandes usuarios industriales (CAMMESA)", "monitor",
-              "cammesa_gu_actividad_mensual.industrias", "nivel", "Industria"),
+              "cammesa_gu_actividad_mensual.industrias", "nivel", "Industria",
+              "a principios de {mes} (dato diario de CAMMESA)"),
     # Construcción
     Indicador("isac", "ISAC (INDEC)", "monitor", "isac.original", "nivel", "Construcción"),
     Indicador("cemento", "Despacho de cemento (AFCP)", "ma", "despacho_cemento", "nivel", "Construcción"),
     Indicador("construya", "Índice Construya", "ma", "construya_desest", "nivel", "Construcción"),
     # Comercio y consumo
-    Indicador("came", "Ventas minoristas pyme (CAME)", "monitor", "came.minoristas_var_ia", "var_ia", "Comercio y consumo"),
+    Indicador("came", "Ventas minoristas pyme (CAME)", "monitor", "came.minoristas_var_ia", "var_ia", "Comercio y consumo",
+              "≈ primer fin de semana de {mes}"),
     Indicador("patentamientos", "Patentamientos de autos", "ma", "patentamientos_autos", "nivel", "Comercio y consumo"),
     Indicador("iva", "Recaudación de IVA DGI real", "ma", "recaudacion_iva_dgi_real", "nivel", "Comercio y consumo"),
     Indicador("naftas", "Ventas de naftas (Secretaría de Energía)", "monitor", "ventas_combustibles.naftas_total", "nivel",
-              "Comercio y consumo"),
+              "Comercio y consumo", "≈ del 20 a fin de {mes}"),
     # Transporte y combustibles
     Indicador("gasoil", "Ventas de gasoil sin usinas ni bunker (Secretaría de Energía)", "monitor",
-              "ventas_combustibles.gasoil_total_sin_usinas_bunker", "nivel", "Transporte y combustibles"),
+              "ventas_combustibles.gasoil_total_sin_usinas_bunker", "nivel", "Transporte y combustibles",
+              "≈ del 20 a fin de {mes}"),
     Indicador("gasoil_g3", "Ventas de gasoil grado 3", "monitor", "ventas_combustibles.gasoil_g3_total", "nivel",
-              "Transporte y combustibles"),
+              "Transporte y combustibles", "≈ del 20 a fin de {mes}"),
     Indicador("gasoil_carga", "Gasoil para transporte de carga", "monitor", "ventas_combustibles.gasoil_canal_carga", "nivel",
-              "Transporte y combustibles"),
+              "Transporte y combustibles", "≈ del 20 a fin de {mes}"),
     # Comercio exterior
     Indicador("importaciones", "Importaciones (INDEC)", "ma", "importaciones", "nivel", "Comercio exterior"),
     Indicador("impo_capital", "Importaciones de bienes de capital", "ma", "impo_capital", "nivel", "Comercio exterior"),
