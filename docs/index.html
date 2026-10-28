@@ -175,7 +175,8 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
     <section class="card">
       <h2>Cómo fue cambiando la estimación</h2>
       <p class="sub">Cada vez que entra un dato nuevo se vuelve a estimar. Se guarda cada versión para compararla con el EMAE cuando INDEC lo publique.
-        Arranca el 23/10/2026, cuando se incorporaron los días hábiles, la cosecha y las dos bandas.</p>
+        Arranca el 23/10/2026, cuando se incorporaron los días hábiles, la cosecha y las dos bandas. Corre todos los días, pero
+        solo agrega un punto cuando cambia la estimación o entra un dato nuevo; el último punto (hueco) es la corrida más reciente.</p>
       <div class="tabs" id="tabs-hist" role="group" aria-label="Mes"></div>
       <div id="g-hist" class="chart bajo" role="img" aria-label="Evolución de la estimación"></div>
     </section>
@@ -343,6 +344,13 @@ function parseCSV(t) {
   const fh = c => new Date(c).toLocaleString("es-AR", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
   function dibujarHist(mesSel) {
   const hm = H.filter(r => r.mes === mesSel);
+  // El historial guarda una fila solo cuando la estimación cambia o entra un dato nuevo. Para que se vea hasta cuándo
+  // está vigente, se agrega la última corrida como punto final aunque no haya cambiado ("sin cambios").
+  const actual = E.meses.find(o => o.mes === mesSel);
+  if (actual && hm.length && new Date(E.corrida) > new Date(hm[hm.length - 1].corrida)) {
+    hm.push({ corrida: E.corrida, mes: mesSel, estimacion: actual.estimacion, inferior: actual.inferior, superior: actual.superior,
+      inferior68: actual.inferior68, superior68: actual.superior68, indicadores_disponibles: actual.indicadores_disponibles, nuevos: "", sinCambios: true });
+  }
   document.querySelectorAll("#tabs-hist button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === mesSel)));
   const n = v => v === "" || v == null ? null : +v;
   const tiene68 = hm.some(r => n(r.inferior68) != null);
@@ -356,6 +364,7 @@ function parseCSV(t) {
       formatter: ps => { const r = hm[ps[0].dataIndex]; return `<b>${fh(r.corrida)}</b><br>Estimación: <b>${sg(+r.estimacion)}%</b>` +
         (n(r.inferior68) != null ? `<br>Probable (68%): ${sg(+r.inferior68)}% a ${sg(+r.superior68)}%` : "") +
         `<br>Banda de 90%: ${sg(+r.inferior)}% a ${sg(+r.superior)}%<br>Indicadores: ${r.indicadores_disponibles}` +
+        (r.sinCambios ? "<br><i>Última corrida: sin datos nuevos desde la anterior</i>" : "") +
         (r.nuevos ? `<br>Entró: ${r.nuevos.split("|").map(i => esc(nombreDe[i] || i)).join(", ")}` : ""); } },
     xAxis: { type: "category", data: hm.map(r => fc(r.corrida)), ...EJE, splitLine: { show: false },
       axisLabel: { color: "#93a8bd", hideOverlap: true } },
@@ -370,7 +379,7 @@ function parseCSV(t) {
              return { type: "group", children: [
                { type: "rect", shape: { x: c(1)[0] - 12, y: c(2)[1], width: 24, height: c(1)[1] - c(2)[1], r: 6 }, style: { fill: "rgba(124,242,195,.1)", stroke: "rgba(124,242,195,.45)" } },
                { type: "rect", shape: { x: c(1)[0] - 12, y: c(4)[1], width: 24, height: c(3)[1] - c(4)[1], r: 6 }, style: { fill: "rgba(124,242,195,.25)", stroke: "rgba(124,242,195,.8)" } }] }; } }]),
-      { name: "Estimación", type: "line", data: hm.map(r => +r.estimacion), symbolSize: 8, lineStyle: { width: 2.5, color: "#7cf2c3" }, itemStyle: { color: "#7cf2c3" }, z: 5,
+      { name: "Estimación", type: "line", data: hm.map(r => r.sinCambios ? { value: +r.estimacion, symbol: "emptyCircle" } : +r.estimacion), symbolSize: 8, lineStyle: { width: 2.5, color: "#7cf2c3" }, itemStyle: { color: "#7cf2c3" }, z: 5,
         label: { show: hm.length < 4, position: hm.length > 1 ? "top" : "right", distance: hm.length > 1 ? 8 : 16, color: "#cfdceb", formatter: p => sg(p.value) + "%" },
         markLine: { silent: true, symbol: "none", label: { show: false }, lineStyle: { color: "rgba(255,255,255,.25)", type: "dashed" }, data: [{ yAxis: 0 }] } },
     ],
