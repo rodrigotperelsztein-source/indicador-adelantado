@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-30T07:46:22+00:00",
- "corrida_local": "30/10/2026 04:46",
+ "corrida": "2026-10-30T17:01:57+00:00",
+ "corrida_local": "30/10/2026 14:01",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -43,7 +43,7 @@
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": 0.09,
+     "pronostico": 0.08,
      "peso": 0.1705,
      "indicador": null,
      "error_tipico": 1.46
@@ -214,10 +214,10 @@
      "id": "prestamos",
      "nombre": "Préstamos comerciales reales",
      "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -1.04,
+     "pronostico": -1.09,
      "peso": 0.0,
      "indicador": 3.84,
-     "error_tipico": 1.9
+     "error_tipico": 1.91
     },
     {
      "id": "leche",
@@ -788,7 +788,7 @@
   {
    "mes": "2024-01",
    "real": -3.96,
-   "estimada": -5.46,
+   "estimada": -5.47,
    "ingenuo": -3.97
   },
   {
@@ -1317,7 +1317,7 @@
    "variacion_ultimo": 3.84,
    "unidad_variacion": "%",
    "correlacion": 0.74,
-   "error_tipico": 1.9
+   "error_tipico": 1.91
   },
   {
    "id": "indice_lider",
