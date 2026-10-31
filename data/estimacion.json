@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-30T17:01:57+00:00",
- "corrida_local": "30/10/2026 14:01",
+ "corrida": "2026-10-31T07:35:09+00:00",
+ "corrida_local": "31/10/2026 04:35",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -216,7 +216,7 @@
      "grupo": "Empleo, crédito y expectativas",
      "pronostico": -1.09,
      "peso": 0.0,
-     "indicador": 3.84,
+     "indicador": 3.85,
      "error_tipico": 1.91
     },
     {
@@ -243,11 +243,11 @@
   {
    "mes": "2026-10",
    "preliminar": true,
-   "estimacion": -1.2,
-   "inferior": -5.31,
-   "superior": 3.09,
-   "inferior68": -3.72,
-   "superior68": 1.38,
+   "estimacion": -1.16,
+   "inferior": -5.26,
+   "superior": 3.12,
+   "inferior68": -3.67,
+   "superior68": 1.42,
    "dias_habiles_vs_anio_anterior": -1,
    "error_tipico": 2.58,
    "error_ingenuo": null,
@@ -263,7 +263,7 @@
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
      "pronostico": -1.07,
-     "peso": 0.3661,
+     "peso": 0.3679,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
@@ -274,22 +274,22 @@
      "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
      "grupo": "Mes en curso",
      "pronostico": -1.13,
-     "peso": 0.3518,
-     "indicador": 2.17,
-     "hasta_dia": 26,
-     "ultimo_dato": "2026-10-26",
+     "peso": 0.3537,
+     "indicador": 2.24,
+     "hasta_dia": 27,
+     "ultimo_dato": "2026-10-27",
      "error_tipico": 2.03
     },
     {
      "id": "electricidad_industria_diaria",
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": -1.46,
-     "peso": 0.2821,
-     "indicador": -1.55,
-     "hasta_dia": 21,
-     "ultimo_dato": "2026-10-21",
-     "error_tipico": 2.27
+     "pronostico": -1.32,
+     "peso": 0.2784,
+     "indicador": 0.07,
+     "hasta_dia": 28,
+     "ultimo_dato": "2026-10-28",
+     "error_tipico": 2.29
     }
    ]
   }
@@ -1314,7 +1314,7 @@
    "fuente": "Monitor Argy",
    "serie": "prestamos_comerciales_real",
    "ultimo_mes": "2026-09",
-   "variacion_ultimo": 3.84,
+   "variacion_ultimo": 3.85,
    "unidad_variacion": "%",
    "correlacion": 0.74,
    "error_tipico": 1.91
@@ -1375,7 +1375,7 @@
     "hasta": "2026-10",
     "valor": 0.83,
     "inferior": 0.14,
-    "superior": 1.54,
+    "superior": 1.55,
     "preliminar": true
    }
   ]
@@ -1475,15 +1475,15 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 151.4,
+   "nivel": 151.46,
    "meses": 1,
    "oficiales": 0,
    "estimados": 0,
    "preliminares": 1,
-   "variacion": 0.44,
+   "variacion": 0.48,
    "error_tipico": 0.86,
-   "inferior": -0.97,
-   "superior": 1.85,
+   "inferior": -0.93,
+   "superior": 1.89,
    "rem": 1.8,
    "rem_encuesta": "2026-09"
   }
