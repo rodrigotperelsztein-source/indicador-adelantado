@@ -1,6 +1,6 @@
 {
- "corrida": "2026-10-31T07:35:09+00:00",
- "corrida_local": "31/10/2026 04:35",
+ "corrida": "2026-11-02T20:47:40+00:00",
+ "corrida_local": "02/11/2026 17:47",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -99,7 +99,7 @@
      "grupo": "Comercio y consumo",
      "pronostico": -1.16,
      "peso": 0.1111,
-     "indicador": -10.53,
+     "indicador": -10.51,
      "error_tipico": 1.8
     },
     {
@@ -1193,8 +1193,8 @@
    "grupo": "Comercio y consumo",
    "fuente": "Monitor Argy",
    "serie": "patentamientos_autos",
-   "ultimo_mes": "2026-09",
-   "variacion_ultimo": -10.53,
+   "ultimo_mes": "2026-10",
+   "variacion_ultimo": -11.74,
    "unidad_variacion": "%",
    "correlacion": 0.64,
    "error_tipico": 1.8
