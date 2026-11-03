@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-02T20:47:40+00:00",
- "corrida_local": "02/11/2026 17:47",
+ "corrida": "2026-11-03T08:40:20+00:00",
+ "corrida_local": "03/11/2026 05:40",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -273,11 +273,11 @@
      "id": "prestamos_diario",
      "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": -1.13,
-     "peso": 0.3537,
-     "indicador": 2.24,
-     "hasta_dia": 27,
-     "ultimo_dato": "2026-10-27",
+     "pronostico": -1.12,
+     "peso": 0.3538,
+     "indicador": 2.32,
+     "hasta_dia": 28,
+     "ultimo_dato": "2026-10-28",
      "error_tipico": 2.03
     },
     {
