@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-03T08:40:20+00:00",
- "corrida_local": "03/11/2026 05:40",
+ "corrida": "2026-11-04T08:10:44+00:00",
+ "corrida_local": "04/11/2026 05:10",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -263,7 +263,7 @@
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
      "pronostico": -1.07,
-     "peso": 0.3679,
+     "peso": 0.3678,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
@@ -275,9 +275,9 @@
      "grupo": "Mes en curso",
      "pronostico": -1.12,
      "peso": 0.3538,
-     "indicador": 2.32,
-     "hasta_dia": 28,
-     "ultimo_dato": "2026-10-28",
+     "indicador": 2.37,
+     "hasta_dia": 29,
+     "ultimo_dato": "2026-10-29",
      "error_tipico": 2.03
     },
     {
@@ -285,7 +285,7 @@
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
      "pronostico": -1.32,
-     "peso": 0.2784,
+     "peso": 0.2783,
      "indicador": 0.07,
      "hasta_dia": 28,
      "ultimo_dato": "2026-10-28",
