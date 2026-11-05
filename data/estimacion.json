@@ -1,11 +1,11 @@
 {
- "corrida": "2026-11-05T08:36:17+00:00",
- "corrida_local": "05/11/2026 05:36",
+ "corrida": "2026-11-05T18:47:01+00:00",
+ "corrida_local": "05/11/2026 15:47",
  "ultimo_emae": "2026-08",
  "meses": [
   {
    "mes": "2026-09",
-   "estimacion": -0.43,
+   "estimacion": -0.42,
    "inferior": -3.23,
    "superior": 2.46,
    "inferior68": -2.14,
@@ -13,7 +13,7 @@
    "dias_habiles_vs_anio_anterior": 0,
    "error_tipico": 1.74,
    "error_ingenuo": 1.9,
-   "indicadores_disponibles": 21,
+   "indicadores_disponibles": 22,
    "indicadores_totales": 25,
    "disponibles": [
     "acero",
@@ -30,6 +30,7 @@
     "impo_intermedios",
     "importaciones",
     "indice_lider",
+    "ipip",
     "iva",
     "leche",
     "metalurgia",
@@ -43,7 +44,7 @@
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": 0.08,
+     "pronostico": 0.1,
      "peso": 0.1705,
      "indicador": null,
      "error_tipico": 1.46
@@ -124,9 +125,9 @@
      "id": "autos",
      "nombre": "Producción automotriz (ADEFA)",
      "grupo": "Industria",
-     "pronostico": -1.21,
+     "pronostico": -1.14,
      "peso": 0.0,
-     "indicador": -15.63,
+     "indicador": -13.85,
      "error_tipico": 1.81
     },
     {
@@ -242,56 +243,60 @@
   },
   {
    "mes": "2026-10",
-   "preliminar": true,
-   "estimacion": -1.16,
-   "inferior": -5.26,
-   "superior": 3.12,
-   "inferior68": -3.67,
-   "superior68": 1.42,
+   "estimacion": -0.98,
+   "inferior": -3.57,
+   "superior": 1.68,
+   "inferior68": -2.56,
+   "superior68": 0.63,
    "dias_habiles_vs_anio_anterior": -1,
-   "error_tipico": 2.58,
-   "error_ingenuo": null,
-   "indicadores_disponibles": 2,
-   "indicadores_totales": 2,
+   "error_tipico": 1.61,
+   "error_ingenuo": 1.9,
+   "indicadores_disponibles": 3,
+   "indicadores_totales": 25,
    "disponibles": [
-    "prestamos_diario",
-    "electricidad_industria_diaria"
+    "autos",
+    "cemento",
+    "patentamientos"
    ],
    "modelos": [
     {
-     "id": "ingenuo",
-     "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
-     "grupo": "Mes en curso",
-     "pronostico": -1.07,
-     "peso": 0.3678,
+     "id": "factor",
+     "nombre": "Factor común (promedio de todos los indicadores)",
+     "grupo": "Todos",
+     "pronostico": -0.96,
+     "peso": 0.3298,
      "indicador": null,
-     "hasta_dia": null,
-     "ultimo_dato": null,
-     "error_tipico": 1.99
+     "error_tipico": 1.46
     },
     {
-     "id": "prestamos_diario",
-     "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
-     "grupo": "Mes en curso",
-     "pronostico": -1.12,
-     "peso": 0.3539,
-     "indicador": 2.43,
-     "hasta_dia": 30,
-     "ultimo_dato": "2026-10-30",
-     "error_tipico": 2.03
+     "id": "cemento",
+     "nombre": "Despacho de cemento (AFCP)",
+     "grupo": "Construcción",
+     "pronostico": -1.05,
+     "peso": 0.2414,
+     "indicador": -9.34,
+     "error_tipico": 1.7
     },
     {
-     "id": "electricidad_industria_diaria",
-     "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
-     "grupo": "Mes en curso",
-     "pronostico": -1.32,
-     "peso": 0.2783,
-     "indicador": 0.07,
-     "hasta_dia": 28,
-     "ultimo_dato": "2026-10-28",
-     "error_tipico": 2.29
+     "id": "patentamientos",
+     "nombre": "Patentamientos de autos",
+     "grupo": "Comercio y consumo",
+     "pronostico": -1.01,
+     "peso": 0.2149,
+     "indicador": -11.74,
+     "error_tipico": 1.8
+    },
+    {
+     "id": "autos",
+     "nombre": "Producción automotriz (ADEFA)",
+     "grupo": "Industria",
+     "pronostico": -0.9,
+     "peso": 0.2139,
+     "indicador": -14.36,
+     "error_tipico": 1.81
     }
-   ]
+   ],
+   "preliminar": false
   }
  ],
  "emae": [
@@ -1072,8 +1077,8 @@
    "grupo": "Industria",
    "fuente": "Monitor Argy",
    "serie": "produccion_automotriz",
-   "ultimo_mes": "2026-09",
-   "variacion_ultimo": -15.63,
+   "ultimo_mes": "2026-10",
+   "variacion_ultimo": -14.36,
    "unidad_variacion": "%",
    "correlacion": 0.26,
    "error_tipico": 1.81
@@ -1112,16 +1117,11 @@
    "grupo": "Industria",
    "fuente": "monitor-series",
    "serie": "came.ipip_var_ia",
-   "ultimo_mes": "2026-08",
-   "variacion_ultimo": -6.1,
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -2.4,
    "unidad_variacion": "%",
    "correlacion": 0.68,
-   "error_tipico": null,
-   "proxima_publicacion": {
-    "texto": "≈ primera quincena de octubre",
-    "metodo": "estimada",
-    "demorado": true
-   }
+   "error_tipico": null
   },
   {
    "id": "electricidad_industria",
@@ -1157,8 +1157,8 @@
    "grupo": "Construcción",
    "fuente": "Monitor Argy",
    "serie": "despacho_cemento",
-   "ultimo_mes": "2026-09",
-   "variacion_ultimo": 4.62,
+   "ultimo_mes": "2026-10",
+   "variacion_ultimo": -9.34,
    "unidad_variacion": "%",
    "correlacion": 0.65,
    "error_tipico": 1.7
@@ -1366,17 +1366,17 @@
   "estimados": [
    {
     "hasta": "2026-09",
-    "valor": 1.05,
+    "valor": 1.06,
     "inferior": 0.75,
     "superior": 1.37,
     "preliminar": false
    },
    {
     "hasta": "2026-10",
-    "valor": 0.83,
-    "inferior": 0.14,
-    "superior": 1.55,
-    "preliminar": true
+    "valor": 0.85,
+    "inferior": 0.31,
+    "superior": 1.4,
+    "preliminar": false
    }
   ]
  },
@@ -1475,15 +1475,15 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 151.46,
+   "nivel": 151.74,
    "meses": 1,
    "oficiales": 0,
-   "estimados": 0,
-   "preliminares": 1,
-   "variacion": 0.48,
-   "error_tipico": 0.86,
-   "inferior": -0.93,
-   "superior": 1.89,
+   "estimados": 1,
+   "preliminares": 0,
+   "variacion": 0.66,
+   "error_tipico": 0.54,
+   "inferior": -0.22,
+   "superior": 1.54,
    "rem": 1.8,
    "rem_encuesta": "2026-09"
   }
