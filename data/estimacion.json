@@ -1,15 +1,15 @@
 {
- "corrida": "2026-11-05T19:00:10+00:00",
- "corrida_local": "05/11/2026 16:00",
+ "corrida": "2026-11-05T20:40:22+00:00",
+ "corrida_local": "05/11/2026 17:40",
  "ultimo_emae": "2026-08",
  "meses": [
   {
    "mes": "2026-09",
    "estimacion": -0.42,
-   "inferior": -3.23,
-   "superior": 2.46,
-   "inferior68": -2.14,
-   "superior68": 1.32,
+   "inferior": -3.22,
+   "superior": 2.47,
+   "inferior68": -2.13,
+   "superior68": 1.33,
    "dias_habiles_vs_anio_anterior": 0,
    "error_tipico": 1.74,
    "error_ingenuo": 1.9,
@@ -44,17 +44,17 @@
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": 0.1,
-     "peso": 0.1705,
+     "pronostico": 0.15,
+     "peso": 0.169,
      "indicador": null,
-     "error_tipico": 1.46
+     "error_tipico": 1.47
     },
     {
      "id": "importaciones",
      "nombre": "Importaciones (INDEC)",
      "grupo": "Comercio exterior",
      "pronostico": -0.37,
-     "peso": 0.1344,
+     "peso": 0.1346,
      "indicador": -1.83,
      "error_tipico": 1.64
     },
@@ -63,7 +63,7 @@
      "nombre": "Despacho de cemento (AFCP)",
      "grupo": "Construcción",
      "pronostico": -0.12,
-     "peso": 0.1248,
+     "peso": 0.1251,
      "indicador": 4.62,
      "error_tipico": 1.7
     },
@@ -72,7 +72,7 @@
      "nombre": "Índice Líder (UTDT)",
      "grupo": "Empleo, crédito y expectativas",
      "pronostico": -0.08,
-     "peso": 0.1165,
+     "peso": 0.1167,
      "indicador": 1.09,
      "error_tipico": 1.76
     },
@@ -81,7 +81,7 @@
      "nombre": "Ventas minoristas pyme (CAME)",
      "grupo": "Comercio y consumo",
      "pronostico": -0.63,
-     "peso": 0.1161,
+     "peso": 0.1163,
      "indicador": 0.3,
      "error_tipico": 1.77
     },
@@ -90,7 +90,7 @@
      "nombre": "Importaciones de bienes de capital",
      "grupo": "Comercio exterior",
      "pronostico": -1.04,
-     "peso": 0.1155,
+     "peso": 0.1157,
      "indicador": -10.39,
      "error_tipico": 1.77
     },
@@ -99,7 +99,7 @@
      "nombre": "Patentamientos de autos",
      "grupo": "Comercio y consumo",
      "pronostico": -1.16,
-     "peso": 0.1111,
+     "peso": 0.1113,
      "indicador": -10.51,
      "error_tipico": 1.8
     },
@@ -108,7 +108,7 @@
      "nombre": "Recaudación de seguridad social real (ARCA)",
      "grupo": "Empleo, crédito y expectativas",
      "pronostico": -0.4,
-     "peso": 0.111,
+     "peso": 0.1112,
      "indicador": 1.53,
      "error_tipico": 1.81
     },
@@ -213,12 +213,12 @@
     },
     {
      "id": "prestamos",
-     "nombre": "Préstamos comerciales reales",
+     "nombre": "Préstamos comerciales reales (BCRA)",
      "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -1.09,
+     "pronostico": -0.91,
      "peso": 0.0,
      "indicador": 3.85,
-     "error_tipico": 1.91
+     "error_tipico": 1.85
     },
     {
      "id": "leche",
@@ -243,11 +243,11 @@
   },
   {
    "mes": "2026-10",
-   "estimacion": -0.98,
+   "estimacion": -0.97,
    "inferior": -3.57,
-   "superior": 1.68,
-   "inferior68": -2.57,
-   "superior68": 0.63,
+   "superior": 1.69,
+   "inferior68": -2.56,
+   "superior68": 0.64,
    "dias_habiles_vs_anio_anterior": -1,
    "error_tipico": 1.61,
    "error_ingenuo": 1.9,
@@ -264,16 +264,16 @@
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
      "pronostico": -0.96,
-     "peso": 0.3298,
+     "peso": 0.3273,
      "indicador": null,
-     "error_tipico": 1.46
+     "error_tipico": 1.47
     },
     {
      "id": "cemento",
      "nombre": "Despacho de cemento (AFCP)",
      "grupo": "Construcción",
-     "pronostico": -1.05,
-     "peso": 0.2414,
+     "pronostico": -1.04,
+     "peso": 0.2423,
      "indicador": -9.34,
      "error_tipico": 1.7
     },
@@ -282,7 +282,7 @@
      "nombre": "Patentamientos de autos",
      "grupo": "Comercio y consumo",
      "pronostico": -1.01,
-     "peso": 0.2149,
+     "peso": 0.2157,
      "indicador": -11.74,
      "error_tipico": 1.8
     },
@@ -290,8 +290,8 @@
      "id": "autos",
      "nombre": "Producción automotriz (ADEFA)",
      "grupo": "Industria",
-     "pronostico": -0.9,
-     "peso": 0.2139,
+     "pronostico": -0.89,
+     "peso": 0.2147,
      "indicador": -14.36,
      "error_tipico": 1.81
     }
@@ -793,7 +793,7 @@
   {
    "mes": "2024-01",
    "real": -3.96,
-   "estimada": -5.47,
+   "estimada": -5.44,
    "ingenuo": -3.97
   },
   {
@@ -859,31 +859,31 @@
   {
    "mes": "2024-12",
    "real": 6.7,
-   "estimada": 4.7,
+   "estimada": 4.69,
    "ingenuo": 4.22
   },
   {
    "mes": "2025-01",
    "real": 6.64,
-   "estimada": 5.47,
+   "estimada": 5.45,
    "ingenuo": 4.55
   },
   {
    "mes": "2025-02",
    "real": 5.95,
-   "estimada": 8.22,
+   "estimada": 8.21,
    "ingenuo": 7.63
   },
   {
    "mes": "2025-03",
    "real": 5.77,
-   "estimada": 4.87,
+   "estimada": 4.86,
    "ingenuo": 3.59
   },
   {
    "mes": "2025-04",
    "real": 7.93,
-   "estimada": 6.0,
+   "estimada": 5.99,
    "ingenuo": 4.99
   },
   {
@@ -931,7 +931,7 @@
   {
    "mes": "2025-12",
    "real": 3.48,
-   "estimada": 2.19,
+   "estimada": 2.2,
    "ingenuo": 2.16
   },
   {
@@ -949,7 +949,7 @@
   {
    "mes": "2026-03",
    "real": 6.46,
-   "estimada": 3.81,
+   "estimada": 3.82,
    "ingenuo": 2.82
   },
   {
@@ -961,25 +961,25 @@
   {
    "mes": "2026-05",
    "real": 0.71,
-   "estimada": 0.17,
+   "estimada": 0.18,
    "ingenuo": 0.14
   },
   {
    "mes": "2026-06",
    "real": 3.11,
-   "estimada": 4.11,
+   "estimada": 4.12,
    "ingenuo": 4.19
   },
   {
    "mes": "2026-07",
    "real": -1.47,
-   "estimada": 0.83,
+   "estimada": 0.84,
    "ingenuo": 0.54
   },
   {
    "mes": "2026-08",
    "real": -1.74,
-   "estimada": 0.5,
+   "estimada": 0.51,
    "ingenuo": -0.08
   }
  ],
@@ -1263,8 +1263,8 @@
    "id": "importaciones",
    "nombre": "Importaciones (INDEC)",
    "grupo": "Comercio exterior",
-   "fuente": "Monitor Argy",
-   "serie": "importaciones",
+   "fuente": "monitor-series",
+   "serie": "comercio_exterior.importaciones",
    "ultimo_mes": "2026-09",
    "variacion_ultimo": -1.83,
    "unidad_variacion": "%",
@@ -1275,8 +1275,8 @@
    "id": "impo_capital",
    "nombre": "Importaciones de bienes de capital",
    "grupo": "Comercio exterior",
-   "fuente": "Monitor Argy",
-   "serie": "impo_capital",
+   "fuente": "monitor-series",
+   "serie": "comercio_exterior.impo_capital",
    "ultimo_mes": "2026-09",
    "variacion_ultimo": -10.39,
    "unidad_variacion": "%",
@@ -1287,8 +1287,8 @@
    "id": "impo_intermedios",
    "nombre": "Importaciones de bienes intermedios",
    "grupo": "Comercio exterior",
-   "fuente": "Monitor Argy",
-   "serie": "impo_intermedios",
+   "fuente": "monitor-series",
+   "serie": "comercio_exterior.impo_intermedios",
    "ultimo_mes": "2026-09",
    "variacion_ultimo": 11.88,
    "unidad_variacion": "%",
@@ -1309,15 +1309,15 @@
   },
   {
    "id": "prestamos",
-   "nombre": "Préstamos comerciales reales",
+   "nombre": "Préstamos comerciales reales (BCRA)",
    "grupo": "Empleo, crédito y expectativas",
-   "fuente": "Monitor Argy",
-   "serie": "prestamos_comerciales_real",
+   "fuente": "monitor-series",
+   "serie": "bcra_real.prestamos_comerciales_real",
    "ultimo_mes": "2026-09",
    "variacion_ultimo": 3.85,
    "unidad_variacion": "%",
    "correlacion": 0.74,
-   "error_tipico": 1.91
+   "error_tipico": 1.85
   },
   {
    "id": "indice_lider",
@@ -1375,7 +1375,7 @@
     "hasta": "2026-10",
     "valor": 0.85,
     "inferior": 0.31,
-    "superior": 1.4,
+    "superior": 1.41,
     "preliminar": false
    }
   ]
@@ -1475,15 +1475,15 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 151.74,
+   "nivel": 151.76,
    "meses": 1,
    "oficiales": 0,
    "estimados": 1,
    "preliminares": 0,
-   "variacion": 0.66,
+   "variacion": 0.67,
    "error_tipico": 0.54,
-   "inferior": -0.22,
-   "superior": 1.54,
+   "inferior": -0.21,
+   "superior": 1.55,
    "rem": 1.8,
    "rem_encuesta": "2026-09"
   }
