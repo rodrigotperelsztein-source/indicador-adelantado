@@ -65,15 +65,17 @@ INDICADORES = [
     Indicador("gasoil_carga", "Gasoil para transporte de carga", "monitor", "ventas_combustibles.gasoil_canal_carga", "nivel",
               "Transporte y combustibles", "≈ del 20 a fin de {mes}"),
     # Comercio exterior
-    Indicador("importaciones", "Importaciones (INDEC)", "ma", "importaciones", "nivel", "Comercio exterior"),
-    Indicador("impo_capital", "Importaciones de bienes de capital", "ma", "impo_capital", "nivel", "Comercio exterior"),
-    Indicador("impo_intermedios", "Importaciones de bienes intermedios", "ma", "impo_intermedios", "nivel", "Comercio exterior"),
+    Indicador("importaciones", "Importaciones (INDEC)", "monitor", "comercio_exterior.importaciones", "nivel", "Comercio exterior"),
+    Indicador("impo_capital", "Importaciones de bienes de capital", "monitor", "comercio_exterior.impo_capital", "nivel",
+              "Comercio exterior"),
+    Indicador("impo_intermedios", "Importaciones de bienes intermedios", "monitor", "comercio_exterior.impo_intermedios", "nivel",
+              "Comercio exterior"),
     # Empleo, crédito y expectativas
     Indicador("seguridad_social", "Recaudación de seguridad social real (ARCA)", "monitor",
               "recaudacion_real.seguridad_social_real", "nivel", "Empleo, crédito y expectativas",
               "a mediados de {mes}, con el IPC del INDEC"),
-    Indicador("prestamos", "Préstamos comerciales reales", "ma", "prestamos_comerciales_real", "nivel",
-              "Empleo, crédito y expectativas"),
+    Indicador("prestamos", "Préstamos comerciales reales (BCRA)", "monitor", "bcra_real.prestamos_comerciales_real", "nivel",
+              "Empleo, crédito y expectativas", "a mediados de {mes}, con el IPC del INDEC"),
     Indicador("indice_lider", "Índice Líder (UTDT)", "ma", "indice_lider", "nivel", "Empleo, crédito y expectativas"),
     # Agro
     Indicador("leche", "Producción de leche", "ma", "produccion_leche", "nivel", "Agro"),
