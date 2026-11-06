@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-05T20:40:22+00:00",
- "corrida_local": "05/11/2026 17:40",
+ "corrida": "2026-11-06T08:35:38+00:00",
+ "corrida_local": "06/11/2026 05:35",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -1381,16 +1381,17 @@
   ]
  },
  "rem": {
-  "encuesta": "2026-09",
+  "encuesta": "2026-10",
   "trimestres": {
-   "2026-T3": -0.95,
-   "2026-T4": 1.8
+   "2026-T3": -2.3,
+   "2026-T4": 1.97,
+   "2027-T1": 0.89
   },
   "pib_anio": {
    "anio": 2026,
-   "valor": 1.5
+   "valor": 0.7
   },
-  "pib_anio_siguiente": 2.47
+  "pib_anio_siguiente": 2.09
  },
  "trimestres": [
   {
@@ -1470,8 +1471,8 @@
    "error_tipico": 0.58,
    "inferior": -3.16,
    "superior": -1.26,
-   "rem": -0.95,
-   "rem_encuesta": "2026-09"
+   "rem": -2.3,
+   "rem_encuesta": "2026-10"
   },
   {
    "trimestre": "2026-T4",
@@ -1484,8 +1485,8 @@
    "error_tipico": 0.54,
    "inferior": -0.21,
    "superior": 1.55,
-   "rem": 1.8,
-   "rem_encuesta": "2026-09"
+   "rem": 1.97,
+   "rem_encuesta": "2026-10"
   }
  ],
  "recesion_tecnica": true,
