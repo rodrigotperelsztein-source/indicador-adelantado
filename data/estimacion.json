@@ -1,19 +1,19 @@
 {
- "corrida": "2026-11-06T18:05:31+00:00",
- "corrida_local": "06/11/2026 15:05",
+ "corrida": "2026-11-06T20:26:07+00:00",
+ "corrida_local": "06/11/2026 17:26",
  "ultimo_emae": "2026-08",
  "meses": [
   {
    "mes": "2026-09",
-   "estimacion": -0.42,
-   "inferior": -3.22,
-   "superior": 2.47,
-   "inferior68": -2.13,
-   "superior68": 1.33,
+   "estimacion": -0.28,
+   "inferior": -2.91,
+   "superior": 2.42,
+   "inferior68": -1.88,
+   "superior68": 1.35,
    "dias_habiles_vs_anio_anterior": 0,
-   "error_tipico": 1.74,
+   "error_tipico": 1.62,
    "error_ingenuo": 1.9,
-   "indicadores_disponibles": 22,
+   "indicadores_disponibles": 24,
    "indicadores_totales": 25,
    "disponibles": [
     "acero",
@@ -30,7 +30,9 @@
     "impo_intermedios",
     "importaciones",
     "indice_lider",
+    "ipi",
     "ipip",
+    "isac",
     "iva",
     "leche",
     "metalurgia",
@@ -41,11 +43,20 @@
    ],
    "modelos": [
     {
+     "id": "ipi",
+     "nombre": "IPI manufacturero (INDEC)",
+     "grupo": "Industria",
+     "pronostico": 0.32,
+     "peso": 0.175,
+     "indicador": -1.78,
+     "error_tipico": 1.39
+    },
+    {
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": 0.15,
-     "peso": 0.169,
+     "pronostico": 0.21,
+     "peso": 0.1569,
      "indicador": null,
      "error_tipico": 1.47
     },
@@ -54,7 +65,7 @@
      "nombre": "Importaciones (INDEC)",
      "grupo": "Comercio exterior",
      "pronostico": -0.37,
-     "peso": 0.1346,
+     "peso": 0.125,
      "indicador": -1.83,
      "error_tipico": 1.64
     },
@@ -63,7 +74,7 @@
      "nombre": "Despacho de cemento (AFCP)",
      "grupo": "Construcción",
      "pronostico": -0.12,
-     "peso": 0.1251,
+     "peso": 0.1161,
      "indicador": 4.62,
      "error_tipico": 1.7
     },
@@ -72,7 +83,7 @@
      "nombre": "Índice Líder (UTDT)",
      "grupo": "Empleo, crédito y expectativas",
      "pronostico": -0.08,
-     "peso": 0.1167,
+     "peso": 0.1083,
      "indicador": 1.09,
      "error_tipico": 1.76
     },
@@ -81,7 +92,7 @@
      "nombre": "Ventas minoristas pyme (CAME)",
      "grupo": "Comercio y consumo",
      "pronostico": -0.63,
-     "peso": 0.1163,
+     "peso": 0.108,
      "indicador": 0.3,
      "error_tipico": 1.77
     },
@@ -90,7 +101,7 @@
      "nombre": "Importaciones de bienes de capital",
      "grupo": "Comercio exterior",
      "pronostico": -1.04,
-     "peso": 0.1157,
+     "peso": 0.1074,
      "indicador": -10.39,
      "error_tipico": 1.77
     },
@@ -99,18 +110,9 @@
      "nombre": "Patentamientos de autos",
      "grupo": "Comercio y consumo",
      "pronostico": -1.16,
-     "peso": 0.1113,
+     "peso": 0.1033,
      "indicador": -10.51,
      "error_tipico": 1.8
-    },
-    {
-     "id": "seguridad_social",
-     "nombre": "Recaudación de seguridad social real (ARCA)",
-     "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -0.4,
-     "peso": 0.1112,
-     "indicador": 1.53,
-     "error_tipico": 1.81
     },
     {
      "id": "metalurgia",
@@ -147,6 +149,15 @@
      "peso": 0.0,
      "indicador": 3.16,
      "error_tipico": 2.24
+    },
+    {
+     "id": "isac",
+     "nombre": "ISAC (INDEC)",
+     "grupo": "Construcción",
+     "pronostico": -0.43,
+     "peso": 0.0,
+     "indicador": 5.08,
+     "error_tipico": 1.93
     },
     {
      "id": "construya",
@@ -212,6 +223,15 @@
      "error_tipico": 1.94
     },
     {
+     "id": "seguridad_social",
+     "nombre": "Recaudación de seguridad social real (ARCA)",
+     "grupo": "Empleo, crédito y expectativas",
+     "pronostico": -0.4,
+     "peso": 0.0,
+     "indicador": 1.53,
+     "error_tipico": 1.81
+    },
+    {
      "id": "prestamos",
      "nombre": "Préstamos comerciales reales (BCRA)",
      "grupo": "Empleo, crédito y expectativas",
@@ -243,11 +263,11 @@
   },
   {
    "mes": "2026-10",
-   "estimacion": -0.86,
-   "inferior": -3.54,
-   "superior": 1.89,
-   "inferior68": -2.5,
-   "superior68": 0.8,
+   "estimacion": -0.77,
+   "inferior": -3.45,
+   "superior": 1.99,
+   "inferior68": -2.4,
+   "superior68": 0.9,
    "dias_habiles_vs_anio_anterior": -1,
    "error_tipico": 1.66,
    "error_ingenuo": 1.9,
@@ -264,7 +284,7 @@
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": -0.57,
+     "pronostico": -0.5,
      "peso": 0.2757,
      "indicador": null,
      "error_tipico": 1.47
@@ -273,7 +293,7 @@
      "id": "cemento",
      "nombre": "Despacho de cemento (AFCP)",
      "grupo": "Construcción",
-     "pronostico": -1.04,
+     "pronostico": -0.94,
      "peso": 0.2041,
      "indicador": -9.34,
      "error_tipico": 1.7
@@ -282,7 +302,7 @@
      "id": "patentamientos",
      "nombre": "Patentamientos de autos",
      "grupo": "Comercio y consumo",
-     "pronostico": -1.01,
+     "pronostico": -0.89,
      "peso": 0.1817,
      "indicador": -11.74,
      "error_tipico": 1.8
@@ -291,7 +311,7 @@
      "id": "autos",
      "nombre": "Producción automotriz (ADEFA)",
      "grupo": "Industria",
-     "pronostico": -0.89,
+     "pronostico": -0.78,
      "peso": 0.1808,
      "indicador": -14.36,
      "error_tipico": 1.81
@@ -300,7 +320,7 @@
      "id": "construya",
      "nombre": "Índice Construya",
      "grupo": "Construcción",
-     "pronostico": -0.96,
+     "pronostico": -0.84,
      "peso": 0.1577,
      "indicador": -4.26,
      "error_tipico": 1.94
@@ -881,55 +901,55 @@
   {
    "mes": "2025-02",
    "real": 5.95,
-   "estimada": 8.21,
+   "estimada": 8.2,
    "ingenuo": 7.63
   },
   {
    "mes": "2025-03",
    "real": 5.77,
-   "estimada": 4.86,
+   "estimada": 4.85,
    "ingenuo": 3.59
   },
   {
    "mes": "2025-04",
    "real": 7.93,
-   "estimada": 5.99,
+   "estimada": 5.98,
    "ingenuo": 4.99
   },
   {
    "mes": "2025-05",
    "real": 5.3,
-   "estimada": 6.25,
+   "estimada": 6.24,
    "ingenuo": 6.05
   },
   {
    "mes": "2025-06",
    "real": 6.4,
-   "estimada": 8.25,
+   "estimada": 8.24,
    "ingenuo": 8.55
   },
   {
    "mes": "2025-07",
    "real": 2.75,
-   "estimada": 3.51,
+   "estimada": 3.5,
    "ingenuo": 3.96
   },
   {
    "mes": "2025-08",
    "real": 2.1,
-   "estimada": 0.46,
+   "estimada": 0.45,
    "ingenuo": 0.26
   },
   {
    "mes": "2025-09",
    "real": 4.77,
-   "estimada": 3.49,
+   "estimada": 3.48,
    "ingenuo": 4.35
   },
   {
    "mes": "2025-10",
    "real": 3.19,
-   "estimada": 2.72,
+   "estimada": 2.71,
    "ingenuo": 3.3
   },
   {
@@ -941,7 +961,7 @@
   {
    "mes": "2025-12",
    "real": 3.48,
-   "estimada": 2.2,
+   "estimada": 2.19,
    "ingenuo": 2.16
   },
   {
@@ -953,7 +973,7 @@
   {
    "mes": "2026-02",
    "real": -1.48,
-   "estimada": 0.45,
+   "estimada": 0.46,
    "ingenuo": 0.99
   },
   {
@@ -983,13 +1003,13 @@
   {
    "mes": "2026-07",
    "real": -1.47,
-   "estimada": 0.84,
+   "estimada": 0.83,
    "ingenuo": 0.54
   },
   {
    "mes": "2026-08",
    "real": -1.74,
-   "estimada": 0.51,
+   "estimada": 0.52,
    "ingenuo": -0.08
   }
  ],
@@ -1059,15 +1079,11 @@
    "grupo": "Industria",
    "fuente": "monitor-series",
    "serie": "ipi.original",
-   "ultimo_mes": "2026-08",
-   "variacion_ultimo": -3.24,
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": -1.78,
    "unidad_variacion": "%",
    "correlacion": 0.69,
-   "error_tipico": 1.38,
-   "proxima_publicacion": {
-    "fecha": "2026-11-06",
-    "metodo": "oficial"
-   }
+   "error_tipico": 1.39
   },
   {
    "id": "metalurgia",
@@ -1151,15 +1167,11 @@
    "grupo": "Construcción",
    "fuente": "monitor-series",
    "serie": "isac.original",
-   "ultimo_mes": "2026-08",
-   "variacion_ultimo": -4.36,
+   "ultimo_mes": "2026-09",
+   "variacion_ultimo": 5.08,
    "unidad_variacion": "%",
    "correlacion": 0.6,
-   "error_tipico": 1.93,
-   "proxima_publicacion": {
-    "fecha": "2026-11-06",
-    "metodo": "oficial"
-   }
+   "error_tipico": 1.93
   },
   {
    "id": "cemento",
@@ -1376,15 +1388,15 @@
   "estimados": [
    {
     "hasta": "2026-09",
-    "valor": 1.06,
-    "inferior": 0.75,
+    "valor": 1.07,
+    "inferior": 0.78,
     "superior": 1.37,
     "preliminar": false
    },
    {
     "hasta": "2026-10",
-    "valor": 0.86,
-    "inferior": 0.32,
+    "valor": 0.89,
+    "inferior": 0.36,
     "superior": 1.43,
     "preliminar": false
    }
@@ -1472,29 +1484,29 @@
   },
   {
    "trimestre": "2026-T3",
-   "nivel": 150.74,
+   "nivel": 150.81,
    "meses": 3,
    "oficiales": 2,
    "estimados": 1,
    "preliminares": 0,
-   "variacion": -2.21,
-   "error_tipico": 0.58,
-   "inferior": -3.16,
-   "superior": -1.26,
+   "variacion": -2.16,
+   "error_tipico": 0.54,
+   "inferior": -3.05,
+   "superior": -1.27,
    "rem": -2.3,
    "rem_encuesta": "2026-10"
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 151.92,
+   "nivel": 152.06,
    "meses": 1,
    "oficiales": 0,
    "estimados": 1,
    "preliminares": 0,
-   "variacion": 0.78,
+   "variacion": 0.83,
    "error_tipico": 0.55,
-   "inferior": -0.13,
-   "superior": 1.69,
+   "inferior": -0.08,
+   "superior": 1.74,
    "rem": 1.97,
    "rem_encuesta": "2026-10"
   }
