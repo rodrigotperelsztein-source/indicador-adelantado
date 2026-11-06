@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-06T08:35:38+00:00",
- "corrida_local": "06/11/2026 05:35",
+ "corrida": "2026-11-06T17:59:55+00:00",
+ "corrida_local": "06/11/2026 14:59",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -243,19 +243,20 @@
   },
   {
    "mes": "2026-10",
-   "estimacion": -0.97,
-   "inferior": -3.57,
-   "superior": 1.69,
-   "inferior68": -2.56,
-   "superior68": 0.64,
+   "estimacion": -0.86,
+   "inferior": -3.54,
+   "superior": 1.89,
+   "inferior68": -2.5,
+   "superior68": 0.8,
    "dias_habiles_vs_anio_anterior": -1,
-   "error_tipico": 1.61,
+   "error_tipico": 1.66,
    "error_ingenuo": 1.9,
-   "indicadores_disponibles": 3,
+   "indicadores_disponibles": 4,
    "indicadores_totales": 25,
    "disponibles": [
     "autos",
     "cemento",
+    "construya",
     "patentamientos"
    ],
    "modelos": [
@@ -263,8 +264,8 @@
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": -0.96,
-     "peso": 0.3273,
+     "pronostico": -0.57,
+     "peso": 0.2757,
      "indicador": null,
      "error_tipico": 1.47
     },
@@ -273,7 +274,7 @@
      "nombre": "Despacho de cemento (AFCP)",
      "grupo": "Construcción",
      "pronostico": -1.04,
-     "peso": 0.2423,
+     "peso": 0.2041,
      "indicador": -9.34,
      "error_tipico": 1.7
     },
@@ -282,7 +283,7 @@
      "nombre": "Patentamientos de autos",
      "grupo": "Comercio y consumo",
      "pronostico": -1.01,
-     "peso": 0.2157,
+     "peso": 0.1817,
      "indicador": -11.74,
      "error_tipico": 1.8
     },
@@ -291,9 +292,18 @@
      "nombre": "Producción automotriz (ADEFA)",
      "grupo": "Industria",
      "pronostico": -0.89,
-     "peso": 0.2147,
+     "peso": 0.1808,
      "indicador": -14.36,
      "error_tipico": 1.81
+    },
+    {
+     "id": "construya",
+     "nombre": "Índice Construya",
+     "grupo": "Construcción",
+     "pronostico": -0.96,
+     "peso": 0.1577,
+     "indicador": -4.26,
+     "error_tipico": 1.94
     }
    ],
    "preliminar": false
@@ -1169,8 +1179,8 @@
    "grupo": "Construcción",
    "fuente": "Monitor Argy",
    "serie": "construya_desest",
-   "ultimo_mes": "2026-09",
-   "variacion_ultimo": -2.93,
+   "ultimo_mes": "2026-10",
+   "variacion_ultimo": -4.26,
    "unidad_variacion": "%",
    "correlacion": 0.56,
    "error_tipico": 1.94
@@ -1373,9 +1383,9 @@
    },
    {
     "hasta": "2026-10",
-    "valor": 0.85,
-    "inferior": 0.31,
-    "superior": 1.41,
+    "valor": 0.86,
+    "inferior": 0.32,
+    "superior": 1.43,
     "preliminar": false
    }
   ]
@@ -1476,15 +1486,15 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 151.76,
+   "nivel": 151.92,
    "meses": 1,
    "oficiales": 0,
    "estimados": 1,
    "preliminares": 0,
-   "variacion": 0.67,
-   "error_tipico": 0.54,
-   "inferior": -0.21,
-   "superior": 1.55,
+   "variacion": 0.78,
+   "error_tipico": 0.55,
+   "inferior": -0.13,
+   "superior": 1.69,
    "rem": 1.97,
    "rem_encuesta": "2026-10"
   }
