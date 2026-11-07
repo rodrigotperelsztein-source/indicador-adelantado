@@ -9,3 +9,5 @@ corrida,mes,estimacion,inferior,superior,inferior68,superior68,indicadores_dispo
 2026-11-06T17:59:55+00:00,2026-10,-0.86,-3.54,1.89,-2.5,0.8,4,2026-08,autos|cemento|construya|patentamientos,construya
 2026-11-06T20:26:07+00:00,2026-09,-0.28,-2.91,2.42,-1.88,1.35,24,2026-08,acero|autos|came|cemento|construya|electricidad_industria|faena|gasoil|gasoil_carga|gasoil_g3|impo_capital|impo_intermedios|importaciones|indice_lider|ipi|ipip|isac|iva|leche|metalurgia|naftas|patentamientos|prestamos|seguridad_social,ipi|isac
 2026-11-06T20:26:07+00:00,2026-10,-0.77,-3.45,1.99,-2.4,0.9,4,2026-08,autos|cemento|construya|patentamientos,
+2026-11-07T07:51:28+00:00,2026-10,-0.71,-3.41,2.06,-2.36,0.97,5,2026-08,autos|cemento|construya|electricidad_industria|patentamientos,electricidad_industria
+2026-11-07T07:51:28+00:00,2026-11,1.0,-3.17,5.35,-1.56,3.63,1,2026-08,electricidad_industria_diaria,
