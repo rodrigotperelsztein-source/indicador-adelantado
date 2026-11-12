@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-07T07:51:28+00:00",
- "corrida_local": "07/11/2026 04:51",
+ "corrida": "2026-11-12T08:53:27+00:00",
+ "corrida_local": "12/11/2026 05:53",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -237,7 +237,7 @@
      "grupo": "Empleo, crédito y expectativas",
      "pronostico": -0.91,
      "peso": 0.0,
-     "indicador": 3.85,
+     "indicador": 3.84,
      "error_tipico": 1.85
     },
     {
@@ -1092,10 +1092,10 @@
     "girasol": 7.5
    },
    "2026": {
-    "soja": 46.14,
+    "soja": 47.43,
     "maiz": 63.63,
     "trigo": 23.8,
-    "girasol": 6.58
+    "girasol": 6.71
    }
   },
   "unidad": "millones de toneladas",
@@ -1107,7 +1107,7 @@
     "fecha": "2026-10-22"
    },
    "soja 2026/27": {
-    "toneladas": 46138138.0,
+    "toneladas": 47429982.0,
     "fuente": "tendencia: superficie de la Secretaría de Agricultura (10/2026) por rendimiento medio",
     "fecha": null
    },
@@ -1117,7 +1117,7 @@
     "fecha": null
    },
    "girasol 2026/27": {
-    "toneladas": 6582509.0,
+    "toneladas": 6708708.0,
     "fuente": "tendencia: superficie de la Secretaría de Agricultura (10/2026) por rendimiento medio",
     "fecha": null
    }
@@ -1387,7 +1387,7 @@
    "fuente": "monitor-series",
    "serie": "bcra_real.prestamos_comerciales_real",
    "ultimo_mes": "2026-09",
-   "variacion_ultimo": 3.85,
+   "variacion_ultimo": 3.84,
    "unidad_variacion": "%",
    "correlacion": 0.74,
    "error_tipico": 1.85
