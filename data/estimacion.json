@@ -1,12 +1,12 @@
 {
- "corrida": "2026-11-13T08:49:07+00:00",
- "corrida_local": "13/11/2026 05:49",
+ "corrida": "2026-11-13T18:33:05+00:00",
+ "corrida_local": "13/11/2026 15:33",
  "ultimo_emae": "2026-08",
  "meses": [
   {
    "mes": "2026-09",
    "estimacion": -0.28,
-   "inferior": -2.91,
+   "inferior": -2.9,
    "superior": 2.42,
    "inferior68": -1.88,
    "superior68": 1.35,
@@ -47,7 +47,7 @@
      "nombre": "IPI manufacturero (INDEC)",
      "grupo": "Industria",
      "pronostico": 0.32,
-     "peso": 0.175,
+     "peso": 0.1749,
      "indicador": -1.78,
      "error_tipico": 1.39
     },
@@ -55,8 +55,8 @@
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": 0.21,
-     "peso": 0.1569,
+     "pronostico": 0.22,
+     "peso": 0.1568,
      "indicador": null,
      "error_tipico": 1.47
     },
@@ -82,7 +82,7 @@
      "id": "indice_lider",
      "nombre": "Índice Líder (UTDT)",
      "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -0.08,
+     "pronostico": -0.07,
      "peso": 0.1083,
      "indicador": 1.09,
      "error_tipico": 1.76
@@ -101,7 +101,7 @@
      "nombre": "Importaciones de bienes de capital",
      "grupo": "Comercio exterior",
      "pronostico": -1.04,
-     "peso": 0.1074,
+     "peso": 0.1075,
      "indicador": -10.39,
      "error_tipico": 1.77
     },
@@ -110,15 +110,15 @@
      "nombre": "Patentamientos de autos",
      "grupo": "Comercio y consumo",
      "pronostico": -1.16,
-     "peso": 0.1033,
+     "peso": 0.1034,
      "indicador": -10.51,
-     "error_tipico": 1.8
+     "error_tipico": 1.81
     },
     {
      "id": "metalurgia",
      "nombre": "Producción metalúrgica (ADIMRA)",
      "grupo": "Industria",
-     "pronostico": -0.31,
+     "pronostico": -0.3,
      "peso": 0.0,
      "indicador": -3.33,
      "error_tipico": 1.94
@@ -181,7 +181,7 @@
      "id": "naftas",
      "nombre": "Ventas de naftas (Secretaría de Energía)",
      "grupo": "Comercio y consumo",
-     "pronostico": -1.18,
+     "pronostico": -1.17,
      "peso": 0.0,
      "indicador": -1.36,
      "error_tipico": 2.0
@@ -226,7 +226,7 @@
      "id": "seguridad_social",
      "nombre": "Recaudación de seguridad social real (ARCA)",
      "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -0.4,
+     "pronostico": -0.39,
      "peso": 0.0,
      "indicador": 1.53,
      "error_tipico": 1.81
@@ -263,11 +263,11 @@
   },
   {
    "mes": "2026-10",
-   "estimacion": -0.63,
+   "estimacion": -0.62,
    "inferior": -3.3,
    "superior": 2.12,
    "inferior68": -2.26,
-   "superior68": 1.03,
+   "superior68": 1.04,
    "dias_habiles_vs_anio_anterior": -1,
    "error_tipico": 1.66,
    "error_ingenuo": 1.9,
@@ -309,7 +309,7 @@
      "pronostico": -0.89,
      "peso": 0.1196,
      "indicador": -11.74,
-     "error_tipico": 1.8
+     "error_tipico": 1.81
     },
     {
      "id": "seguridad_social",
@@ -333,7 +333,7 @@
      "id": "prestamos",
      "nombre": "Préstamos comerciales reales (BCRA)",
      "grupo": "Empleo, crédito y expectativas",
-     "pronostico": -0.75,
+     "pronostico": -0.74,
      "peso": 0.1139,
      "indicador": 2.73,
      "error_tipico": 1.85
@@ -342,7 +342,7 @@
      "id": "iva",
      "nombre": "Recaudación de IVA DGI real (ARCA)",
      "grupo": "Comercio y consumo",
-     "pronostico": -0.99,
+     "pronostico": -0.98,
      "peso": 0.1082,
      "indicador": -1.96,
      "error_tipico": 1.9
@@ -360,7 +360,7 @@
      "id": "electricidad_industria",
      "nombre": "Demanda eléctrica de grandes usuarios industriales (CAMMESA)",
      "grupo": "Industria",
-     "pronostico": -1.16,
+     "pronostico": -1.15,
      "peso": 0.0,
      "indicador": -0.67,
      "error_tipico": 2.24
@@ -372,9 +372,9 @@
    "mes": "2026-11",
    "preliminar": true,
    "estimacion": 0.97,
-   "inferior": -3.17,
-   "superior": 5.28,
-   "inferior68": -1.57,
+   "inferior": -3.16,
+   "superior": 5.29,
+   "inferior68": -1.56,
    "superior68": 3.57,
    "dias_habiles_vs_anio_anterior": 1,
    "error_tipico": 2.54,
@@ -401,8 +401,8 @@
      "id": "ingenuo",
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
-     "pronostico": 1.0,
-     "peso": 0.348,
+     "pronostico": 1.01,
+     "peso": 0.3481,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
@@ -1096,14 +1096,14 @@
   {
    "mes": "2026-07",
    "real": -1.47,
-   "estimada": 0.83,
+   "estimada": 0.84,
    "ingenuo": 0.54
   },
   {
    "mes": "2026-08",
    "real": -1.74,
    "estimada": 0.52,
-   "ingenuo": -0.08
+   "ingenuo": -0.07
   }
  ],
  "error_tipico_combinada_36m": 1.54,
@@ -1129,7 +1129,7 @@
    },
    "2025": {
     "soja": 49.3,
-    "maiz": 72.5,
+    "maiz": 72.6,
     "trigo": 27.9,
     "girasol": 7.5
    },
@@ -1312,7 +1312,7 @@
    "variacion_ultimo": -11.74,
    "unidad_variacion": "%",
    "correlacion": 0.64,
-   "error_tipico": 1.8
+   "error_tipico": 1.81
   },
   {
    "id": "iva",
@@ -1598,7 +1598,7 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 153.36,
+   "nivel": 153.37,
    "meses": 2,
    "oficiales": 0,
    "estimados": 1,
