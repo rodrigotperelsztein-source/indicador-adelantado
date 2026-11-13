@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-12T08:53:27+00:00",
- "corrida_local": "12/11/2026 05:53",
+ "corrida": "2026-11-13T08:49:07+00:00",
+ "corrida_local": "13/11/2026 05:49",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -263,30 +263,33 @@
   },
   {
    "mes": "2026-10",
-   "estimacion": -0.71,
-   "inferior": -3.41,
-   "superior": 2.06,
-   "inferior68": -2.36,
-   "superior68": 0.97,
+   "estimacion": -0.63,
+   "inferior": -3.3,
+   "superior": 2.12,
+   "inferior68": -2.26,
+   "superior68": 1.03,
    "dias_habiles_vs_anio_anterior": -1,
-   "error_tipico": 1.68,
+   "error_tipico": 1.66,
    "error_ingenuo": 1.9,
-   "indicadores_disponibles": 5,
+   "indicadores_disponibles": 8,
    "indicadores_totales": 25,
    "disponibles": [
     "autos",
     "cemento",
     "construya",
     "electricidad_industria",
-    "patentamientos"
+    "iva",
+    "patentamientos",
+    "prestamos",
+    "seguridad_social"
    ],
    "modelos": [
     {
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": -0.1,
-     "peso": 0.2465,
+     "pronostico": 0.12,
+     "peso": 0.1815,
      "indicador": null,
      "error_tipico": 1.47
     },
@@ -295,7 +298,7 @@
      "nombre": "Despacho de cemento (AFCP)",
      "grupo": "Construcción",
      "pronostico": -0.94,
-     "peso": 0.1825,
+     "peso": 0.1344,
      "indicador": -9.34,
      "error_tipico": 1.7
     },
@@ -304,25 +307,52 @@
      "nombre": "Patentamientos de autos",
      "grupo": "Comercio y consumo",
      "pronostico": -0.89,
-     "peso": 0.1624,
+     "peso": 0.1196,
      "indicador": -11.74,
      "error_tipico": 1.8
+    },
+    {
+     "id": "seguridad_social",
+     "nombre": "Recaudación de seguridad social real (ARCA)",
+     "grupo": "Empleo, crédito y expectativas",
+     "pronostico": -0.35,
+     "peso": 0.1195,
+     "indicador": 0.53,
+     "error_tipico": 1.81
     },
     {
      "id": "autos",
      "nombre": "Producción automotriz (ADEFA)",
      "grupo": "Industria",
      "pronostico": -0.78,
-     "peso": 0.1617,
+     "peso": 0.1191,
      "indicador": -14.36,
      "error_tipico": 1.81
+    },
+    {
+     "id": "prestamos",
+     "nombre": "Préstamos comerciales reales (BCRA)",
+     "grupo": "Empleo, crédito y expectativas",
+     "pronostico": -0.75,
+     "peso": 0.1139,
+     "indicador": 2.73,
+     "error_tipico": 1.85
+    },
+    {
+     "id": "iva",
+     "nombre": "Recaudación de IVA DGI real (ARCA)",
+     "grupo": "Comercio y consumo",
+     "pronostico": -0.99,
+     "peso": 0.1082,
+     "indicador": -1.96,
+     "error_tipico": 1.9
     },
     {
      "id": "construya",
      "nombre": "Índice Construya",
      "grupo": "Construcción",
      "pronostico": -0.84,
-     "peso": 0.141,
+     "peso": 0.1038,
      "indicador": -4.26,
      "error_tipico": 1.94
     },
@@ -331,7 +361,7 @@
      "nombre": "Demanda eléctrica de grandes usuarios industriales (CAMMESA)",
      "grupo": "Industria",
      "pronostico": -1.16,
-     "peso": 0.1058,
+     "peso": 0.0,
      "indicador": -0.67,
      "error_tipico": 2.24
     }
@@ -341,26 +371,38 @@
   {
    "mes": "2026-11",
    "preliminar": true,
-   "estimacion": 1.0,
+   "estimacion": 0.97,
    "inferior": -3.17,
-   "superior": 5.35,
-   "inferior68": -1.56,
-   "superior68": 3.63,
+   "superior": 5.28,
+   "inferior68": -1.57,
+   "superior68": 3.57,
    "dias_habiles_vs_anio_anterior": 1,
-   "error_tipico": 2.56,
+   "error_tipico": 2.54,
    "error_ingenuo": null,
-   "indicadores_disponibles": 1,
+   "indicadores_disponibles": 2,
    "indicadores_totales": 2,
    "disponibles": [
+    "prestamos_diario",
     "electricidad_industria_diaria"
    ],
    "modelos": [
     {
+     "id": "prestamos_diario",
+     "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
+     "grupo": "Mes en curso",
+     "pronostico": 0.79,
+     "peso": 0.3686,
+     "indicador": 3.45,
+     "hasta_dia": 4,
+     "ultimo_dato": "2026-11-04",
+     "error_tipico": 1.93
+    },
+    {
      "id": "ingenuo",
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
-     "pronostico": 0.93,
-     "peso": 0.5512,
+     "pronostico": 1.0,
+     "peso": 0.348,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
@@ -370,8 +412,8 @@
      "id": "electricidad_industria_diaria",
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": 1.09,
-     "peso": 0.4488,
+     "pronostico": 1.17,
+     "peso": 0.2834,
      "indicador": -2.88,
      "hasta_dia": 4,
      "ultimo_dato": "2026-11-04",
@@ -1278,8 +1320,8 @@
    "grupo": "Comercio y consumo",
    "fuente": "monitor-series",
    "serie": "recaudacion_real.iva_dgi_real",
-   "ultimo_mes": "2026-09",
-   "variacion_ultimo": 1.62,
+   "ultimo_mes": "2026-10",
+   "variacion_ultimo": -1.96,
    "unidad_variacion": "%",
    "correlacion": 0.22,
    "error_tipico": 1.9
@@ -1374,8 +1416,8 @@
    "grupo": "Empleo, crédito y expectativas",
    "fuente": "monitor-series",
    "serie": "recaudacion_real.seguridad_social_real",
-   "ultimo_mes": "2026-09",
-   "variacion_ultimo": 1.53,
+   "ultimo_mes": "2026-10",
+   "variacion_ultimo": 0.53,
    "unidad_variacion": "%",
    "correlacion": 0.7,
    "error_tipico": 1.81
@@ -1386,8 +1428,8 @@
    "grupo": "Empleo, crédito y expectativas",
    "fuente": "monitor-series",
    "serie": "bcra_real.prestamos_comerciales_real",
-   "ultimo_mes": "2026-09",
-   "variacion_ultimo": 3.84,
+   "ultimo_mes": "2026-10",
+   "variacion_ultimo": 2.73,
    "unidad_variacion": "%",
    "correlacion": 0.74,
    "error_tipico": 1.85
@@ -1446,15 +1488,15 @@
    },
    {
     "hasta": "2026-10",
-    "valor": 0.89,
-    "inferior": 0.36,
+    "valor": 0.9,
+    "inferior": 0.37,
     "superior": 1.44,
     "preliminar": false
    },
    {
     "hasta": "2026-11",
-    "valor": 0.9,
-    "inferior": 0.05,
+    "valor": 0.91,
+    "inferior": 0.06,
     "superior": 1.78,
     "preliminar": true
    }
@@ -1556,15 +1598,15 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 153.32,
+   "nivel": 153.36,
    "meses": 2,
    "oficiales": 0,
    "estimados": 1,
    "preliminares": 1,
-   "variacion": 1.66,
-   "error_tipico": 1.41,
-   "inferior": -0.66,
-   "superior": 3.98,
+   "variacion": 1.69,
+   "error_tipico": 1.4,
+   "inferior": -0.61,
+   "superior": 3.99,
    "rem": 1.97,
    "rem_encuesta": "2026-10"
   }
