@@ -167,8 +167,10 @@ footer { color: var(--dim); font-size: 12px; text-align: center; }
   </section>
 
   <div class="grid2">
+    <!-- Detalle del mes elegido en las solapas de al lado: cambia con ellas, así cada mes estimado tiene su
+         explicación y no solo el que está en curso. -->
     <section class="card" id="sec-curso" hidden>
-      <h2 id="curso-titulo">Mes en curso</h2>
+      <h2 id="curso-titulo">Mes elegido</h2>
       <p class="sub" id="curso-sub"></p>
       <div class="curso" id="curso"></div>
     </section>
@@ -352,6 +354,7 @@ function parseCSV(t) {
       inferior68: actual.inferior68, superior68: actual.superior68, indicadores_disponibles: actual.indicadores_disponibles, nuevos: "", sinCambios: true });
   }
   document.querySelectorAll("#tabs-hist button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.m === mesSel)));
+  detalle(mesSel);
   const n = v => v === "" || v == null ? null : +v;
   const tiene68 = hm.some(r => n(r.inferior68) != null);
   // Banda como área apilada: base invisible en el extremo inferior y relleno hasta el superior.
@@ -444,15 +447,31 @@ function parseCSV(t) {
         <div class="v ${cls(e.valor)}">${sg(e.valor, 2)}%</div><div class="r">entre ${sg(e.inferior, 2)}% y ${sg(e.superior, 2)}%</div></div>`).join("");
   }
 
-  // Mes en curso (preliminar)
-  const C = E.meses.find(o => o.preliminar);
-  if (C) {
+  // Detalle del mes elegido en las solapas. Tres situaciones distintas, con su explicación: el mes que todavía
+  // transcurre (solo datos diarios), el mes cerrado al que le faltan indicadores, y el que ya los tiene todos.
+  function detalle(mesSel) {
+    const C = E.meses.find(o => o.mes === mesSel);
+    if (!C) { $("sec-curso").hidden = true; return; }
+    const faltan = C.indicadores_totales - C.indicadores_disponibles;
     $("sec-curso").hidden = false;
-    $("curso-titulo").textContent = `${mes(C.mes)[0].toUpperCase() + mes(C.mes).slice(1)}, estimación preliminar`;
-    $("curso-sub").textContent = `Mientras el mes transcurre solo hay datos diarios: se compara lo que va del mes con los mismos días del año anterior y se parte de la estimación del mes previo. La banda es ancha a propósito; se afina cuando salen los indicadores mensuales (primeros días del mes siguiente).`;
+    $("curso-titulo").textContent = `${mes(C.mes)[0].toUpperCase() + mes(C.mes).slice(1)}, ` +
+      (C.preliminar ? "estimación preliminar" : "cómo se arma la estimación");
+    $("curso-sub").textContent = C.preliminar
+      ? "Mientras el mes transcurre solo hay datos diarios: se compara lo que va del mes con los mismos días del año anterior y se parte de la estimación del mes previo. La banda es ancha a propósito; se afina cuando salen los indicadores mensuales (primeros días del mes siguiente)."
+      : faltan > 0
+        ? `El mes ya cerró, pero todavía publicaron ${C.indicadores_disponibles} de ${C.indicadores_totales} indicadores: están los que salen primero (cámaras, patentamientos, electricidad) y faltan los ${faltan} más pesados, que llegan entre mediados y fines del mes que viene. Además, el EMAE del mes anterior que entra en cada modelo también es una estimación, y ese error va sumado en la banda.`
+        : `Están los ${C.indicadores_disponibles} indicadores. Cada uno aporta su pronóstico y pesa según cuánto acertó en los últimos 24 meses; se promedian los ocho mejores.`;
+    const conPeso = C.modelos.filter(m => m.peso > 0).sort((a, b) => b.peso - a.peso);
+    const sinPeso = C.modelos.length - conPeso.length;
+    const nota = m => m.hasta_dia ? `días 1 a ${m.hasta_dia} · variación del indicador ${sg(m.indicador)}%`
+      : m.indicador != null ? `variación del indicador ${sg(m.indicador)}${m.id === "capacidad" ? " pp" : "%"}`
+      : m.id === "factor" ? "promedio de los indicadores disponibles, estandarizados"
+      : m.id === "ingenuo" ? "el mes anterior, corregido por días hábiles y cosecha"
+      : "parte de la estimación del mes anterior";
     $("curso").innerHTML = `<div class="cabeza"><span class="big ${cls(C.estimacion)}">${sg(C.estimacion)}%</span><span class="banda">con 68% de confianza, entre <b>${sg(C.inferior68)}%</b> y <b>${sg(C.superior68)}%</b>; con 90%, entre ${sg(C.inferior)}% y ${sg(C.superior)}%</span></div>` +
-      C.modelos.map(m => `<div class="fila"><span>${esc(m.nombre)}<small>${m.hasta_dia ? `días 1 a ${m.hasta_dia} · variación del indicador ${sg(m.indicador)}%` : "parte de la estimación del mes anterior"}</small></span>
-        <span class="n">${sg(m.pronostico)}%</span><span class="n" style="color:var(--muted)">peso ${nf(m.peso * 100, 0)}%</span></div>`).join("");
+      conPeso.map(m => `<div class="fila"><span>${esc(m.nombre)}<small>${nota(m)}</small></span>
+        <span class="n">${sg(m.pronostico)}%</span><span class="n" style="color:var(--muted)">peso ${nf(m.peso * 100, 0)}%</span></div>`).join("") +
+      (sinPeso ? `<div class="fila"><span style="color:var(--muted)">y ${sinPeso} modelo${sinPeso > 1 ? "s" : ""} más<small>quedaron fuera del promedio: solo entran los ocho con menor error</small></span></div>` : "");
   }
 
   // Tabla de indicadores
