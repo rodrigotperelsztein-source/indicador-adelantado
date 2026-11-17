@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-14T08:09:08+00:00",
- "corrida_local": "14/11/2026 05:09",
+ "corrida": "2026-11-17T09:45:41+00:00",
+ "corrida_local": "17/11/2026 06:45",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -391,11 +391,11 @@
   {
    "mes": "2026-11",
    "preliminar": true,
-   "estimacion": 1.09,
-   "inferior": -3.06,
-   "superior": 5.42,
-   "inferior68": -1.45,
-   "superior68": 3.7,
+   "estimacion": 1.16,
+   "inferior": -2.99,
+   "superior": 5.49,
+   "inferior68": -1.38,
+   "superior68": 3.77,
    "dias_habiles_vs_anio_anterior": 1,
    "error_tipico": 2.55,
    "error_ingenuo": null,
@@ -407,33 +407,33 @@
    ],
    "modelos": [
     {
-     "id": "prestamos_diario",
-     "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
-     "grupo": "Mes en curso",
-     "pronostico": 1.06,
-     "peso": 0.3545,
-     "indicador": 3.82,
-     "hasta_dia": 5,
-     "ultimo_dato": "2026-11-05",
-     "error_tipico": 1.99
-    },
-    {
      "id": "ingenuo",
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
      "pronostico": 1.01,
-     "peso": 0.3545,
+     "peso": 0.3621,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
      "error_tipico": 1.99
     },
     {
+     "id": "prestamos_diario",
+     "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
+     "grupo": "Mes en curso",
+     "pronostico": 1.26,
+     "peso": 0.3406,
+     "indicador": 3.09,
+     "hasta_dia": 11,
+     "ultimo_dato": "2026-11-11",
+     "error_tipico": 2.05
+    },
+    {
      "id": "electricidad_industria_diaria",
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
      "pronostico": 1.23,
-     "peso": 0.291,
+     "peso": 0.2973,
      "indicador": -2.64,
      "hasta_dia": 11,
      "ultimo_dato": "2026-11-11",
@@ -1512,7 +1512,7 @@
    {
     "hasta": "2026-11",
     "valor": 0.92,
-    "inferior": 0.07,
+    "inferior": 0.08,
     "superior": 1.8,
     "preliminar": true
    }
@@ -1614,15 +1614,15 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 153.46,
+   "nivel": 153.51,
    "meses": 2,
    "oficiales": 0,
    "estimados": 1,
    "preliminares": 1,
-   "variacion": 1.75,
+   "variacion": 1.79,
    "error_tipico": 1.41,
-   "inferior": -0.57,
-   "superior": 4.07,
+   "inferior": -0.53,
+   "superior": 4.11,
    "rem": 1.97,
    "rem_encuesta": "2026-10"
   }
