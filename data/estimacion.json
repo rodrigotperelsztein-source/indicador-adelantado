@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-19T09:33:01+00:00",
- "corrida_local": "19/11/2026 06:33",
+ "corrida": "2026-11-20T09:15:31+00:00",
+ "corrida_local": "20/11/2026 06:15",
  "ultimo_emae": "2026-08",
  "meses": [
   {
@@ -411,11 +411,11 @@
   {
    "mes": "2026-11",
    "preliminar": true,
-   "estimacion": 1.09,
-   "inferior": -3.08,
-   "superior": 5.43,
-   "inferior68": -1.47,
-   "superior68": 3.71,
+   "estimacion": 1.14,
+   "inferior": -3.03,
+   "superior": 5.49,
+   "inferior68": -1.42,
+   "superior68": 3.76,
    "dias_habiles_vs_anio_anterior": 1,
    "error_tipico": 2.56,
    "error_ingenuo": null,
@@ -430,8 +430,8 @@
      "id": "ingenuo",
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
-     "pronostico": 1.0,
-     "peso": 0.3683,
+     "pronostico": 1.06,
+     "peso": 0.3679,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
@@ -441,19 +441,19 @@
      "id": "prestamos_diario",
      "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": 1.06,
-     "peso": 0.3295,
-     "indicador": 3.85,
-     "hasta_dia": 13,
-     "ultimo_dato": "2026-11-13",
+     "pronostico": 1.13,
+     "peso": 0.3301,
+     "indicador": 3.93,
+     "hasta_dia": 16,
+     "ultimo_dato": "2026-11-16",
      "error_tipico": 2.1
     },
     {
      "id": "electricidad_industria_diaria",
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": 1.22,
-     "peso": 0.3023,
+     "pronostico": 1.25,
+     "peso": 0.302,
      "indicador": -2.64,
      "hasta_dia": 11,
      "ultimo_dato": "2026-11-11",
@@ -1176,7 +1176,7 @@
    "2026": {
     "soja": 47.43,
     "maiz": 63.63,
-    "trigo": 23.8,
+    "trigo": 24.7,
     "girasol": 6.71
    }
   },
@@ -1184,23 +1184,23 @@
   "en_modelo": true,
   "origen": {
    "trigo 2026/27": {
-    "toneladas": 23800000.0,
-    "fuente": "Bolsa de Comercio de Rosario, carga manual",
-    "fecha": "2026-10-22"
+    "toneladas": 24700000.0,
+    "fuente": "Secretaría de Agricultura, informe mensual 11/2026",
+    "fecha": "2026-11-01"
    },
    "soja 2026/27": {
     "toneladas": 47429982.0,
-    "fuente": "tendencia: superficie de la Secretaría de Agricultura (10/2026) por rendimiento medio",
+    "fuente": "tendencia: superficie de la Secretaría de Agricultura (11/2026) por rendimiento medio",
     "fecha": null
    },
    "maiz 2026/27": {
     "toneladas": 63629381.0,
-    "fuente": "tendencia: superficie de la Secretaría de Agricultura (10/2026) por rendimiento medio",
+    "fuente": "tendencia: superficie de la Secretaría de Agricultura (11/2026) por rendimiento medio",
     "fecha": null
    },
    "girasol 2026/27": {
     "toneladas": 6708708.0,
-    "fuente": "tendencia: superficie de la Secretaría de Agricultura (10/2026) por rendimiento medio",
+    "fuente": "tendencia: superficie de la Secretaría de Agricultura (11/2026) por rendimiento medio",
     "fecha": null
    }
   }
@@ -1634,15 +1634,15 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 153.45,
+   "nivel": 153.49,
    "meses": 2,
    "oficiales": 0,
    "estimados": 1,
    "preliminares": 1,
-   "variacion": 1.75,
+   "variacion": 1.77,
    "error_tipico": 1.41,
-   "inferior": -0.57,
-   "superior": 4.07,
+   "inferior": -0.55,
+   "superior": 4.09,
    "rem": 1.97,
    "rem_encuesta": "2026-10"
   }
