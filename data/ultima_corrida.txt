@@ -1,6 +1,6 @@
-Trimestres (desest., var. %): 2026-T1 +0.67, 2026-T2 -0.62, 2026-T3 -2.16, 2026-T4 +1.77 (2 meses)
-Acumulado 2026 hasta 2026-08: +1.24%; con 2026-09: +1.07%; con 2026-10: +0.90%; con 2026-11: +0.92%
+Trimestres (desest., var. %): 2026-T1 +0.67, 2026-T2 -0.62, 2026-T3 -2.16, 2026-T4 +1.79 (2 meses)
+Acumulado 2026 hasta 2026-08: +1.24%; con 2026-09: +1.07%; con 2026-10: +0.90%; con 2026-11: +0.93%
 2026-09: -0.3% i.a. (entre -2.9% y +2.4%), 25/25 indicadores, error típico 1.61 pp
-2026-10: -0.6% i.a. (entre -3.4% y +2.2%), 11/25 indicadores, error típico 1.68 pp
-2026-11 (preliminar): +1.1% i.a. (entre -3.0% y +5.5%), 2/2 indicadores, error típico 2.56 pp
+2026-10: -0.6% i.a. (entre -3.3% y +2.1%), 12/25 indicadores, error típico 1.65 pp
+2026-11 (preliminar): +1.2% i.a. (entre -3.0% y +5.5%), 2/2 indicadores, error típico 2.54 pp
 Evaluación 36 meses: combinada 1.54 pp, ingenuo 1.92 pp; el dato cayó dentro de la banda de 68% el 66.7% de las veces y de la de 90% el 91.7% (36 meses)
