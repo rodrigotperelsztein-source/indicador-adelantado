@@ -1,19 +1,19 @@
 {
- "corrida": "2026-11-25T10:33:32+00:00",
- "corrida_local": "25/11/2026 07:33",
+ "corrida": "2026-11-25T20:29:35+00:00",
+ "corrida_local": "25/11/2026 17:29",
  "ultimo_emae": "2026-09",
  "meses": [
   {
    "mes": "2026-10",
-   "estimacion": -1.29,
-   "inferior": -3.94,
-   "superior": 1.43,
+   "estimacion": -1.28,
+   "inferior": -3.95,
+   "superior": 1.46,
    "inferior68": -2.91,
-   "superior68": 0.36,
+   "superior68": 0.38,
    "dias_habiles_vs_anio_anterior": -1,
-   "error_tipico": 1.65,
+   "error_tipico": 1.67,
    "error_ingenuo": 1.89,
-   "indicadores_disponibles": 12,
+   "indicadores_disponibles": 13,
    "indicadores_totales": 25,
    "disponibles": [
     "acero",
@@ -25,6 +25,7 @@
     "indice_lider",
     "iva",
     "leche",
+    "metalurgia",
     "patentamientos",
     "prestamos",
     "seguridad_social"
@@ -34,7 +35,7 @@
      "id": "factor",
      "nombre": "Factor común (promedio de todos los indicadores)",
      "grupo": "Todos",
-     "pronostico": -0.67,
+     "pronostico": -0.63,
      "peso": 0.1653,
      "indicador": null,
      "error_tipico": 1.49
@@ -103,6 +104,15 @@
      "error_tipico": 1.84
     },
     {
+     "id": "metalurgia",
+     "nombre": "Producción metalúrgica (ADIMRA)",
+     "grupo": "Industria",
+     "pronostico": -0.52,
+     "peso": 0.0,
+     "indicador": -2.11,
+     "error_tipico": 1.95
+    },
+    {
      "id": "acero",
      "nombre": "Producción de acero crudo",
      "grupo": "Industria",
@@ -154,12 +164,12 @@
    "mes": "2026-11",
    "preliminar": true,
    "estimacion": 0.56,
-   "inferior": -3.53,
-   "superior": 4.82,
+   "inferior": -3.54,
+   "superior": 4.84,
    "inferior68": -1.95,
-   "superior68": 3.13,
+   "superior68": 3.14,
    "dias_habiles_vs_anio_anterior": 1,
-   "error_tipico": 2.52,
+   "error_tipico": 2.53,
    "error_ingenuo": null,
    "indicadores_disponibles": 2,
    "indicadores_totales": 2,
@@ -172,7 +182,7 @@
      "id": "ingenuo",
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
-     "pronostico": 0.46,
+     "pronostico": 0.47,
      "peso": 0.371,
      "indicador": null,
      "hasta_dia": null,
@@ -974,15 +984,11 @@
    "grupo": "Industria",
    "fuente": "monitor-series",
    "serie": "adimra.indice",
-   "ultimo_mes": "2026-09",
-   "variacion_ultimo": -3.33,
+   "ultimo_mes": "2026-10",
+   "variacion_ultimo": -2.11,
    "unidad_variacion": "%",
    "correlacion": 0.46,
-   "error_tipico": 1.95,
-   "proxima_publicacion": {
-    "texto": "≈ del 15 al 25 de noviembre",
-    "metodo": "estimada"
-   }
+   "error_tipico": 1.95
   },
   {
    "id": "autos",
@@ -1430,9 +1436,9 @@
    "estimados": 1,
    "preliminares": 1,
    "variacion": 1.09,
-   "error_tipico": 1.39,
-   "inferior": -1.2,
-   "superior": 3.38,
+   "error_tipico": 1.4,
+   "inferior": -1.21,
+   "superior": 3.39,
    "rem": 1.97,
    "rem_encuesta": "2026-10"
   }
