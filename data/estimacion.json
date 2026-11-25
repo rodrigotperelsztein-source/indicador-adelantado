@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-24T21:15:40+00:00",
- "corrida_local": "24/11/2026 18:15",
+ "corrida": "2026-11-25T10:33:32+00:00",
+ "corrida_local": "25/11/2026 07:33",
  "ultimo_emae": "2026-09",
  "meses": [
   {
@@ -154,10 +154,10 @@
    "mes": "2026-11",
    "preliminar": true,
    "estimacion": 0.56,
-   "inferior": -3.52,
-   "superior": 4.81,
-   "inferior68": -1.94,
-   "superior68": 3.12,
+   "inferior": -3.53,
+   "superior": 4.82,
+   "inferior68": -1.95,
+   "superior68": 3.13,
    "dias_habiles_vs_anio_anterior": 1,
    "error_tipico": 2.52,
    "error_ingenuo": null,
@@ -173,7 +173,7 @@
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
      "pronostico": 0.46,
-     "peso": 0.3659,
+     "peso": 0.371,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
@@ -184,7 +184,7 @@
      "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
      "grupo": "Mes en curso",
      "pronostico": 0.57,
-     "peso": 0.3283,
+     "peso": 0.3329,
      "indicador": 3.88,
      "hasta_dia": 18,
      "ultimo_dato": "2026-11-18",
@@ -195,11 +195,11 @@
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
      "pronostico": 0.67,
-     "peso": 0.3058,
-     "indicador": -2.64,
-     "hasta_dia": 11,
-     "ultimo_dato": "2026-11-11",
-     "error_tipico": 2.15
+     "peso": 0.2962,
+     "indicador": -1.03,
+     "hasta_dia": 18,
+     "ultimo_dato": "2026-11-18",
+     "error_tipico": 2.2
     }
    ]
   }
