@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-25T20:29:35+00:00",
- "corrida_local": "25/11/2026 17:29",
+ "corrida": "2026-11-26T10:05:30+00:00",
+ "corrida_local": "26/11/2026 07:05",
  "ultimo_emae": "2026-09",
  "meses": [
   {
@@ -195,9 +195,9 @@
      "grupo": "Mes en curso",
      "pronostico": 0.57,
      "peso": 0.3329,
-     "indicador": 3.88,
-     "hasta_dia": 18,
-     "ultimo_dato": "2026-11-18",
+     "indicador": 3.83,
+     "hasta_dia": 19,
+     "ultimo_dato": "2026-11-19",
      "error_tipico": 2.07
     },
     {
@@ -205,7 +205,7 @@
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
      "pronostico": 0.67,
-     "peso": 0.2962,
+     "peso": 0.2961,
      "indicador": -1.03,
      "hasta_dia": 18,
      "ultimo_dato": "2026-11-18",
