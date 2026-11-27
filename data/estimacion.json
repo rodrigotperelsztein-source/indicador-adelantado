@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-26T10:05:30+00:00",
- "corrida_local": "26/11/2026 07:05",
+ "corrida": "2026-11-27T10:11:15+00:00",
+ "corrida_local": "27/11/2026 07:11",
  "ultimo_emae": "2026-09",
  "meses": [
   {
@@ -164,7 +164,7 @@
    "mes": "2026-11",
    "preliminar": true,
    "estimacion": 0.56,
-   "inferior": -3.54,
+   "inferior": -3.53,
    "superior": 4.84,
    "inferior68": -1.95,
    "superior68": 3.14,
@@ -195,9 +195,9 @@
      "grupo": "Mes en curso",
      "pronostico": 0.57,
      "peso": 0.3329,
-     "indicador": 3.83,
-     "hasta_dia": 19,
-     "ultimo_dato": "2026-11-19",
+     "indicador": 3.9,
+     "hasta_dia": 20,
+     "ultimo_dato": "2026-11-20",
      "error_tipico": 2.07
     },
     {
