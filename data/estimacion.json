@@ -1,6 +1,6 @@
 {
- "corrida": "2026-11-27T10:11:15+00:00",
- "corrida_local": "27/11/2026 07:11",
+ "corrida": "2026-11-28T09:29:52+00:00",
+ "corrida_local": "28/11/2026 06:29",
  "ultimo_emae": "2026-09",
  "meses": [
   {
@@ -163,11 +163,11 @@
   {
    "mes": "2026-11",
    "preliminar": true,
-   "estimacion": 0.56,
-   "inferior": -3.53,
-   "superior": 4.84,
+   "estimacion": 0.57,
+   "inferior": -3.54,
+   "superior": 4.85,
    "inferior68": -1.95,
-   "superior68": 3.14,
+   "superior68": 3.15,
    "dias_habiles_vs_anio_anterior": 1,
    "error_tipico": 2.53,
    "error_ingenuo": null,
@@ -183,7 +183,7 @@
      "nombre": "Variación del mes anterior, corregida por días hábiles y cosecha",
      "grupo": "Mes en curso",
      "pronostico": 0.47,
-     "peso": 0.371,
+     "peso": 0.3746,
      "indicador": null,
      "hasta_dia": null,
      "ultimo_dato": null,
@@ -193,23 +193,23 @@
      "id": "prestamos_diario",
      "nombre": "Préstamos comerciales reales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": 0.57,
-     "peso": 0.3329,
-     "indicador": 3.9,
-     "hasta_dia": 20,
-     "ultimo_dato": "2026-11-20",
+     "pronostico": 0.58,
+     "peso": 0.3361,
+     "indicador": 3.86,
+     "hasta_dia": 24,
+     "ultimo_dato": "2026-11-24",
      "error_tipico": 2.07
     },
     {
      "id": "electricidad_industria_diaria",
      "nombre": "Electricidad de grandes usuarios industriales (mes hasta la fecha)",
      "grupo": "Mes en curso",
-     "pronostico": 0.67,
-     "peso": 0.2961,
-     "indicador": -1.03,
-     "hasta_dia": 18,
-     "ultimo_dato": "2026-11-18",
-     "error_tipico": 2.2
+     "pronostico": 0.69,
+     "peso": 0.2893,
+     "indicador": 1.64,
+     "hasta_dia": 25,
+     "ultimo_dato": "2026-11-25",
+     "error_tipico": 2.23
     }
    ]
   }
@@ -1430,15 +1430,15 @@
   },
   {
    "trimestre": "2026-T4",
-   "nivel": 152.53,
+   "nivel": 152.54,
    "meses": 2,
    "oficiales": 0,
    "estimados": 1,
    "preliminares": 1,
-   "variacion": 1.09,
+   "variacion": 1.1,
    "error_tipico": 1.4,
-   "inferior": -1.21,
-   "superior": 3.39,
+   "inferior": -1.2,
+   "superior": 3.4,
    "rem": 1.97,
    "rem_encuesta": "2026-10"
   }
